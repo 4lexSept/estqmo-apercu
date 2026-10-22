@@ -3439,7 +3439,7 @@ body.ls-open{overflow:hidden}
       </ul><!-- session 6 : lien vers #sources, posé à la fusion (début) --><p class="small" style="margin-top:8px"><a class="lnk" href="#sources">Nos sources, avec leur date</a></p><!-- session 6 (fin) --></div>
     </div>
     <div class="foot-sib"><span>Des travaux à prévoir&nbsp;?</span> <a class="lnk" href="https://claude.ai/artifact/3X578yf21GLjQSMCB364Jj#accueil" target="_blank" rel="noopener">Pignon, la rénovation à Lille <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><p class="small">Guillaume Chailloux participe aussi à Pignon, la rénovation à Lille, et peut être rémunéré sur les chantiers signés.</p><a class="frenov" href="https://france-renov.gouv.fr/servicepublic" target="_blank" rel="noopener">France Rénov’ : avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet. www.france-renov.gouv.fr</a></div>
-    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 112 du 22/10/2026 · 48e76b3</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
+    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 131 du 22/10/2026 · 2f783ba</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
   </div>
 </footer>
 <div class="asheet" id="asheet" role="dialog" aria-modal="true" aria-label="Adresse du bien" hidden><div class="as-top"><button type="button" class="as-back" id="as-back" aria-label="Fermer">←</button><div class="as-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg><input id="as-q" data-addr-in type="search" inputmode="search" enterkeyhint="search" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="as-list" placeholder="12 rue Nationale, Lille"></div></div><p class="as-hint">Lille, Lomme et Hellemmes · <b data-addr-count>…</b> adresses · <b data-street-count>…</b> rues</p><ul class="as-list" id="as-list" role="listbox" aria-label="Adresses proposées"></ul></div>
@@ -8873,8 +8873,10 @@ function zoneMsg(z, q, hasRes) {
   }
   if (z.out) {
     var where = z.name ? z.name : z.kind === "cp" ? (z.cp.slice(0, 2) === "59" ? "Le code postal " + z.cp : "Cette adresse (" + z.cp + ")") : "Cette commune";
-    var verb = z.name || z.kind !== "cp" ? " n’est pas encore couverte." : z.cp.slice(0, 2) === "59" ? " n’est pas celui de Lille, Lomme ou Hellemmes." : " est hors du Nord.";
-    return '<li class="ah out"><b>' + addrEsc(where) + verb + "</b> Estqmo n’estime pour l’instant que Lille, Lomme et Hellemmes. Guillaume peut vous rappeler pour en parler." +
+    /* session 12 : Paris et le 92 sont couverts aussi (registre des villes présent) */
+    var s12v = !!(window.EstqmoEngine && EstqmoEngine.villes);
+    var verb = z.name || z.kind !== "cp" ? " n’est pas encore couverte." : z.cp.slice(0, 2) === "59" ? " n’est pas celui de Lille, Lomme ou Hellemmes." : s12v ? " n’est pas encore couverte." : " est hors du Nord.";
+    return '<li class="ah out"><b>' + addrEsc(where) + verb + "</b> Estqmo n’estime pour l’instant que " + (s12v ? "Lille, Lomme, Hellemmes, Paris et les Hauts-de-Seine" : "Lille, Lomme et Hellemmes") + ". Guillaume peut vous rappeler pour en parler." +
       '<a class="btn soft hz-go" href="#contact" data-hz="' + addrEsc(q) + '" data-hzn="' + addrEsc(z.name || "") + '">Laisser mon adresse à Guillaume</a></li>' +
       (hasRes ? '<li class="ah">Ou une rue de Lille, Lomme ou Hellemmes :</li>' : "");
   }
@@ -8939,7 +8941,8 @@ function addrAttach(inp, list, opts) {
     sel = res.length ? 0 : -1;
     var head = zoneMsg(z, q, res.length > 0) + (hint && res.length ? '<li class="ah pick">' + addrEsc(why()) + "</li>" : "");
     if (!res.length) {
-      list.innerHTML = head || '<li class="ah none">Aucune rue de Lille, Lomme ou Hellemmes ne correspond. Vérifiez l’orthographe, ou tapez seulement le nom de la rue.</li>';
+      /* session 12 : avec Paris et le 92 chargés, le message les nomme aussi */
+      list.innerHTML = head || '<li class="ah none">Aucune rue de ' + (typeof S11V !== "undefined" && S11V.ix ? "Lille, Lomme, Hellemmes, Paris ou des Hauts-de-Seine" : "Lille, Lomme ou Hellemmes") + ' ne correspond. Vérifiez l’orthographe, ou tapez seulement le nom de la rue.</li>';
     } else list.innerHTML = head + res.map(function (s, i) { return addrItem(s, i, i === sel); }).join("") +
       (res[0].kind === "street" && !res[0].far && ADDR.parse(q).num == null ? '<li class="ah">Ajoutez le numéro pour la meilleure précision, ou choisissez la rue entière.</li>' : "");
     list.hidden = false;
@@ -8950,14 +8953,17 @@ function addrAttach(inp, list, opts) {
      et qu'aucune rue du même nom n'existe dans une autre commune ; sinon la liste reste ouverte et dit pourquoi */
   function twin() {
     var r0 = res[0], k = ADDR.norm(r0.street);
-    return res.some(function (s, i) { return i > 0 && ADDR.norm(s.street) === k && (s.deleg || "Lille") !== (r0.deleg || "Lille"); });
+    /* session 12 : une rue de Paris ou du 92 compte par sa commune, mais ne retient pas une rue de Lille en tête (Lille d'abord) */
+    var com = function (s) { return s.s11paquet ? s.q : s.deleg || "Lille"; };
+    return res.some(function (s, i) { return i > 0 && ADDR.norm(s.street) === k && com(s) !== com(r0) && (!s.s11paquet || r0.s11paquet); });
   }
   /* le numéro tapé n'existe que dans la première rue proposée (« 68 rue Léon Gambetta » : Lille a le 68, pas la rue
      du même nom à Hellemmes) : c'est elle, sans rien demander (R31, 20/10) */
   function onlyHere() {
     var r0 = res[0];
     if (r0.kind !== "num" || r0.repMissing) return false;
-    return !res.some(function (s, i) { return i > 0 && s.kind === "num"; });
+    /* session 12 : une adresse de Paris ou du 92 sous une rue de Lille ne la retient pas (Lille d'abord) */
+    return !res.some(function (s, i) { return i > 0 && s.kind === "num" && (!s.s11paquet || r0.s11paquet); });
   }
   function sure() {
     if (recent || !res.length || (z && (z.out || z.kind === "quartier"))) return false;
@@ -8996,6 +9002,458 @@ function addrAttach(inp, list, opts) {
   return { draw: draw, enter: function () { if (inp.value.trim().length >= 2) draw(); return enter(); }, first: function () { if (!res.length && inp.value.trim().length >= 2) draw(); return res[0] || null; } };
 }
 
+/* --- session 11 : villes (début) — Paris et le 92 dans le parcours, par accroche, sans réécrire les écrans ---------
+   Les écrans (adresse, bien, calcul, résultat) restent ceux de Lille ; ce fichier ajoute seulement :
+   1. une seconde recherche d'adresse (le même code que src/js/adresse/recherche.js, posé ici au build dans une
+      fonction : un exemplaire à part), sur l'index BAN de Paris et du 92, chargé à côté de la page quand l'adresse
+      tapée nomme Paris, un code postal 75 ou 92, ou une commune du 92 ;
+   2. ADDR.search et ADDR.zone de Lille enveloppés : ces adresses-là passent par la seconde recherche ;
+   3. run() (l'appel au moteur) enveloppé : pour un bien de Paris ou du 92, le paquet de ventes est chargé à la demande
+      (EstqmoEngine.villes.charger) ; en attendant, un message d'attente (jamais mémorisé), puis la vue se redessine.
+   Ce qui reste lillois dans les écrans (textes, blocs sans données) : site/avancement/110_s11-villes.md, § écrans. */
+function s11FabriqueRecherche(module) {
+/* Recherche d'adresse de la maquette : toutes les adresses de Lille (Lomme et Hellemmes compris),
+   embarquées dans la page. Accents, abréviations, numéro devant ou derrière, rue sans numéro,
+   numéro absent de la liste placé entre ses voisins de la même rue. */
+var ADDR = (function () {
+  "use strict";
+  var IX = null, ST = [], NADDR = 0;
+  var ABBR = {
+    r: ["rue"], ru: ["rue"], bd: ["boulevard"], bld: ["boulevard"], blvd: ["boulevard"], boul: ["boulevard"], bvd: ["boulevard"],
+    av: ["avenue"], ave: ["avenue"], avn: ["avenue"], pl: ["place"], st: ["saint"], ste: ["sainte"], sts: ["saints"],
+    imp: ["impasse"], all: ["allee"], al: ["allee"], ch: ["chemin"], che: ["chemin"], chem: ["chemin"], fg: ["faubourg"], fbg: ["faubourg"],
+    sq: ["square"], res: ["residence"], qu: ["quai"], qua: ["quai"], rte: ["route"], crs: ["cours"], pass: ["passage"], pas: ["passage"],
+    prom: ["promenade"], pte: ["porte"], pt: ["pont"], rpt: ["rond"], esp: ["esplanade"], parv: ["parvis"], vla: ["villa"], cite: ["cite"],
+    sen: ["sentier"], ham: ["hameau"], gal: ["galerie", "general"], mal: ["mail", "marechal"], gen: ["general"], mar: ["marechal"],
+    dr: ["docteur"], doc: ["docteur"], pdt: ["president"], pres: ["president"], prof: ["professeur"], cdt: ["commandant"],
+    lt: ["lieutenant"], cpt: ["capitaine"], cap: ["capitaine"], abb: ["abbe"], mgr: ["monseigneur"], nd: ["notre"]
+  };
+  var STOP = { de: 1, du: 1, des: 1, la: 1, le: 1, les: 1, l: 1, d: 1, et: 1, a: 1, au: 1, aux: 1, en: 1, sur: 1 };
+  var CITY = { lille: 1, france: 1, "59000": 1, "59800": 1, "59160": 1, "59260": 1, "59777": 1, cedex: 1 };
+  var DELEG = { lomme: "Lomme", hellemmes: "Hellemmes" };
+  var CP_DELEG = { "59160": "Lomme", "59260": "Hellemmes" };
+  var LILLE_CP = { "59000": 1, "59800": 1, "59160": 1, "59260": 1, "59777": 1 };
+  var REP_IN = { bis: 1, ter: 2, quater: 3, quinquies: 4, a: 5, b: 6, c: 7, d: 8, e: 9, f: 10, g: 11, h: 12, i: 13, j: 14, k: 15 };
+  /* les noms d'usage que la BAN ne connaît pas */
+  var ALIASES = [[/\bgrand place\b/, "place general gaulle"], [/\bgrandplace\b/, "place general gaulle"], [/\bplace du theatre lille\b/, "place theatre"],
+    [/\brue de paris\b/, "rue pierre mauroy"]];   /* la rue de Paris s'appelle rue Pierre-Mauroy depuis 2015 */
+  var MONTHS = { janvier: 1, fevrier: 1, mars: 1, avril: 1, mai: 1, juin: 1, juillet: 1, aout: 1, septembre: 1, octobre: 1, novembre: 1, decembre: 1 };
+  var TYPEW = { groupe: 1, gpe: 1, res: 1, rue: 1, avenue: 1, boulevard: 1, place: 1, impasse: 1, allee: 1, chemin: 1, square: 1, quai: 1, cours: 1, passage: 1, parvis: 1, cite: 1, sentier: 1, residence: 1, placette: 1, voie: 1, ruelle: 1, r: 1, av: 1, bd: 1, pl: 1, imp: 1 };
+  var ROM = ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi", "xxii", "xxiii"];
+
+  function norm(s) {
+    return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`´\-_,;.\/()]/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function init(ix) {
+    IX = ix; ST = []; NADDR = 0;
+    var L0 = ix.ref[0], A0 = ix.ref[1];
+    for (var i = 0; i < ix.s.length; i++) {
+      var s = ix.s[i], nm = norm(s[0]).replace(/(\d)(bis|ter|quater)\b/g, "$1 $2"), words = nm.split(" ");
+      /* sigles écrits avec des points (« S.N.C.F ») : on garde aussi le mot collé */
+      var sig = nm.match(/\b(?:[a-z] ){2,}[a-z]\b/g);
+      if (sig) sig.forEach(function (x) { words.push(x.replace(/ /g, "")); });
+      var arr = ix.n[i], nums = [], x = s[3], y = s[4];
+      for (var k = 0; k < arr.length; k += 3) {
+        x += arr[k + 1]; y += arr[k + 2];
+        nums.push({ n: Math.floor(arr[k] / 16), r: arr[k] % 16, lon: L0 + x / 1e6, lat: A0 + y / 1e6 });
+      }
+      NADDR += nums.length;
+      var q = s[2] >= 0 ? ix.q[s[2]] : "";
+      ST.push({ name: s[0], cp: s[1], q: q, deleg: (q === "Lomme" || q === "Hellemmes") ? q : "", words: words, nm: nm,
+        lon: L0 + s[3] / 1e6, lat: A0 + s[4] / 1e6, nums: nums, n: s[5], max: nums.length ? nums[nums.length - 1].n : 0 });
+    }
+  }
+  function lev1(a, b) {
+    // distance d'édition ≤ 1 (substitution, insertion, suppression, inversion de deux lettres voisines)
+    if (a === b) return true;
+    var la = a.length, lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+    var i = 0; while (i < la && i < lb && a[i] === b[i]) i++;
+    if (la === lb) return a.slice(i + 1) === b.slice(i + 1) || (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    return la > lb ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
+  }
+  /* « huit mai 1945 » s'écrit « 8 mai 1945 » dans la BAN */
+  var NUMW = { premier: 1, un: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8, neuf: 9, dix: 10, onze: 11, douze: 12, treize: 13, quatorze: 14, quinze: 15, seize: 16,
+    "dix sept": 17, "dix huit": 18, "dix neuf": 19, vingt: 20, "vingt et un": 21, trente: 30, "trente et un": 31 };
+  ["deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"].forEach(function (w, i) { NUMW["vingt " + w] = 22 + i; });
+  var NUMW_RX = new RegExp("\\b(" + Object.keys(NUMW).sort(function (a, b) { return b.length - a.length; }).join("|") + ") (" + Object.keys(MONTHS).join("|") + ")\\b", "g");
+  function parse(q) {
+    var nq = norm(q).replace(NUMW_RX, function (m, w, mo) { return NUMW[w] + " " + mo; });
+    ALIASES.forEach(function (a) { nq = nq.replace(a[0], a[1]); });
+    var t = nq.replace(/(\d)(bis|ter|quater|[a-k])\b/g, "$1 $2").split(" ").filter(Boolean);
+    var num = null, rep = 0, toks = [], deleg = "", lille = false;
+    for (var i = 0; i < t.length; i++) {
+      var w = t[i];
+      if (/^\d{1,4}$/.test(w) && num === null && !MONTHS[t[i + 1]]) {
+        num = +w;
+        if (t[i + 1] && REP_IN[t[i + 1]] && (t[i + 1].length > 1 || i === 0)) { rep = REP_IN[t[i + 1]]; i++; }
+        continue;
+      }
+      if (w === "lille") lille = true;
+      /* le code postal dit la commune : 59160 Lomme, 59260 Hellemmes, les autres Lille (R31, 20/10) */
+      if (CP_DELEG[w]) deleg = CP_DELEG[w]; else if (LILLE_CP[w]) lille = true;
+      if (/^\d{5}$/.test(w) || CITY[w]) continue;
+      if (DELEG[w]) { deleg = DELEG[w]; continue; }
+      if (STOP[w]) continue;
+      toks.push(w);
+    }
+    return { num: num, rep: rep, toks: toks, deleg: deleg, lille: lille && !deleg };
+  }
+  function wordScore(tok, words, fuzzy) {
+    var alts = [tok].concat(ABBR[tok] || []), best = 0;
+    if (/^\d{1,2}$/.test(tok) && ROM[+tok]) alts.push(ROM[+tok]);
+    for (var j = 0; j < words.length; j++) {
+      var w = words[j];
+      for (var a = 0; a < alts.length; a++) {
+        var t = alts[a];
+        if (w === t) { best = Math.max(best, 3); }
+        else if (w.indexOf(t) === 0) { best = Math.max(best, t.length >= 3 || j > 0 ? 2 : 1.5); }
+        else if (fuzzy && t.length >= 4 && (lev1(t, w.slice(0, t.length)) || lev1(t, w.slice(0, t.length + 1)) || lev1(t, w.slice(0, t.length - 1)))) { best = Math.max(best, 1); }
+      }
+      /* un mot tapé d'un bloc pour deux mots de la BAN : « bellevue » pour « Belle-Vue », « delsaux » pour « Del Saulx » */
+      if (j + 1 < words.length && tok.length >= 6) {
+        var w2 = w + words[j + 1];
+        if (w2 === tok) best = Math.max(best, 3);
+        else if (fuzzy && lev1(tok, w2)) best = Math.max(best, 1);
+      }
+    }
+    return best;
+  }
+  function locate(st, num, rep) {
+    rep = rep || 0;
+    if (num == null) return { kind: "street", lon: st.lon, lat: st.lat };
+    var exact = null, same = null, nums = st.nums;
+    for (var i = 0; i < nums.length; i++) {
+      var a = nums[i];
+      if (a.n === num && a.r === rep) { exact = a; break; }
+      if (a.n === num && !same) same = a;
+    }
+    if (exact) return { kind: "num", lon: exact.lon, lat: exact.lat, n: num, r: rep };
+    if (same) return { kind: "num", lon: same.lon, lat: same.lat, n: num, r: rep, repMissing: true };
+    if (!nums.length || num > st.max * 1.25 + 12) return { kind: "street", lon: st.lon, lat: st.lat, n: num, r: rep, far: true };
+    // numéro absent : placé entre ses deux voisins de même parité, sinon le plus proche
+    var lo = null, hi = null;
+    for (var k = 0; k < nums.length; k++) {
+      var b = nums[k];
+      if (b.n % 2 !== num % 2) continue;
+      if (b.n < num && (!lo || b.n >= lo.n)) lo = b;
+      if (b.n > num && (!hi || b.n < hi.n)) hi = b;
+    }
+    if (lo && hi) {
+      var f = (num - lo.n) / (hi.n - lo.n);
+      return { kind: "interp", lon: lo.lon + (hi.lon - lo.lon) * f, lat: lo.lat + (hi.lat - lo.lat) * f, n: num, r: rep, between: [lo.n, hi.n] };
+    }
+    var near = lo || hi, d = 1e9;
+    if (!near) nums.forEach(function (c) { var dd = Math.abs(c.n - num); if (dd < d) { d = dd; near = c; } });
+    return { kind: "interp", lon: near.lon, lat: near.lat, n: num, r: rep, between: [near.n] };
+  }
+  var REP_OUT = ["", " bis", " ter", " quater", " quinquies", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
+  function numLabel(n, r) { return n + (r ? (r >= 5 ? REP_OUT[r] : REP_OUT[r]) : ""); }
+  function sub(st) {
+    return st.cp + " " + (st.deleg ? st.deleg + " (Lille)" : "Lille") + (st.deleg ? "" : " · " + st.q);
+  }
+  function suggestion(si, p) {
+    var st = ST[si], loc = locate(st, p.num, p.rep);
+    var label = (loc.n != null && loc.kind !== "street" ? numLabel(loc.n, loc.r) + " " : "") + st.name;
+    return {
+      si: si, kind: loc.kind, lon: loc.lon, lat: loc.lat, n: loc.n, r: loc.r, far: !!loc.far, between: loc.between, repMissing: !!loc.repMissing,
+      street: st.name, cp: st.cp, q: st.q, deleg: st.deleg, nAddr: st.n,
+      label: label, full: label + ", " + st.cp + " " + (st.deleg || "Lille"), sub: sub(st)
+    };
+  }
+  /* les mots qui font le nom d'une rue, sans le type de voie ni les petits mots (« Rue du Faubourg d'Arras » : faubourg, arras) */
+  function sigWords(st) {
+    if (!st.sig) {
+      /* ni le type de voie, ni les petits mots, ni la ville (« Rue Anatole France », « Rue Alain de Lille »),
+         ni les lettres isolées d'un sigle (« S.N.C.F » se tape « sncf ») */
+      st.sig = st.words.filter(function (w) { return !STOP[w] && !TYPEW[w] && !CITY[w] && !DELEG[w] && w.length > 1; });
+      if (!st.sig.length) st.sig = st.words.filter(function (w) { return !STOP[w] && w.length > 0; });
+    }
+    return st.sig;
+  }
+  /* la rue tapée : chaque mot de son nom est couvert par un mot de la recherche (mot exact, abréviation, début de mot
+     ou une faute de frappe). « 12 rue d'Arras » couvre la rue d'Arras, pas la rue du Faubourg d'Arras. */
+  function covers(st, toks, fuzzy) {
+    var sig = sigWords(st);
+    if (!sig.length) return false;
+    /* un sigle tapé lettre par lettre (« s n c f ») compte aussi d'un bloc */
+    var run = "", extra = [];
+    toks.forEach(function (t) { if (t.length === 1 && /[a-z]/.test(t)) run += t; else { if (run.length >= 2) extra.push(run); run = ""; } });
+    if (run.length >= 2) extra.push(run);
+    if (extra.length) toks = toks.concat(extra);
+    var cov = sig.map(function () { return false; });
+    toks.forEach(function (tok) {
+      var alts = [tok].concat(ABBR[tok] || []);
+      if (/^\d{1,2}$/.test(tok) && ROM[+tok]) alts.push(ROM[+tok]);
+      for (var j = 0; j < sig.length; j++) {
+        var w = sig[j];
+        for (var a = 0; a < alts.length; a++) {
+          var x = alts[a];
+          if (w === x || (x.length >= 3 && w.indexOf(x) === 0) ||
+              (fuzzy && x.length >= 4 && (lev1(x, w.slice(0, x.length)) || lev1(x, w.slice(0, x.length + 1)) || lev1(x, w.slice(0, x.length - 1))))) cov[j] = true;
+        }
+        if (j + 1 < sig.length && tok.length >= 6) { var w2 = w + sig[j + 1]; if (w2 === tok || (fuzzy && lev1(tok, w2))) { cov[j] = true; cov[j + 1] = true; } }
+      }
+    });
+    /* une année dans le nom (« rue du 8 Mai 1945 ») peut rester sous-entendue */
+    for (var k = 0; k < cov.length; k++) if (!cov[k] && !/^\d{3,4}$/.test(sig[k])) return false;
+    return true;
+  }
+  function search(q, limit) {
+    if (!IX) return [];
+    limit = limit || 6;
+    var p = parse(q);
+    if (!p.toks.length) return [];
+    /* « rue de Lille » : sans autre mot que le type de voie, le nom de la ville est le nom de la rue */
+    if (!p.toks.some(function (w) { return !TYPEW[w]; })) { if (p.lille) p.toks.push("lille"); else return []; }
+    var res = [];
+    /* trois passes : mots exacts, puis une faute de frappe tolérée, puis sans le type de voie (« rue » pour une place) */
+    var core = p.toks.filter(function (w) { return !TYPEW[w]; });
+    for (var pass = 0; pass < 3 && !res.length; pass++) {
+      var toks = pass === 2 ? core : p.toks;
+      if (pass === 2 && (!core.length || core.length === p.toks.length)) break;
+      for (var i = 0; i < ST.length; i++) {
+        var st = ST[i], sc = 0, ok = true;
+        for (var t = 0; t < toks.length; t++) {
+          var w = wordScore(toks[t], st.words, pass >= 1);
+          if (!w) { ok = false; break; }
+          sc += w;
+        }
+        if (!ok) continue;
+        /* la rue dont le nom correspond exactement passe avant un numéro exact dans une autre rue */
+        var ex = covers(st, toks, pass >= 1);
+        if (ex) sc += 4;
+        /* la commune tapée passe devant (« rue Pasteur Hellemmes ») */
+        if (p.deleg && st.deleg === p.deleg) sc += 5;
+        if (p.lille && !st.deleg) sc += 5;
+        if (p.num != null) { var l = locate(st, p.num, p.rep); sc += l.kind === "num" ? 1.5 : l.kind === "interp" ? 0.5 : 0; }
+        res.push([sc, st.n, -st.name.length, i, ex, pass]);
+      }
+    }
+    res.sort(function (a, b) { return b[0] - a[0] || b[1] - a[1] || b[2] - a[2]; });
+    return res.slice(0, limit).map(function (r) { var s = suggestion(r[3], p); s.exact = !!r[4]; s.fuzzy = r[5] === 1; return s; });
+  }
+  /* ---------------------------------------------------------------- hors de Lille, Lomme et Hellemmes
+     Une commune ou un code postal d'ailleurs : la maquette le dit en clair au lieu de proposer une rue lilloise. */
+  /* LILLE_CP : déclaré plus haut, avec CP_DELEG */
+  var CP_NAME = { "59100": "Roubaix", "59200": "Tourcoing", "59650": "Villeneuve-d’Ascq", "59491": "Villeneuve-d’Ascq", "59493": "Villeneuve-d’Ascq",
+    "59700": "Marcq-en-Barœul", "59130": "Lambersart", "59110": "La Madeleine", "59370": "Mons-en-Barœul", "59170": "Croix", "59290": "Wasquehal",
+    "59150": "Wattrelos", "59120": "Loos", "59790": "Ronchin", "59155": "Faches-Thumesnil", "59810": "Lesquin", "59350": "Saint-André-lez-Lille",
+    "59520": "Marquette-lez-Lille", "59118": "Wambrechies", "59320": "Haubourdin", "59113": "Seclin", "59280": "Armentières", "59250": "Halluin",
+    "59910": "Bondues", "59420": "Mouvaux", "59223": "Roncq", "59510": "Hem", "59390": "Lys-lez-Lannoy", "59115": "Leers", "59175": "Templemars",
+    "59139": "Wattignies", "59500": "Douai", "59300": "Valenciennes", "59140": "Dunkerque", "59400": "Cambrai", "59600": "Maubeuge" };
+  var COMMUNES = ["Roubaix", "Tourcoing", "Villeneuve-d’Ascq", "Villeneuve d’Ascq", "Villeneuve", "Marcq-en-Barœul", "Marcq", "Lambersart", "La Madeleine",
+    "Mons-en-Barœul", "Croix", "Wasquehal", "Wattrelos", "Loos", "Ronchin", "Faches-Thumesnil", "Lesquin", "Lezennes", "Saint-André-lez-Lille",
+    "Saint-André", "Marquette-lez-Lille", "Wambrechies", "Haubourdin", "Seclin", "Armentières", "Halluin", "Comines", "Bondues", "Mouvaux", "Roncq",
+    "Hem", "Lys-lez-Lannoy", "Lannoy", "Leers", "Templemars", "Vendeville", "Wattignies", "Emmerin", "Santes", "Sequedin", "Lompret", "Pérenchies",
+    "Prémesques", "Capinghem", "Verlinghem", "Quesnoy-sur-Deûle", "Houplines", "Englos", "Hallennes-lez-Haubourdin", "Neuville-en-Ferrain",
+    "Linselles", "Bousbecque", "Toufflers", "Willems", "Baisieux", "Chéreng", "Anstaing", "Gruson", "Bouvines", "Fretin", "Avelin", "Wavrin", "Don",
+    "Annœullin", "La Bassée", "Douai", "Valenciennes", "Dunkerque", "Cambrai", "Maubeuge", "Arras", "Lens", "Béthune", "Calais", "Paris", "Amiens", "Tournai"]
+    .map(function (n) { return { n: norm(n), name: n.replace(/^Villeneuve d’Ascq$/, "Villeneuve-d’Ascq").replace(/^Villeneuve$/, "Villeneuve-d’Ascq").replace(/^Marcq$/, "Marcq-en-Barœul").replace(/^Saint-André$/, "Saint-André-lez-Lille") }; })
+    .sort(function (a, b) { return b.n.length - a.n.length; });
+  var QUARTIERS = { fives: "Fives", wazemmes: "Wazemmes", moulins: "Moulins", "lille moulins": "Moulins", vauban: "Vauban-Esquermes", esquermes: "Vauban-Esquermes",
+    "vauban esquermes": "Vauban-Esquermes", "vieux lille": "Vieux-Lille", "lille centre": "Lille-Centre", centre: "Lille-Centre", "lille sud": "Lille-Sud",
+    "bois blancs": "Bois-Blancs", "saint maurice": "Saint-Maurice Pellevoisin", pellevoisin: "Saint-Maurice Pellevoisin", "saint maurice pellevoisin": "Saint-Maurice Pellevoisin",
+    "faubourg de bethune": "Faubourg de Béthune", euralille: "Lille-Centre" };
+  /* une rue de Lille dont le nom contient tous ces mots (« Rue Désiré Bondues », « Place François Marcq ») */
+  function anyStreetHas(words) {
+    if (!words.length) return false;
+    for (var i = 0; i < ST.length; i++) {
+      var ws = ST[i].words, ok = true;
+      for (var k = 0; k < words.length && ok; k++) if (ws.indexOf(words[k]) < 0) ok = false;
+      if (ok) return true;
+    }
+    return false;
+  }
+  function zone(q) {
+    if (!IX) return null;
+    var nq = norm(q);
+    ALIASES.forEach(function (a) { nq = nq.replace(a[0], a[1]); });
+    /* « 1D rue de Lompret » : le numéro et sa lettre ne sont pas un mot du nom (R31, 20/10) */
+    nq = nq.replace(/(\d)(bis|ter|quater|[a-k])\b/g, "$1 $2");
+    var t = nq.split(" ").filter(Boolean);
+    if (!t.length) return null;
+    for (var i = 0; i < t.length; i++) {
+      if (/^\d{5}$/.test(t[i]) && !LILLE_CP[t[i]]) return { out: true, kind: "cp", cp: t[i], name: CP_NAME[t[i]] || (t[i].slice(0, 2) === "59" ? null : "") };
+    }
+    var pad = " " + nq + " ";
+    for (var c = 0; c < COMMUNES.length; c++) {
+      var cm = COMMUNES[c], at = pad.lastIndexOf(" " + cm.n + " ");
+      if (at < 0) continue;
+      var before = pad.slice(0, at).trim().split(" ").filter(Boolean), cw = cm.n.split(" ");
+      var restSig = before.filter(function (w) { return !/^\d+$/.test(w) && !STOP[w] && !TYPEW[w] && !CITY[w] && !REP_IN[w]; });
+      if (!restSig.length && !before.some(function (w) { return TYPEW[w] || STOP[w]; })) return { out: true, kind: "commune", name: cm.name };
+      /* « rue de Roubaix », « rue Saint-André », « rue Désiré Bondues » : une rue de Lille porte ce nom */
+      var words = before.filter(function (w) { return !/^\d+$/.test(w) && !STOP[w] && !TYPEW[w] && !REP_IN[w]; }).concat(cw);
+      if (anyStreetHas(words)) return null;
+      /* « avenue de Paris » : le nom de la commune est ici un nom de rue, qui n'existe pas à Lille */
+      return { out: true, kind: "commune", name: cm.name, street: !restSig.length && before.some(function (w) { return TYPEW[w]; }) };
+    }
+    var core = t.filter(function (w) { return !/^\d+$/.test(w) && w !== "quartier" && w !== "france"; });
+    var qk = core.join(" "), q2 = core.filter(function (w) { return w !== "lille"; }).join(" ");
+    if (QUARTIERS[qk] || QUARTIERS[q2]) return { out: false, kind: "quartier", name: QUARTIERS[qk] || QUARTIERS[q2] };
+    if (!core.filter(function (w) { return !CITY[w] && !DELEG[w]; }).length && t.some(function (w) { return LILLE_CP[w]; })) return { out: false, kind: "lillecp" };
+    return null;
+  }
+  function stats() { return { streets: ST.length, addresses: NADDR, src: IX ? IX.src : null }; }
+  function street(i) { return ST[i]; }
+  return { init: init, search: search, parse: parse, locate: locate, stats: stats, street: street, norm: norm, zone: zone };
+})();
+if (typeof module !== "undefined") module.exports = ADDR;
+  return ADDR;
+}
+var S11V = { ix: null, idxPromesse: null, err: null, communes: null, attente: "Chargement des ventes de Paris et des Hauts-de-Seine…" };
+function s11Registre() { return window.EstqmoEngine && EstqmoEngine.villes ? EstqmoEngine.villes.registre : null; }
+/* les communes du registre hors Lille, normalisées comme la recherche : [{n: "boulogne billancourt", insee, ville}] */
+function s11Communes() {
+  if (S11V.communes) return S11V.communes;
+  var R = s11Registre(); if (!R) return [];
+  var out = [];
+  R.villes.forEach(function (v) {
+    if (v.paquet === "lille") return;
+    if (v.id === "paris") out.push({ n: "paris", insee: null, ville: v.id, paquet: v.paquet });
+    Object.keys(v.communes || {}).forEach(function (c) { out.push({ n: ADDR.norm(v.communes[c]), insee: c, ville: v.id, paquet: v.paquet }); });
+  });
+  out.sort(function (a, b) { return b.n.length - a.n.length; });
+  return (S11V.communes = out);
+}
+var S11_PAS_COMMUNE = {};
+("de du d la le les l des rue r avenue av ave bd boulevard place pl cour cours quai impasse imp allee chemin square sq passage villa cite " +
+ "residence res sentier route rte voie rond point porte pont parvis promenade esplanade hameau galerie mail faubourg fbg").split(" ").forEach(function (w) { S11_PAS_COMMUNE[w] = 1; });
+/* l'adresse tapée vise-t-elle Paris ou le 92 ? (« rue de Paris », « avenue de Neuilly » : un nom de rue, pas la ville) */
+function s11Cible(q) {
+  var n = " " + ADDR.norm(q) + " ", t = n.trim().split(" "), i;
+  for (i = 0; i < t.length; i++) {
+    var m = /^(75|92)(\d{3})$/.exec(t[i]);
+    if (m) return { paquet: "paris-92", cp: t[i], insee: null, ville: m[1] === "75" ? "paris" : "92" };
+  }
+  var cs = s11Communes();
+  for (i = 0; i < cs.length; i++) {
+    var at = n.lastIndexOf(" " + cs[i].n + " ");
+    if (at < 0) continue;
+    var avant = n.slice(0, at).trim().split(" ").pop();
+    /* « rue de Paris », « cour Malakoff », « avenue de Neuilly » : un nom de rue, pas la commune */
+    if (S11_PAS_COMMUNE[avant]) continue;
+    return { paquet: cs[i].paquet, cp: null, insee: cs[i].insee, ville: cs[i].ville, nom: cs[i].n };
+  }
+  return null;
+}
+function s11ChargerIndex(paquet) {
+  if (S11V.ix) return Promise.resolve(S11V.ix);
+  if (S11V.idxPromesse) return S11V.idxPromesse;
+  var R = s11Registre(), f = R && R.paquets[paquet] && R.paquets[paquet].adresses;
+  if (!f) return Promise.reject(new Error("villes : pas d'index d'adresses pour " + paquet));
+  S11V.idxPromesse = fetch(f).then(function (r) { if (!r.ok) throw new Error(f + " : HTTP " + r.status); return r.json(); }).then(function (ix) {
+    var A = s11FabriqueRecherche(undefined);
+    A.init(ix);
+    S11V.ix = { A: A, raw: ix, paquet: paquet };
+    /* la liste ouverte se redessine avec les adresses de Paris et du 92 */
+    var el = document.activeElement;
+    if (el && el.matches && el.matches("[data-addr-in]")) el.dispatchEvent(new Event("input"));
+    return S11V.ix;
+  }, function (e) { S11V.err = e; S11V.idxPromesse = null; throw e; });
+  return S11V.idxPromesse;
+}
+/* une suggestion de la seconde recherche, avec les libellés de Paris et du 92 au lieu de « Lille » */
+function s11Suggestion(s) {
+  var ix = S11V.ix.raw, st = S11V.ix.A.street(s.si), qi = ix.q.indexOf(st.q);
+  var insee = qi >= 0 ? ix.q_insee[qi] : null, nom = st.q;
+  s.full = s.label + ", " + s.cp + " " + (insee && insee.slice(0, 3) === "751" ? "Paris" : nom);
+  s.sub = s.cp + " " + nom;
+  s.deleg = ""; s.q = nom;
+  s.s11ville = qi >= 0 ? ix.q_ville[qi] : null; s.insee = insee; s.s11paquet = S11V.ix.paquet;
+  return s;
+}
+/* --- session 12 : intégration (début) — Lille, Paris et le 92 dans la même liste, sans taper la commune ---------
+   L'index de Paris et du 92 se charge dès que l'on touche un champ d'adresse (une fois, sans erreur affichée s'il
+   manque) ; la liste mêle alors les deux recherches, Lille d'abord : les rues de Lille au nom exact gardent la tête de
+   la liste (la touche Entrée choisit Lille comme avant), puis jusqu'à deux rues de Paris ou du 92 du même nom ; sans
+   aucune rue de Lille (ou seulement avec une faute de frappe), celles de Paris et du 92 passent devant. Chaque suggestion
+   porte sa commune. */
+function s12Precharger() {
+  if (S11V.ix || S11V.idxPromesse || S11V.preEchec) return;
+  var R = s11Registre(); if (!R) return;
+  var pid = Object.keys(R.paquets).filter(function (k) { return !R.paquets[k].embarque && R.paquets[k].adresses; })[0];
+  if (pid) s11ChargerIndex(pid).then(null, function () { S11V.preEchec = true; });
+}
+/* au toucher du champ, et à la frappe si le moteur (qui porte le registre des villes) n'était pas encore arrivé */
+["focusin", "input"].forEach(function (ev) {
+  document.addEventListener(ev, function (e) { if (e.target && e.target.matches && e.target.matches("[data-addr-in]")) s12Precharger(); });
+});
+function s12Melange(L, P, limit) {
+  limit = limit || 6;
+  var net = function (s) { return s.exact && !s.fuzzy; };
+  var Lx = L.filter(net), Px = P.filter(net), out;
+  if (Lx.length) out = Lx.concat(Px.slice(0, Math.max(0, Math.min(2, limit - Lx.length))), L.filter(function (s) { return !net(s); }));
+  /* une rue de Lille sans faute de frappe (« 68 rue Gambetta » : la rue Léon Gambetta) garde la tête, dans l'ordre de Lille */
+  else if (L.some(function (s) { return !s.fuzzy; })) out = L.concat(Px.slice(0, 2));
+  else if (Px.length) out = Px.concat(L, P.filter(function (s) { return !net(s); }));
+  else out = L.concat(P);
+  return out.slice(0, limit);
+}
+/* --- session 12 (fin) --- */
+function s11Recherche(q, limit, cible) {
+  var A = S11V.ix.A, mots = " " + ADDR.norm(q) + " ";
+  /* le nom de la commune et le code postal ne sont pas des mots de la rue : on les retire, puis on filtre */
+  if (cible && cible.nom) mots = mots.replace(" " + cible.nom + " ", " ");
+  mots = mots.replace(/ (75|92)\d{3} /g, " ").replace(/ (cedex|france|arrondissement|arr|e|er|eme)(?= )/g, " ");
+  /* session 12 : la copie de la recherche de Lille renomme « rue de Paris » en rue Pierre-Mauroy (Lille, 2015) ;
+     les rues de Paris du 92 (Boulogne, Clichy, Meudon) restent trouvées sans le « de » */
+  mots = mots.replace(/ rue (de |d )?paris /, " rue paris ");
+  var res = A.search(mots.trim(), (limit || 6) * 4).map(s11Suggestion);
+  if (cible) res = res.filter(function (s) { return (!cible.cp || s.cp === cible.cp) && (!cible.insee || s.insee === cible.insee) && (!cible.ville || s.s11ville === cible.ville); });
+  return res.slice(0, limit || 6);
+}
+(function () {
+  var rechercheLille = ADDR.search, zoneLille = ADDR.zone;
+  ADDR.search = function (q, limit) {
+    var c = s11Cible(q);
+    /* une rue de Lille porte exactement ce nom (« Cour Malakoff », « rue de Clichy »…) et rien d'autre ne désigne
+       Paris ou le 92 (code postal, « Paris ») : c'est Lille */
+    if (c && !c.cp && c.ville !== "paris") {
+      var lille = rechercheLille.apply(this, arguments);
+      if (lille.some(function (s) { return s.exact && !s.fuzzy; })) return lille;
+    }
+    if (c) {
+      if (!S11V.ix) { s11ChargerIndex(c.paquet).then(null, function (e) { if (window.console) console.error(e); }); return []; }
+      return s11Recherche(q, limit, c);
+    }
+    var res = rechercheLille.apply(this, arguments);
+    /* session 12 : les adresses de Paris et du 92, déjà chargées, se mêlent à celles de Lille (Lille d'abord) */
+    var p = ADDR.parse(q);
+    if (S11V.ix && !p.deleg && !p.lille) res = s12Melange(res, s11Recherche(q, limit, null), limit);
+    return res;
+  };
+  ADDR.zone = function (q) { return s11Cible(q) ? null : zoneLille.apply(this, arguments); };
+})();
+/* le bien est-il dans un paquet qui n'est pas encore chargé ? alors on le charge, et la vue se redessine après */
+function s11PaquetDe(r) {
+  var V = window.EstqmoEngine && EstqmoEngine.villes;
+  if (!V || !r || typeof r.lat !== "number") return null;
+  var p = V.paquetAuPoint(r.lat, r.lon);
+  return p === "lille" ? null : p;
+}
+function s11Charger(paquet) {
+  return EstqmoEngine.villes.charger(paquet).then(function () {
+    liveReset();
+    var h = typeof cur === "string" ? cur : "";
+    if (ENTER[h]) { try { ENTER[h](); } catch (e) { if (window.console) console.error(e); } }
+    mobDock();
+  }, function (e) { if (window.console) console.error(e); });
+}
+run = (function (runLille) {
+  return function (r) {
+    var p = s11PaquetDe(r);
+    if (p && !EstqmoEngine.villes.moteur(p)) {
+      if (!engineReady()) return null;
+      s11Charger(p);
+      return { err: S11V.attente, attente: true };
+    }
+    return runLille(r);
+  };
+})(run);
+/* --- session 11 (fin) --- */
 /* ---------- l'accueil : champ + liste sous le champ (ordinateur), feuille plein écran (téléphone) */
 var heroSearch = addrAttach($("#addr"), $("#sugg"), {
   onFocus: function () { if (isPhone()) { $("#addr").blur(); addrOpen(); return false; } }
@@ -11380,6 +11838,102 @@ setTimeout(s8MesureEcran, 0);
 $$("#lead-form, #gc-form").forEach(function (f) {
   f.addEventListener("submit", function () { setTimeout(function () { var b = f.closest(".lead,.gc-card"); if (b && b.classList.contains("sent")) s8Mesure("Demande de rappel", { ecran: cur }); }, 0); });
 });
+/* --- session 11 : villes (début) — écrans : à Paris et dans le 92, aucun chiffre mesuré à Lille ------------------
+   Sans réécrire l'écran résultat : après son rendu (ENTER.resultat, 510_routes.js), les blocs dont le chiffre vient
+   de Lille sont masqués et une ligne dit pourquoi. Liste des blocs à reprendre par la session parcours :
+   site/avancement/110_s11-villes.md, § écrans. */
+function s11HorsLille() { return !!(S.addr && typeof S.addr.lat === "number" && s11PaquetDe({ lat: S.addr.lat, lon: S.addr.lon })); }
+function s11Cacher(el) { if (el && !el.hidden) { el.hidden = true; el.setAttribute("data-s11-cache", ""); } }
+function s11Ecrans() {
+  var hors = s11HorsLille();
+  document.documentElement.classList.toggle("s11-hors-lille", hors);
+  $$("[data-s11-cache]").forEach(function (el) { el.hidden = false; el.removeAttribute("data-s11-cache"); });
+  $$(".s11-bientot").forEach(function (el) { el.remove(); });
+  if (!hors) return;
+  /* précision et fiabilité : mesurées sur les ventes de Lille */
+  $$("#r-facts .fact").forEach(function (f) { if (/Lille/.test(f.textContent)) s11Cacher(f); });
+  s11Cacher(document.getElementById("r-fiab"));
+  /* stratégie de prix : annonces des agences lilloises */
+  $$("#p-tk .note").forEach(function (n) { if (/lillois|Lille/.test(n.textContent)) s11Cacher(n); });
+  s11Cacher(document.getElementById("p-src"));
+  var facts = document.getElementById("r-facts");
+  if (facts) facts.insertAdjacentHTML("afterend", '<p class="s11-bientot small mute">Paris et Hauts-de-Seine : prix calculé sur les ventes ' +
+    "DVF de la zone, avec les réglages de Lille en attendant ceux de la zone. La précision mesurée et la fiabilité de la fourchette " +
+    "arrivent bientôt pour Paris et le 92.</p>");
+}
+(function () {
+  ["resultat"].forEach(function (k) {
+    var orig = ENTER[k];
+    if (typeof orig !== "function") return;
+    ENTER[k] = function () { var r = orig.apply(this, arguments); try { s11Ecrans(); } catch (e) { if (window.console) console.error(e); } return r; };
+  });
+})();
+/* --- session 11 (fin) --- */
+/* --- session 12 : intégration (début) — les autres écrans du parcours, pour un bien de Paris ou du 92 -------------
+   Même principe que plus haut, sans réécrire les écrans : après leur rendu, ce qui vient de Lille est remplacé par une
+   phrase neutre (et remis tel quel pour un bien de Lille), ou masqué.
+   - « Le bien » : les aides de l'étage, du dernier étage et des extérieurs (mesure lilloise, immeubles lillois) ;
+   - résultat, « Et maintenant » : les honoraires comparés aux barèmes des agences de Lille ;
+   - « Votre rue » : la comparaison avec Lille, le décompte des rues lilloises, et jamais la fiche d'une rue de Lille
+     du même nom ;
+   - « Mes estimations » : la courbe de la valeur, tirée de l'indice des prix du Nord-Pas-de-Calais. */
+function s12HorsLilleAdr(a) { return !!(a && typeof a.lat === "number" && s11PaquetDe({ lat: a.lat, lon: a.lon })); }
+/* un texte d'écran fixe, remplacé hors de Lille et rendu tel quel à Lille */
+function s12Texte(el, html, hors) {
+  if (!el) return;
+  if (el.s12orig == null) el.s12orig = el.innerHTML;
+  var v = hors ? html : el.s12orig;
+  if (el.innerHTML !== v) el.innerHTML = v;
+}
+function s12Bien() {
+  var hors = s11HorsLille();
+  $$('[data-route="bien"] .qh').forEach(function (p) {
+    var t = p.s12orig != null ? p.s12orig : p.innerHTML;
+    if (/5<sup>e<\/sup> étage et plus/.test(t)) s12Texte(p, "L’étage réel compte : à surface égale, un étage élevé se vend en général plus cher au m² qu’un 1<sup>er</sup> ou un 2<sup>e</sup>.", hors);
+    else if (/immeubles lillois/.test(t)) s12Texte(p, "À cocher même à un étage bas : c’est le dernier étage de l’immeuble qui compte.", hors);
+    else if (/À Lille, un extérieur est rare/.test(t)) s12Texte(p, "Plusieurs choix possibles. La valeur d’un extérieur dépend de sa surface, de son état et du quartier.", hors);
+  });
+}
+function s12Rue() {
+  var hors = s11HorsLille(), cherche = $('[data-route="rue"] .rue-s');
+  s12Texte($('[data-route="rue"] .page-h .lede'), "Les ventes d’appartements autour de votre adresse : prix, tailles et dates, tirées des ventes de votre estimation.", hors);
+  /* la recherche parmi les rues de Lille n'a pas de sens pour un bien de Paris ou du 92 */
+  if (cherche && hors) s11Cacher(cherche); else if (cherche && cherche.hasAttribute("data-s11-cache")) { cherche.hidden = false; cherche.removeAttribute("data-s11-cache"); }
+  var near = $("#rue-near");
+  if (!hors || !near || near.hidden) return;
+  var k = $$("#rue-k .rk2");
+  if (k[0]) { var s0 = k[0].querySelector("span"); if (s0) s0.textContent = "Ventes retenues"; }
+  if (k[1]) { var s1 = k[1].querySelector("small"); if (s1) s1.textContent = "médiane des ventes retenues"; }
+}
+(function () {
+  /* la page tourne dans une fonction (« use strict ») : chaque fonction est enveloppée par son nom, dans cette portée */
+  var envelopper = function (orig, apres) {
+    var f = function () { var r = orig.apply(this, arguments); try { apres(); } catch (e) { if (window.console) console.error(e); } return r; };
+    /* les routes qui tiennent la fonction d'origine (ENTER.rue = rueRender) passent par l'enveloppe */
+    Object.keys(ENTER).forEach(function (h) { if (ENTER[h] === orig) ENTER[h] = f; });
+    return f;
+  };
+  renderAddrCard = envelopper(renderAddrCard, s12Bien);
+  rueRender = envelopper(rueRender, s12Rue);
+  nxRender = envelopper(nxRender, function () { var f = $("#nx-fee-s"); if (f && s11HorsLille()) f.textContent = "avec Guillaume"; });
+  /* après travaux : Pignon rénove à Lille ; hors de Lille, seul le conseil public (France Rénov’) reste */
+  var res = ENTER.resultat;
+  ENTER.resultat = function () {
+    var r = res.apply(this, arguments);
+    try { if (s11HorsLille()) $$("#a-pg .btn, #a-pg p").forEach(function (el) { if (/Pignon/.test(el.textContent)) s11Cacher(el); }); }
+    catch (e) { if (window.console) console.error(e); }
+    return r;
+  };
+  evRender = envelopper(evRender, function () {
+    var h0 = ls.get(HK, []).filter(function (x) { return x.st && x.st.addr; })[0];
+    var hors = G() ? s11HorsLille() : s12HorsLilleAdr(h0 && h0.st.addr), el = document.getElementById("est-val");
+    if (el && hors) s11Cacher(el); else if (el && el.hasAttribute("data-s11-cache")) { el.hidden = false; el.removeAttribute("data-s11-cache"); }
+  });
+  /* jamais la fiche d'une rue de Lille pour un bien de Paris ou du 92 */
+  var rueLille = rueOfAddr;
+  rueOfAddr = function () { return s11HorsLille() ? null : rueLille.apply(this, arguments); };
+})();
+/* --- session 12 (fin) --- */
 addEventListener("hashchange", route);
 route();
 if (window.requestIdleCallback) window.requestIdleCallback(engineStart, { timeout: 1500 }); else setTimeout(engineStart, 250);
@@ -11392,7 +11946,18 @@ if (window.requestIdleCallback) window.requestIdleCallback(engineStart, { timeou
   if (typeof module !== 'undefined' && module.exports) { module.exports = D; }
   else { root.ESTQMO_DATA = D; }
 })(typeof globalThis !== 'undefined' ? globalThis : this);
-</script><script>/* estqmo_engine.js — moteur d'estimation ESTQMO, port JavaScript du moteur Python
+</script><script>/* --- session 11 : villes (début de la fabrique) ---------------------------------------------------------------
+ * Le moteur ci-dessous (010 à 999_api) est posé tel quel dans une fabrique : chaque appel de `fabrique` donne un
+ * exemplaire neuf du moteur (son état, ses ventes, ses réglages, ses étapes), sans relire ni réécrire son code.
+ * Lille garde le premier exemplaire, créé exactement comme avant ; une autre ville (Paris et le 92) a le sien,
+ * créé quand son adresse arrive. Fin de la fabrique, routeur et registre des villes : 999_s11-villes.js.
+ * `globalThis` est ici un paramètre : le moteur y pose `EstqmoEngine` (au lieu de l'objet global) et y lit
+ * `ESTQMO_DATA` par défaut (le prototype de cet objet est l'objet global : même lecture qu'avant).
+ * `s11` reçoit, depuis l'intérieur du moteur, le point d'accroche des étapes (095_s11-etapes.js).
+ */
+(function (racine, moduleNode) {
+  function fabrique(globalThis, module, s11) {
+/* estqmo_engine.js — moteur d'estimation ESTQMO, port JavaScript du moteur Python
  * d'aout 2026 (engine/estimator.py, engine/api.py, engine/energy_guess.py).
  *
  * Meme mode de calcul que POST /api/estimate et GET /api/history, au bit pres
@@ -13725,6 +14290,83 @@ if (window.requestIdleCallback) window.requestIdleCallback(engineStart, { timeou
     return pick < 0 ? null : (S.parcels[S.ptParcel[pick]] || null);
   }
 
+  /* --- session 11 : villes — point d'accroche des étapes du calcul -------------------------------------------
+   * Une ville peut remplacer une étape du calcul dans SON exemplaire du moteur (chaque exemplaire a sa propre
+   * portée : Lille n'est jamais touchée). `remplacer(nom, f)` : f reçoit la fonction d'origine et rend la nouvelle.
+   * Les noms sont déclarés ici ; un nom inconnu, ou une fonction qu'une autre branche aurait renommée, fait une
+   * erreur claire (contrôlé par tests/900_s11-villes.js). Utilisé par 999_s11-villes.js (méthode d'une ville). */
+  if (s11) {
+    s11.ETAPES = ['selection', 'poids', 'actualisation', 'ajustements', 'plancher', 'estimation', 'secteur', 'loyers',
+      'transports', 'copropriete', 'dpe_immeuble', 'dpe_contexte', 'domaine', 'commune'];
+    s11.remplacer = function (nom, f) {
+      var g = function (orig) {
+        if (typeof orig !== 'function') throw new Error('villes : étape « ' + nom + ' » introuvable dans le moteur');
+        var n = f(orig);
+        if (typeof n !== 'function') throw new Error('villes : étape « ' + nom + ' » : il faut rendre une fonction');
+        return n;
+      };
+      switch (nom) {
+        case 'selection': selectComparables = g(selectComparables); break;
+        case 'poids': computeWeights = g(computeWeights); break;
+        case 'actualisation': timeIndex = g(timeIndex); break;
+        case 'ajustements': adjustments = g(adjustments); break;
+        case 'plancher': applicableErrorPct = g(applicableErrorPct); break;
+        case 'estimation': engineEstimate = g(engineEstimate); break;
+        case 'secteur': sectorStats = g(sectorStats); break;
+        case 'loyers': rentContext = g(rentContext); break;
+        case 'transports': transitContext = g(transitContext); break;
+        case 'copropriete': condoContext = g(condoContext); break;
+        case 'dpe_immeuble': dpeBuilding = g(dpeBuilding); break;
+        case 'dpe_contexte': dpeContext = g(dpeContext); break;
+        case 'domaine': domainDistance = g(domainDistance); break;
+        case 'commune': communeOfPoint = g(communeOfPoint); break;
+        default: throw new Error('villes : étape inconnue « ' + nom + ' » (déclarées : ' + s11.ETAPES.join(', ') + ')');
+      }
+    };
+    /* Correctif pour les gros paquets (hors Lille seulement) : dvfIndex (079_s1-actualisation.js) fait
+       Math.min.apply(null, qOf) sur toutes les ventes d'un type, qui déborde la pile au-delà de ≈ 120 000 ventes
+       (Paris-92 : 257 000 appartements). Copie à l'identique, le minimum calculé par une boucle. À retirer quand
+       079 sera corrigé à la source (demande à la session Moteur, site/avancement/110_s11-villes.md). */
+    s11.correctifsGrosPaquet = function () {
+      dvfIndex = function (ptype, lastQ) {
+        var t = ptype === 'apartment' ? 0 : 1, cell = +(S.cfg.time_index_dvf_cell_m || 400);
+        var dLat = cell / 110574.0, dLon = cell / (111320.0 * Math.cos(radians(50.63)));
+        var idx = [], cellOf = [], qOf = [], y = [], cells = {}, nc = 0, i, j, pm = S.sPm2Indice || S.sPm2;   /* prix au m² DVF même quand s11_carrez est actif */
+        for (j = 0; j < S.ns; j++) {
+          if (S.sType[j] !== t || S.sDay[j] <= 0 || S.sDay[j] > S.maxOrd) continue;
+          var q = quarterOf(S.sDay[j]);
+          if (q > lastQ) continue;
+          var p = S.sPt[j], ck = Math.floor(S.ptLat[p] / dLat) + ':' + Math.floor(S.ptLon[p] / dLon);
+          if (cells[ck] === undefined) cells[ck] = nc++;
+          idx.push(j); cellOf.push(cells[ck]); qOf.push(q); y.push(Math.log(pm[j]));
+        }
+        var n = idx.length;
+        if (!n) return {};
+        var q0 = Infinity;
+        for (i = 0; i < n; i++) if (qOf[i] < q0) q0 = qOf[i];
+        var nq = lastQ - q0 + 1;
+        var ce = new Float64Array(nc), te = new Float64Array(nq);
+        for (var it = 0; it < 6; it++) {
+          var s1 = new Float64Array(nc), c1 = new Float64Array(nc);
+          for (i = 0; i < n; i++) { s1[cellOf[i]] += y[i] - te[qOf[i] - q0]; c1[cellOf[i]]++; }
+          for (i = 0; i < nc; i++) ce[i] = c1[i] ? s1[i] / c1[i] : 0;
+          var s2 = new Float64Array(nq), c2 = new Float64Array(nq);
+          for (i = 0; i < n; i++) { var r = y[i] - ce[cellOf[i]]; s2[qOf[i] - q0] += Math.max(-0.7, Math.min(0.7, r)); c2[qOf[i] - q0]++; }
+          for (i = 0; i < nq; i++) te[i] = c2[i] >= 30 ? s2[i] / c2[i] : NaN;
+          var base = te[0];
+          for (i = 0; i < nq; i++) { if (isNaN(te[i])) te[i] = i ? te[i - 1] : 0; te[i] -= base; }
+        }
+        var out = {};
+        for (i = 0; i < nq; i++) out[q0 + i] = 100 * Math.exp(te[i]);
+        return out;
+      };
+    };
+    s11.textes = T;                                   /* textes du moteur (hors zone, sources) : propres à l'exemplaire */
+    s11.etat = function () { return S; };
+    s11.ajustementsExtra = AJUSTEMENTS_EXTRA;
+    s11.carrez = function () { return S4.carrez; };   /* surfaces Carrez des ventes (089_s4-trace-ventes.js, en centièmes de m²) */
+  }
+  /* --- session 11 (fin) --- */
   // --- secteur
   function sectorPercentiles(values) {
     var p = npPercentiles(values, [2.5, 25, 50, 75, 97.5]);
@@ -14715,6 +15357,389 @@ if (window.requestIdleCallback) window.requestIdleCallback(engineStart, { timeou
       } }
   };
 });
+    /* --- session 11 : villes (fin de la fabrique) --- */
+    return globalThis.EstqmoEngine;
+  }
+
+  /* =============================================================================================================
+   * Villes : un exemplaire du moteur par paquet de ventes, une méthode par ville (session 11, 21/10/2026)
+   * -------------------------------------------------------------------------------------------------------------
+   * Registre : villes/registre.json (embarqué ici au build, sans données). Une ville = un périmètre (codes INSEE),
+   * un paquet (ses ventes, chargées à la demande) et une méthode (sa config, ses coefficients, ses étapes).
+   * `EstqmoEngine` devient un routeur qui a les mêmes fonctions que le moteur : tout va à l'exemplaire de Lille,
+   * sauf un point situé dans le cadre d'un autre paquet. Lille n'a rien de changé : même code, mêmes données,
+   * même exemplaire, créé exactement comme avant.
+   *
+   *   EstqmoEngine.villes.registre                       // le registre
+   *   EstqmoEngine.villes.villeDeInsee('75111')          // → { id: 'paris', … }
+   *   EstqmoEngine.villes.paquetAuPoint(lat, lon)        // → 'paris-92' (cadre du registre), sinon 'lille'
+   *   EstqmoEngine.villes.charger('paris-92' [, octets]) // → Promise : fichier .bin posé à côté de la page
+   *   EstqmoEngine.villes.methode('paris', { etapes: { plancher: function (orig, args, ctx) {…} } })
+   *   EstqmoEngine.villes.etat()                         // paquets chargés, méthode active, dernier exemplaire utilisé
+   * ============================================================================================================= */
+  var REGISTRE = {"_lisez_moi":"Registre des villes d'Estqmo (session 11, 21/10/2026). Une ville = un périmètre (codes INSEE), un paquet de ventes et une méthode de calcul. Plusieurs villes peuvent partager un paquet (Paris et le 92 : les ventes comparables passent la frontière) et garder chacune sa méthode. Lu par site/build.py (embarqué dans la page, sans les données) et par le pipeline de la carte. Voir villes/README.md.","version":1,"paquets":{"lille":{"nom":"Lille, Lomme, Hellemmes","donnees":"site/moteur/donnees","embarque":true,"base":"data/dvf.sqlite","_note":"le paquet de la page : données dans la page même (window.ESTQMO_DATA), moteur par défaut"},"paris-92":{"nom":"Paris et Hauts-de-Seine","donnees":"site/moteur/donnees/villes/paris-92","embarque":false,"base":"data/villes/paris-92/dvf.sqlite","fichier":"villes/paris-92/moteur.bin","cadre":[48.7,48.98,2.12,2.49],"_cadre_note":"latitude min, max, longitude min, max : un point dans ce cadre va à ce paquet (Paris et le 92 tiennent dedans)","adresses":"villes/paris-92/adresses.json","_note":"chargé seulement quand l'adresse est à Paris ou dans le 92, depuis un fichier posé à côté de la page (aucun service extérieur)"}},"villes":[{"id":"lille","nom":"Lille","libelle":"Lille, Lomme et Hellemmes","statut":"en_ligne","paquet":"lille","methode":"lille","insee":["59350"],"_insee_note":"Lomme (59355) et Hellemmes (59298) sont des communes associées : DVF et la BAN les rangent sous 59350"},{"id":"paris","nom":"Paris","libelle":"Paris (20 arrondissements)","statut":"en_preparation","paquet":"paris-92","methode":"paris","methode_origine":"repris de Lille, à régler","insee":["75101","75102","75103","75104","75105","75106","75107","75108","75109","75110","75111","75112","75113","75114","75115","75116","75117","75118","75119","75120"]},{"id":"92","nom":"Hauts-de-Seine","libelle":"Hauts-de-Seine (36 communes)","statut":"en_preparation","paquet":"paris-92","methode":"92","methode_origine":"repris de Lille, à régler","insee":["92002","92004","92007","92009","92012","92014","92019","92020","92022","92023","92024","92025","92026","92032","92033","92035","92036","92040","92044","92046","92047","92048","92049","92050","92051","92060","92062","92063","92064","92071","92072","92073","92075","92076","92077","92078"],"communes":{"92002":"Antony","92004":"Asnières-sur-Seine","92007":"Bagneux","92009":"Bois-Colombes","92012":"Boulogne-Billancourt","92014":"Bourg-la-Reine","92019":"Châtenay-Malabry","92020":"Châtillon","92022":"Chaville","92023":"Clamart","92024":"Clichy","92025":"Colombes","92026":"Courbevoie","92032":"Fontenay-aux-Roses","92033":"Garches","92035":"La Garenne-Colombes","92036":"Gennevilliers","92040":"Issy-les-Moulineaux","92044":"Levallois-Perret","92046":"Malakoff","92047":"Marnes-la-Coquette","92048":"Meudon","92049":"Montrouge","92050":"Nanterre","92051":"Neuilly-sur-Seine","92060":"Le Plessis-Robinson","92062":"Puteaux","92063":"Rueil-Malmaison","92064":"Saint-Cloud","92071":"Sceaux","92072":"Sèvres","92073":"Suresnes","92075":"Vanves","92076":"Vaucresson","92077":"Ville-d'Avray","92078":"Villeneuve-la-Garenne"}}]};
+  function exemplaire() {
+    var o = Object.create(racine || null), s11 = {};
+    var E = fabrique(o, undefined, s11);
+    return { E: E, s11: s11 };
+  }
+  var LILLE_ID = 'lille';
+  var P0 = exemplaire();
+  var PAQUETS = {};
+  PAQUETS[LILLE_ID] = { id: LILLE_ID, E: P0.E, s11: P0.s11, pret: true, embarque: true, methodes: null, actif: null };
+  var EstqmoError = P0.E.EstqmoError;
+  var DERNIER = PAQUETS[LILLE_ID];
+  var METHODES_JS = {};                      /* id de méthode → { etapes: { nom: function (orig, args, ctx) } } */
+
+  function villeDeInsee(code) {
+    code = String(code || '');
+    for (var i = 0; i < REGISTRE.villes.length; i++) if (REGISTRE.villes[i].insee.indexOf(code) >= 0) return REGISTRE.villes[i];
+    return null;
+  }
+  function dansCadre(c, lat, lon) { return !!c && c[0] <= lat && lat <= c[1] && c[2] <= lon && lon <= c[3]; }
+  function paquetAuPoint(lat, lon) {
+    if (typeof lat !== 'number' || typeof lon !== 'number') return LILLE_ID;
+    for (var id in REGISTRE.paquets) {
+      if (id !== LILLE_ID && dansCadre(REGISTRE.paquets[id].cadre, lat, lon)) return id;
+    }
+    return LILLE_ID;
+  }
+  function paquetPret(id) {
+    var P = PAQUETS[id];
+    if (P && P.pret) return P;
+    var nom = (REGISTRE.paquets[id] || {}).nom || id;
+    var e = new EstqmoError(422, 'Les ventes de ' + nom + ' ne sont pas encore chargées : réessayez dans un instant.');
+    e.code = P && P.erreur ? 'ville_indisponible' : 'ville_en_chargement';
+    e.paquet = id;
+    throw e;
+  }
+
+  /* --- la méthode d'une ville : config et coefficients du paquet (meta.s11_methodes), étapes en JS (METHODES_JS) */
+  function methodeAuPoint(P, lat, lon, insee) {
+    var ms = P.methodes, k;
+    if (!ms) return null;
+    var code = insee ? String(insee) : null;
+    if (!code) { try { var q = P.E.locate(lat, lon); code = q && q.code_quartier !== null ? String(q.code_quartier) : null; } catch (e) { code = null; } }
+    P.codeActif = code;
+    if (code) for (k in ms) if (ms[k].insee.indexOf(code) >= 0) return k;
+    /* hors de tout contour (bord de commune) : la commune des ventes les plus proches */
+    try { code = P.s11.etat() && P.E._internals.communeOfPoint(lat, lon, 250.0); } catch (e) { code = null; }
+    P.codeActif = code ? String(code) : null;
+    if (code) for (k in ms) if (ms[k].insee.indexOf(String(code)) >= 0) return k;
+    return P.methodeDefaut || Object.keys(ms)[0];
+  }
+  function appliquer(P, mid) {
+    if (!mid || P.actif === mid) return;
+    var m = P.methodes[mid], S = P.s11.etat();
+    S.cfg = m.config; S.coef = m.coefficients; S.meta.config = m.config; S.meta.coefficients = m.coefficients;
+    P.E._internals.recalculer();
+    P.actif = mid;
+  }
+  /* Les cas d'une méthode (methodes.json, « cas ») : des réglages qui remplacent ceux de la méthode pour une partie
+     des biens, par type (« type »), tranche de surface (« surface_min » < surface ≤ « surface_max ») ou commune
+     (« insee ») ; plusieurs cas peuvent valoir, dans l'ordre de la liste. Réglages fusionnés gardés dans la méthode
+     (_cas, à vider si on change la méthode en mémoire) ; table des poids d'ancienneté refaite comme recalculer(). */
+  function casVaut(si, req, code) {
+    if (si.type && si.type !== req.property_type) return false;
+    if (si.insee && si.insee.indexOf(String(code)) < 0) return false;
+    if (si.surface_min !== undefined && si.surface_min !== null && !(+req.surface > si.surface_min)) return false;
+    if (si.surface_max !== undefined && si.surface_max !== null && !(+req.surface <= si.surface_max)) return false;
+    return true;
+  }
+  function tableAnciennete(c) {
+    var n = Math.round(Math.max(c.window_months, c.window_months_fallback) * 30.4375) + 1, wt = new Float64Array(n);
+    for (var a = 0; a < n; a++) wt[a] = Math.pow(c.time_decay_per_year, (a / 30.4375) / 12);
+    return wt;
+  }
+  function appliquerCas(P, mid, req) {
+    var m = P.methodes[mid], S = P.s11.etat(), cas = m.cas, pris = [], i;
+    if (!cas || !cas.length) {
+      if (S.cfg !== m.config) { S.cfg = m.config; S.meta.config = m.config; P.E._internals.recalculer(); }
+      surfacesCarrez(P, S, m.config);
+      return;
+    }
+    for (i = 0; i < cas.length; i++) if (casVaut(cas[i].si || {}, req || {}, P.codeActif)) pris.push(i);
+    var cle = pris.join(','), C = m._cas || (m._cas = {}), e = C[cle];
+    if (!e) {
+      var cfg = pris.length ? Object.assign.apply(null, [{}, m.config].concat(pris.map(function (j) { return cas[j].config || {}; }))) : m.config;
+      e = C[cle] = { cfg: cfg, wTime: tableAnciennete(cfg) };
+    }
+    S.cfg = e.cfg; S.meta.config = e.cfg; S.wTime = e.wTime;
+    surfacesCarrez(P, S, e.cfg);
+  }
+  /* s11_carrez : les tableaux surface et prix au m² des ventes sont remplacés le temps de la méthode ou du cas */
+  function surfacesCarrez(P, S, cfg) {
+    var on = !!cfg.s11_carrez, rap = cfg.s11_carrez_rapport || [0.7, 1.3], cle = on ? rap.join(':') : '';
+    if ((P.carrezCle || '') === cle) return;
+    if (!P.surf0) { P.surf0 = S.sSurface; P.pm20 = S.sPm2; P.carrezTables = {}; }
+    if (on && !P.carrezTables[cle]) {
+      var c = P.s11.carrez(), n = S.ns, sc = new Float64Array(n), pc = new Float64Array(n), j;
+      for (j = 0; j < n; j++) {
+        var r = c && c[j] ? c[j] / 100 : 0, q = r / P.surf0[j];
+        if (r > 0 && q >= rap[0] && q <= rap[1]) { sc[j] = r; pc[j] = S.sPrice[j] / r; } else { sc[j] = P.surf0[j]; pc[j] = P.pm20[j]; }
+      }
+      P.carrezTables[cle] = [sc, pc];
+    }
+    S.sSurface = on ? P.carrezTables[cle][0] : P.surf0; S.sPm2 = on ? P.carrezTables[cle][1] : P.pm20;
+    S.sPm2Indice = P.pm20;   /* l'indice d'actualisation reste calculé sur les prix au m² DVF : son cache vaut pour tous les cas */
+    P.carrezCle = cle;
+  }
+  function installerEtapes(P) {
+    var noms = {};
+    Object.keys(METHODES_JS).forEach(function (mid) { Object.keys(METHODES_JS[mid].etapes || {}).forEach(function (n) { noms[n] = 1; }); });
+    P.etapesPosees = P.etapesPosees || {};
+    Object.keys(noms).forEach(function (nom) {
+      if (P.etapesPosees[nom]) return;
+      P.s11.remplacer(nom, function (orig) {
+        return function () {
+          var mj = METHODES_JS[P.actif], f = mj && mj.etapes && mj.etapes[nom];
+          return f ? f.call(this, orig, arguments, { methode: P.actif, paquet: P.id, etat: P.s11.etat(), textes: P.s11.textes }) : orig.apply(this, arguments);
+        };
+      });
+      P.etapesPosees[nom] = 1;
+    });
+  }
+  function methode(mid, def) {
+    if (mid === LILLE_ID) throw new Error('villes : la méthode de Lille ne se remplace pas ici');
+    METHODES_JS[mid] = def || {};
+    Object.keys(PAQUETS).forEach(function (id) { if (id !== LILLE_ID && PAQUETS[id].pret) installerEtapes(PAQUETS[id]); });
+    return METHODES_JS[mid];
+  }
+
+  /* --- chargement d'un paquet : fichier « EQMV » (16 octets : signature, taille décompressée, taille de l'en-tête)
+     puis le conteneur EQM1 compressé (deflate brut), comme les données de Lille mais en octets, sans base64 */
+  function lireEntete(u8) {
+    if (!(u8[0] === 69 && u8[1] === 81 && u8[2] === 77 && u8[3] === 86)) throw new Error('villes : fichier de paquet inconnu');
+    var dv = new DataView(u8.buffer, u8.byteOffset, 16);
+    return { format: 'estqmo-live-1', raw_bytes: dv.getUint32(4, true), head_bytes: dv.getUint32(8, true), b64: 'octets' };   /* b64 : exigé par init(), non lu quand les octets décompressés sont fournis */
+  }
+  function base64(u8) {
+    var s = '', i, n = 0x8000;
+    for (i = 0; i < u8.length; i += n) s += String.fromCharCode.apply(null, u8.subarray(i, i + n));
+    return btoa(s);
+  }
+  /* Réglages propres aux villes (hors Lille), sans aucun effet quand la clé manque dans la config de la méthode :
+     s11_meme_rue_bonus   le poids d'une vente de la même rue que le bien (mêmes mots de rue, l'un contenu dans l'autre,
+                         comme le « même immeuble » de 079) est multiplié par ce nombre, si elle est à moins de
+                         s11_meme_rue_max_m (300 m par défaut : deux rues homonymes de communes voisines ne se mêlent pas) ;
+                         le plafond par vente (max_sale_share) est ensuite réappliqué ;
+     s11_carrez          true : le prix au m² d'une vente est calculé sur sa surface Carrez quand elle existe et que le
+                         rapport Carrez / surface DVF tombe dans s11_carrez_rapport ([0,7 ; 1,3] par défaut) ; sinon sur
+                         la surface DVF ; la surface du bien reste celle que le vendeur donne ; l'indice d'actualisation
+                         reste calculé sur les surfaces DVF (un seul indice pour tous les cas) ;
+     s11_indice_local_m   actualisation par quartier : l'indice DVF (time_index « dvf ») est estimé sur les seules ventes
+                         à moins de ce rayon du bien, même calcul que dvfIndex (effet du carreau + effet du trimestre,
+                         trimestres finis depuis time_index_lag_days) ; au-dessous de s11_indice_local_min ventes (400 par
+                         défaut), l'indice de tout le paquet. */
+  var TYPES_VOIE = {}, MOTS_VIDES = {};
+  ('RUE AV AVENUE BD BOULEVARD PL PLACE ALL ALLEE CHE CHEMIN CRS COURS IMP IMPASSE SQ SQUARE QUAI RTE ROUTE CITE RES RESIDENCE ' +
+   'PAS PASSAGE PASS SEN SENTIER CLOS COUR PARC DOMAINE DOM PRV PARVIS RLE RUELLE VC VOIE PAV PAVILLON GPE CTR CR CHS DREVE LOT ' +
+   'TSSE TERRASSE VLA VILLA ESP ESPLANADE MAIL PONT').split(' ').forEach(function (w) { TYPES_VOIE[w] = 1; });
+  'DE DU DES LA LE LES L D AU AUX ET SAINT ST SAINTE STE'.split(' ').forEach(function (w) { MOTS_VIDES[w] = 1; });
+  function motsRue(s) {
+    if (!s) return null;
+    var t = String(s).split(',')[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim();
+    var w = t.replace(/^\d+\s*(BIS|TER|[A-Z](?=\s))?\s*/, '').split(' ');
+    if (TYPES_VOIE[w[0]]) w = w.slice(1);
+    w = w.filter(function (x) { return x && !MOTS_VIDES[x]; });
+    return w.length ? w : null;
+  }
+  function memeRue(a, b) {
+    if (!a || !b) return false;
+    var p = a.length <= b.length ? a : b, g = p === a ? b : a;
+    for (var i = 0; i < p.length; i++) if (g.indexOf(p[i]) < 0) return false;
+    return true;
+  }
+  function trimestre(day) { var d = new Date(day * 86400000); return d.getUTCFullYear() * 4 + Math.floor(d.getUTCMonth() / 3); }
+  function finTrimestre(q) { return Math.round(Date.UTC(Math.floor(q / 4), (q % 4) * 3 + 3, 1) / 86400000) - 1; }
+  function indiceLocal(S, ptype, lat, lon, R, lastQ) {
+    var t = ptype === 'apartment' ? 0 : 1, cell = +(S.cfg.time_index_dvf_cell_m || 400), cosL = Math.cos(lat * Math.PI / 180);
+    var dLat = cell / 110574.0, dLon = cell / (111320.0 * Math.cos(50.63 * Math.PI / 180));
+    var rLat = R / 110574.0, rLon = R / (111320.0 * cosL), cellOf = [], qOf = [], y = [], cells = {}, nc = 0, i, j, pm = S.sPm2Indice || S.sPm2;
+    /* les emplacements sont triés par latitude (gatherPoints) : seule la bande du rayon est parcourue */
+    var lo = 0, hi = S.ptLat.length, m;
+    while (lo < hi) { m = (lo + hi) >> 1; if (S.ptLat[m] < lat - rLat) lo = m + 1; else hi = m; }
+    for (var p = lo; p < S.ptLat.length && S.ptLat[p] <= lat + rLat; p++) {
+      var a = S.ptLat[p], b = S.ptLon[p];
+      if (Math.abs(b - lon) > rLon) continue;
+      var dy = (a - lat) * 110574.0, dx = (b - lon) * 111320.0 * cosL;
+      if (dx * dx + dy * dy > R * R) continue;
+      var ck = Math.floor(a / dLat) + ':' + Math.floor(b / dLon);
+      for (j = S.ptStart[p]; j < S.ptStart[p + 1]; j++) {
+        if (S.sType[j] !== t || S.sDay[j] <= 0 || S.sDay[j] > S.maxOrd) continue;
+        var q = trimestre(S.sDay[j]);
+        if (q > lastQ) continue;
+        if (cells[ck] === undefined) cells[ck] = nc++;
+        cellOf.push(cells[ck]); qOf.push(q); y.push(Math.log(pm[j]));
+      }
+    }
+    var n = y.length;
+    if (n < +(S.cfg.s11_indice_local_min || 400)) return null;
+    var q0 = Infinity;
+    for (i = 0; i < n; i++) if (qOf[i] < q0) q0 = qOf[i];
+    var nq = lastQ - q0 + 1, ce = new Float64Array(nc), te = new Float64Array(nq);
+    for (var it = 0; it < 6; it++) {
+      var s1 = new Float64Array(nc), c1 = new Float64Array(nc);
+      for (i = 0; i < n; i++) { s1[cellOf[i]] += y[i] - te[qOf[i] - q0]; c1[cellOf[i]]++; }
+      for (i = 0; i < nc; i++) ce[i] = c1[i] ? s1[i] / c1[i] : 0;
+      var s2 = new Float64Array(nq), c2 = new Float64Array(nq);
+      for (i = 0; i < n; i++) { var r = y[i] - ce[cellOf[i]]; s2[qOf[i] - q0] += Math.max(-0.7, Math.min(0.7, r)); c2[qOf[i] - q0]++; }
+      for (i = 0; i < nq; i++) te[i] = c2[i] >= 30 ? s2[i] / c2[i] : NaN;
+      var base = te[0];
+      for (i = 0; i < nq; i++) { if (isNaN(te[i])) te[i] = i ? te[i - 1] : 0; te[i] -= base; }
+    }
+    var out = {};
+    for (i = 0; i < nq; i++) out[q0 + i] = 100 * Math.exp(te[i]);
+    return out;
+  }
+  function installerReglagesVilles(s11) {
+    var cible = null, cles = null, point = null, cache = {}, nCache = 0;
+    s11.remplacer('estimation', function (orig) {
+      return function (o) {
+        var S = s11.etat();
+        cible = S.cfg.s11_meme_rue_bonus ? motsRue(o && o.request ? o.request.address_label : null) : null;
+        point = o ? [o.lat, o.lon] : null;
+        return orig.apply(this, arguments);
+      };
+    });
+    s11.remplacer('actualisation', function (orig) {
+      return function (ptype, modeForce) {
+        var S = s11.etat(), cfg = S.cfg, R = +cfg.s11_indice_local_m;
+        if (!R || modeForce || cfg.time_index !== 'dvf' || !point) return orig.apply(this, arguments);
+        var lag = cfg.time_index_lag_days === undefined ? 91 : +cfg.time_index_lag_days, lastQ = trimestre(S.maxOrd);
+        while (finTrimestre(lastQ) + lag > S.maxOrd) lastQ--;
+        /* le centre du quartier : le carreau de R/4 où tombe le bien (même indice quel que soit l'ordre des estimations) */
+        var g = R / 4, ia = Math.round(point[0] * 110574.0 / g), ib = Math.round(point[1] * 73000.0 / g);
+        var cle = [ptype, S.maxOrd, lag, cfg.time_index_dvf_cell_m || 400, R, cfg.s11_indice_local_min || 400, ia, ib].join('|');
+        if (cache[cle] !== undefined) return cache[cle] || orig.apply(this, arguments);
+        if (nCache > 5000) { cache = {}; nCache = 0; }
+        var byQ = indiceLocal(S, ptype, ia * g / 110574.0, ib * g / 73000.0, R, lastQ), out = null;
+        if (byQ) {
+          var qs = Object.keys(byQ).map(Number).sort(function (a, b) { return a - b; });
+          if (qs.length) out = { mode: 'dvf', label: 'indice DVF du quartier (ventes à moins de ' + R + ' m), à emplacement égal (base 100 au premier trimestre)',
+            series: null, byQ: byQ, firstQ: qs[0], lastQ: qs[qs.length - 1], now: byQ[qs[qs.length - 1]], lag_days: lag };
+        }
+        cache[cle] = out; nCache++;
+        return out || orig.apply(this, arguments);
+      };
+    });
+    s11.remplacer('poids', function (orig) {
+      return function (sel, dist, surface, rooms, parts) {
+        var w = orig.apply(this, arguments), S = s11.etat(), cfg = S.cfg, b = +cfg.s11_meme_rue_bonus;
+        if (!b || !cible) return w;
+        if (!cles || cles.length !== S.addresses.length) cles = S.addresses.map(function () { return undefined; });
+        var maxM = +(cfg.s11_meme_rue_max_m || 300), n = sel.length, i, touche = false;
+        for (i = 0; i < n; i++) {
+          if (dist[i] > maxM) continue;
+          var ai = S.sAddr[sel[i]];
+          if (ai === 0xFFFF || !S.addresses[ai]) continue;
+          if (cles[ai] === undefined) cles[ai] = motsRue(S.addresses[ai]);
+          if (memeRue(cible, cles[ai])) { w[i] *= b; touche = true; if (parts) parts[i].meme_rue = b; }
+        }
+        if (touche && cfg.max_sale_share && n > 1 / cfg.max_sale_share) {
+          for (var it = 0; it < 3; it++) {
+            var t2 = 0; for (i = 0; i < n; i++) t2 += w[i];
+            var cap = cfg.max_sale_share * t2;
+            for (i = 0; i < n; i++) if (w[i] > cap) { if (parts) parts[i].plafond = (parts[i].plafond || 1) * cap / w[i]; w[i] = cap; }
+          }
+        }
+        return w;
+      };
+    });
+  }
+  function monter(id, D, inflated) {
+    var X = exemplaire(), P = PAQUETS[id];
+    X.s11.correctifsGrosPaquet();
+    installerReglagesVilles(X.s11);
+    X.E.init(D, inflated);
+    P.E = X.E; P.s11 = X.s11;
+    var meta = X.s11.etat().meta;
+    P.methodes = meta.s11_methodes || null;
+    P.methodeDefaut = P.methodes ? Object.keys(P.methodes)[0] : null;
+    if (meta.s11_textes) Object.keys(meta.s11_textes).forEach(function (k) { X.s11.textes[k] = meta.s11_textes[k]; });
+    installerEtapes(P);
+    P.pret = true;
+    return P;
+  }
+  function charger(id, octets) {
+    var R = REGISTRE.paquets[id];
+    if (!R || id === LILLE_ID) return Promise.reject(new Error('villes : paquet inconnu « ' + id + ' »'));
+    var P = PAQUETS[id] || (PAQUETS[id] = { id: id, pret: false, embarque: false, actif: null });
+    if (P.pret) return Promise.resolve(P);
+    if (P.promesse) return P.promesse;
+    var lu = octets ? Promise.resolve(octets)
+      : fetch(R.fichier).then(function (r) { if (!r.ok) throw new Error(R.fichier + ' : HTTP ' + r.status); return r.arrayBuffer(); });
+    P.erreur = null;
+    P.promesse = lu.then(function (buf) {
+      var u8 = buf instanceof Uint8Array ? buf : new Uint8Array(buf), D = lireEntete(u8), comp = u8.subarray(16);
+      if (typeof DecompressionStream === 'undefined' || typeof Response === 'undefined' || typeof Blob === 'undefined') {
+        if (typeof require === 'function' && typeof process !== 'undefined') return monter(id, D, new Uint8Array(require('zlib').inflateRawSync(comp)));
+        D.b64 = base64(comp);
+        return monter(id, D);
+      }
+      return new Response(new Blob([comp]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer()
+        .then(function (b) { return monter(id, D, new Uint8Array(b)); });
+    }).then(null, function (e) { P.erreur = e; P.promesse = null; throw e; });
+    return P.promesse;
+  }
+
+  /* --- le routeur : mêmes fonctions que le moteur ------------------------------------------------------------ */
+  function pourPoint(lat, lon, insee, req) {
+    var id = paquetAuPoint(lat, lon), P = id === LILLE_ID ? PAQUETS[LILLE_ID] : paquetPret(id);
+    if (P.methodes) { var mid = methodeAuPoint(P, lat, lon, insee); appliquer(P, mid); appliquerCas(P, P.actif, req); }
+    return P;
+  }
+  var L = P0.E, routeur = {
+    version: L.version,
+    init: function (D, inflated, t) { return L.init(D, inflated, t); },
+    initAsync: function (D) { return L.initAsync(D); },
+    estimate: function (req, options) {
+      var P = req && typeof req === 'object' ? pourPoint(+req.lat, +req.lon, req.code_insee || req.insee_code, req) : PAQUETS[LILLE_ID];
+      DERNIER = P;
+      return P.E.estimate(req, options);
+    },
+    history: function (params) {
+      var v = params && params.insee_code !== undefined ? villeDeInsee(params.insee_code) : null, P;
+      if (v && v.paquet !== LILLE_ID) { P = paquetPret(v.paquet); if (P.methodes) { appliquer(P, v.methode); appliquerCas(P, v.methode, null); } }
+      else P = params && params.lat !== undefined && params.lat !== null ? pourPoint(+params.lat, +params.lon) : PAQUETS[LILLE_ID];
+      return P.E.history(params);
+    },
+    locate: function (lat, lon) { return pourPoint(lat, lon).E.locate(lat, lon); },
+    inDomain: function (lat, lon) {
+      var id = paquetAuPoint(lat, lon);
+      return id === LILLE_ID ? L.inDomain(lat, lon) : (PAQUETS[id] && PAQUETS[id].pret ? PAQUETS[id].E.inDomain(lat, lon) : false);
+    },
+    EstqmoError: EstqmoError,
+    trace: function () { return DERNIER.E.trace(); },
+    info: function () { return DERNIER.E.info(); },
+    villes: {
+      registre: REGISTRE,
+      villeDeInsee: villeDeInsee,
+      paquetAuPoint: paquetAuPoint,
+      charger: charger,
+      methode: methode,
+      moteur: function (id) { return PAQUETS[id || LILLE_ID] && PAQUETS[id || LILLE_ID].pret ? PAQUETS[id || LILLE_ID].E : null; },
+      fabrique: function () { return exemplaire().E; },
+      etat: function () {
+        var out = { dernier: DERNIER.id, paquets: {} };
+        Object.keys(PAQUETS).forEach(function (id) {
+          var P = PAQUETS[id];
+          out.paquets[id] = { pret: !!P.pret, embarque: !!P.embarque, methode_active: P.actif, methodes: P.methodes ? Object.keys(P.methodes) : null,
+            erreur: P.erreur ? String(P.erreur.message || P.erreur) : null };
+        });
+        return out;
+      },
+      /* pour les tests : le point d'accroche d'un exemplaire (remplacer une étape, textes, état) */
+      _s11: function (id) { return PAQUETS[id || LILLE_ID] ? PAQUETS[id || LILLE_ID].s11 : null; }
+    }
+  };
+  /* _internals : ceux du dernier exemplaire utilisé (Lille tant qu'aucune autre ville n'a été estimée) */
+  Object.defineProperty(routeur, '_internals', { enumerable: true, get: function () { return DERNIER.E._internals; } });
+
+  if (moduleNode && moduleNode.exports) moduleNode.exports = routeur;
+  else racine.EstqmoEngine = routeur;
+})(typeof globalThis !== 'undefined' ? globalThis : this, typeof module !== 'undefined' ? module : undefined);
+/* --- session 11 (fin) --- */
 </script><script>window.__engineArrived && window.__engineArrived();</script>
 
 </body></html>

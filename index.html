@@ -3589,7 +3589,7 @@ details.s15-diag>.in{display:grid;gap:22px;padding:0 18px 20px}
       </ul><!-- session 6 : lien vers #sources, posé à la fusion (début) --><p class="small" style="margin-top:8px"><a class="lnk" href="#sources">Nos sources, avec leur date</a></p><!-- session 6 (fin) --></div>
     </div>
     <div class="foot-sib"><span>Des travaux à prévoir&nbsp;?</span> <a class="lnk" href="https://claude.ai/artifact/3X578yf21GLjQSMCB364Jj#accueil" target="_blank" rel="noopener">Pignon, la rénovation à Lille <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><p class="small">Guillaume Chailloux participe aussi à Pignon, la rénovation à Lille, et peut être rémunéré sur les chantiers signés.</p><a class="frenov" href="https://france-renov.gouv.fr/servicepublic" target="_blank" rel="noopener">France Rénov’ : avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet. www.france-renov.gouv.fr</a></div>
-    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 173 du 23/10/2026 · 74876c7</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
+    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 175 du 23/10/2026 · a1c94c5</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
   </div>
 </footer>
 <div class="asheet" id="asheet" role="dialog" aria-modal="true" aria-label="Adresse du bien" hidden><div class="as-top"><button type="button" class="as-back" id="as-back" aria-label="Fermer">←</button><div class="as-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg><input id="as-q" data-addr-in type="search" inputmode="search" enterkeyhint="search" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="as-list" placeholder="12 rue Nationale, Lille"></div></div><p class="as-hint">Lille, Lomme et Hellemmes · <b data-addr-count>…</b> adresses · <b data-street-count>…</b> rues</p><ul class="as-list" id="as-list" role="listbox" aria-label="Adresses proposées"></ul></div>
@@ -4115,6 +4115,8 @@ details.more .row{background:var(--card)}
 .est{display:grid;gap:6px}
 /* grand public (23/10) : le prix d'ici, les dernières ventes autour */
 .here{display:grid;gap:2px}
+.bk{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bk-m{display:none}
 .here .hk{font:650 13.5px/1.3 var(--f-sans);color:var(--ink-2)}
 .here .big{margin-top:2px}
 .here .note{margin-top:4px}
@@ -4286,6 +4288,15 @@ a.cta{text-decoration:none}
   .nf{min-height:44px}
   .chip.act{min-height:44px}
   #side{gap:12px}
+  /* 23/10 : le bouton Estimer reste visible au bas de la feuille : placé en fin de fiche (order), collé en bas (sticky) ;
+     sa note reste sous le prix */
+  #side .est{display:contents}
+  #side .est .cta{order:99;position:sticky;bottom:0;z-index:3;min-height:48px;box-shadow:0 0 0 8px var(--card),inset 0 -3px 0 rgba(0,0,0,.18)}
+  #sheet .pane{padding-bottom:6px}
+  .bk{justify-content:flex-start;flex-wrap:nowrap}
+  .bk .back{width:44px;padding:0;justify-content:center;flex:none}
+  .bk .bt,.bm{display:none}
+  .bk-m{display:inline;font-size:13px;text-transform:none;letter-spacing:0}
   .see{display:block;position:sticky;bottom:0;z-index:2;margin:0 -16px;padding:14px 16px 6px;background:linear-gradient(to bottom,rgba(0,0,0,0),var(--card) 26%)}
   .see .cta{width:100%}
   /* cibles tactiles */
@@ -5315,7 +5326,7 @@ function stationFiche(si){
     </div>
     <p class="note">Ascenseurs d'après OpenStreetMap, à vérifier sur place.</p>`;
 }
-function backBtn(){ return `<div><button class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>Vue d'ensemble</button></div>`; }
+function backBtn(){ return `<div><button class="back" aria-label="Vue d'ensemble"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg><span class="bt">Vue d'ensemble</span></button></div>`; }
 function streetFiche(j, cityRef){
   const [label, commune] = D.meta.streets[j], idx = D.bySt.get(j), st = statsOf(idx, mask);
   const ty = domType(idx), serIdx = S.pro ? idx : ofType(idx, ty);
@@ -5375,7 +5386,7 @@ function priceHere(b, type){
   return null;
 }
 const r10 = v => fmt.format(Math.round(v/10)*10);
-// cta : le bouton Estimer, posé juste sous la fourchette (au téléphone, il tient dans la feuille à mi-hauteur).
+// cta : le bouton Estimer, posé juste sous la fourchette, hors du bloc du prix : au téléphone, il colle au bas de la feuille.
 function priceHereHtml(b, cta){
   const type = bldgType(b), h = priceHere(b, type);
   if (!h) return `<p class="note">Pas assez de ventes récentes autour pour donner un prix.</p>${cta}`;
@@ -5384,8 +5395,8 @@ function priceHereHtml(b, cta){
   return `<div class="here"><span class="hk">Prix habituel des ${TYPE_PL[type]} ${esc(where)}</span>
     <div class="big">${pm(h.st.p50)}</div>
     <div class="bigsub">Une vente sur deux entre ${r10(h.st.p25)} et ${r10(h.st.p75)} €/m².</div>
-    ${cta ? `<div style="margin:10px 0 4px">${cta}</div>` : ""}
-    <span class="note">D'après ${h.st.n} vente${h.st.n>1?"s":""} ${TYPE_DE[type]}${own || city ? "" : ", " + esc(h.src.replace(/^quartier /, ""))}, depuis ${mlabel(recentFrom())}, toutes surfaces confondues. Le prix de votre logement dépend aussi de sa surface, de son étage et de son état : l'estimation en tient compte.</span></div>`;
+    </div>${cta}
+    <span class="note">D'après ${h.st.n} vente${h.st.n>1?"s":""} ${TYPE_DE[type]}${own || city ? "" : ", " + esc(h.src.replace(/^quartier /, ""))}, depuis ${mlabel(recentFrom())}, toutes surfaces confondues. Le prix de votre logement dépend aussi de sa surface, de son étage et de son état : l'estimation en tient compte.</span>`;
 }
 // Les 5 ventes les plus récentes du même type autour de l'immeuble (300 m, sinon 600 m), numérotées comme sur la carte.
 function nearSales(b){
@@ -5458,9 +5469,10 @@ function buildingFiche(b){
   const title = ad ? (ad.near ? (/^\d/.test(ad.label) ? "Près du " : "Près de : ") + ad.label : ad.label) : street ? street[0] : "Adresse non identifiée";
   const commune = ad ? ad.commune : street ? street[1] : "";
   const cta = sure ? ad.full : street ? street[0] + ", " + street[1] : "";
-  return `${backBtn()}<span class="kick">Immeuble${c.res[b] ? "" : " · surtout non résidentiel"}</span>
+  const meta = (commune ? esc(commune) + " · " + built : built.charAt(0).toUpperCase() + built.slice(1)) + (ad && ad.method >= 3 && !ad.near ? " · adresse déduite, à vérifier" : "");
+  return `<div class="bk">${backBtn()}<span class="bk-k"><span class="kick">Immeuble${c.res[b] ? "" : " · surtout non résidentiel"}</span><span class="mute bk-m"> · ${meta}</span></span></div>
     <h2>${esc(title)}</h2>
-    <span class="mute" style="font-size:13.5px;margin-top:-8px">${commune ? esc(commune) + " · " + built : built.charAt(0).toUpperCase() + built.slice(1)}${ad && ad.method >= 3 && !ad.near ? " · adresse déduite, à vérifier" : ""}</span>
+    <span class="mute bm" style="font-size:13.5px;margin-top:-8px">${meta}</span>
     ${priceHereHtml(b, estimateCta(cta, !!sure))}
     ${nearHtml(b)}
     ${bldgTrend(b)}

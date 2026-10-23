@@ -2563,6 +2563,11 @@ details.s15-diag>.in{display:grid;gap:22px;padding:0 18px 20px}
 .g16-niv .chip span{font-weight:600}
 .g16-niv .chip small{display:block;font-size:13px;line-height:1.35}
 .g16-travaux{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+/* session 17 : « Voir ces ventes sur la carte », sous la mini-carte des ventes du résultat */
+.compmap .s17-carte{justify-self:start;gap:8px}
+/* la règle « .compmap svg » de la mini-carte (position absolue, pleine taille) ne vaut pas pour l'icône du bouton */
+.compmap .s17-carte svg{position:static;inset:auto;width:18px;height:18px;flex:none}
+@media (max-width:560px){ .compmap .s17-carte{justify-self:stretch;justify-content:center} }
 </style>
 <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>
 <marker id="mHeat" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#D9572B"/></marker>
@@ -2757,6 +2762,7 @@ details.s15-diag>.in{display:grid;gap:22px;padding:0 18px 20px}
         <p class="small" id="r-basis"></p>
         <!-- session 3 : surface moyenne pondérée (début) --><div id="s3-surf"></div><!-- session 3 (fin) -->
         <div class="mapbox" id="r-map"><svg id="r-svg" viewBox="-300 -300 600 600" aria-hidden="true"></svg><div class="ctip" id="r-tip"></div></div>
+        <!-- session 17 : les ventes sur la grande carte (début) --><button type="button" class="btn soft s17-carte" id="s17-carte" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>Voir ces ventes sur la carte</button><!-- session 17 (fin) -->
         <div class="csort"><span class="small mute" id="r-shown"></span><div class="seg" role="group" aria-label="Trier par"><button type="button" data-sort="near" aria-pressed="true">Les plus proches</button><button type="button" data-sort="recent" aria-pressed="false">Les plus récentes</button></div></div>
         <!-- session 3 : filtres des ventes (R27) (début) --><div class="s3-filtres" id="s3-filtres"></div><!-- session 3 (fin) -->
         <ul class="clist" id="r-list"></ul>
@@ -3583,7 +3589,7 @@ details.s15-diag>.in{display:grid;gap:22px;padding:0 18px 20px}
       </ul><!-- session 6 : lien vers #sources, posé à la fusion (début) --><p class="small" style="margin-top:8px"><a class="lnk" href="#sources">Nos sources, avec leur date</a></p><!-- session 6 (fin) --></div>
     </div>
     <div class="foot-sib"><span>Des travaux à prévoir&nbsp;?</span> <a class="lnk" href="https://claude.ai/artifact/3X578yf21GLjQSMCB364Jj#accueil" target="_blank" rel="noopener">Pignon, la rénovation à Lille <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><p class="small">Guillaume Chailloux participe aussi à Pignon, la rénovation à Lille, et peut être rémunéré sur les chantiers signés.</p><a class="frenov" href="https://france-renov.gouv.fr/servicepublic" target="_blank" rel="noopener">France Rénov’ : avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet. www.france-renov.gouv.fr</a></div>
-    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 162 du 23/10/2026 · ba7fbb7</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
+    <div class="base"><span><b class="team-only">Maquette : les formulaires n’envoient rien. </b>Les estimations sont indicatives et ne remplacent pas l’avis d’un professionnel qui visite le bien.</span><span>Estimation : ventes jusqu’au 30 juin 2026 · DPE jusqu’au 3 août 2026 · <span class="s7-version">Version 172 du 23/10/2026 · 1d7b9a7</span><span class="team-sw"> · </span><button type="button" class="lnk team-sw" data-team aria-pressed="false"><span class="tl">Mode équipe</span></button></span></div>
   </div>
 </footer>
 <div class="asheet" id="asheet" role="dialog" aria-modal="true" aria-label="Adresse du bien" hidden><div class="as-top"><button type="button" class="as-back" id="as-back" aria-label="Fermer">←</button><div class="as-field"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg><input id="as-q" data-addr-in type="search" inputmode="search" enterkeyhint="search" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="as-list" placeholder="12 rue Nationale, Lille"></div></div><p class="as-hint">Lille, Lomme et Hellemmes · <b data-addr-count>…</b> adresses · <b data-street-count>…</b> rues</p><ul class="as-list" id="as-list" role="listbox" aria-label="Adresses proposées"></ul></div>
@@ -3913,7 +3919,7 @@ var ADDR = (function () {
 if (typeof module !== "undefined") module.exports = ADDR;
 </script>
 
-<!-- La grande carte (33 568 ventes) : gabarit inerte et code, montés dans #carte à la première ouverture. -->
+<!-- La grande carte (Lille) : gabarit inerte et code, montés dans #carte à la première ouverture. -->
 <template id="carte-tpl"><style>
 /* Mise en page : carte plein écran ; filtres à gauche, chiffres et fiches à droite, frise du temps en bas.
    Au téléphone : carte plein écran, une feuille qui monte du bas avec trois onglets. */
@@ -3965,6 +3971,24 @@ h2,h3{font-family:var(--f-serif);font-weight:600;margin:0;line-height:1.15;text-
 .modes button,.tools button{border:0;background:transparent;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;white-space:nowrap}
 .modes button[aria-pressed="true"],.tools button[aria-pressed="true"]{background:var(--navy);color:var(--paper)}
 #modeBtn{display:none}
+/* Mode simple (23/10, par défaut) : la recherche, le prix, la légende, trois périodes ; le reste derrière « Mode complet ». */
+#proBtn{border:0;border-radius:999px;padding:7px 14px;background:var(--glass);box-shadow:var(--sh-1);font-size:13px;font-weight:650;color:var(--navy);cursor:pointer;white-space:nowrap}
+#proBtn[aria-pressed="true"]{color:var(--ink-2)}
+#app.simple .levels,#app.simple .modewrap,#app.simple .tools,#app.simple .s-pro,#app.simple #presetT2,
+#app.simple #tlCus,#app.simple .tl-brush,#app.simple .tl-foot,#app.simple #tlPer [data-p="5a"],#app.simple #tlPer [data-p="custom"]{display:none!important}
+#app.simple .ctl{top:calc(14px + env(safe-area-inset-top,0px))}
+@media (min-width:1025px){#app.simple #side{top:calc(64px + env(safe-area-inset-top,0px));max-height:calc(100% - 64px - 120px - env(safe-area-inset-top,0px))}}
+#app:not(.simple) .s-simple{display:none!important}
+.like{display:grid;gap:4px}
+.like h3{font-size:17px}
+.rank{display:grid;gap:2px}.rank b{font-size:14.5px;font-weight:600}
+.trend{display:grid;gap:4px}
+.trend h4{margin:0;font:600 13px/1.3 var(--f-sans);color:var(--ink-2)}
+.trend ul{margin:0;padding:0;list-style:none;display:grid;gap:3px;font-size:13.5px}
+.lg-words{display:flex;justify-content:space-between;font-size:11.5px;font-weight:650;color:var(--ink-2);margin-top:-2px}
+.invite{font-size:13.5px;color:var(--ink-2);padding:10px 12px;border-radius:14px;background:var(--sky-2)}
+/* villes : « Autre carte » en bas de la vue d'ensemble */
+.villes{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:13px;color:var(--mute)}
 /* curseur simple (métro à pied, carte qui s'éteint) */
 input.one{-webkit-appearance:none;appearance:none;width:100%;height:24px;margin:0;background:transparent}
 input.one::-webkit-slider-runnable-track{height:5px;border-radius:999px;background:linear-gradient(90deg,var(--navy) var(--p,100%),var(--line) var(--p,100%))}
@@ -4060,6 +4084,9 @@ input.one::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;ba
 .dpebar{display:flex;height:22px;border-radius:8px;overflow:hidden}
 .dpebar i{display:grid;place-items:center;font:800 11px/1 var(--f-sans);color:#1C1B18;font-style:normal;min-width:0}
 .dpebar i.lt{color:#fff}
+/* Anciens DPE (avant juillet 2021, plus valables) : hachurés, comme sur la carte. */
+.dpebar.old i{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px)}
+.oldtag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--paper-2);box-shadow:inset 0 0 0 1.5px var(--line);font-size:11.5px;font-weight:650;color:var(--ink-2);vertical-align:1px}
 .rows{display:grid;gap:6px}
 .row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:7px 10px;border-radius:12px;background:var(--paper-2)}
 .row span{color:var(--mute)}
@@ -4086,6 +4113,22 @@ details.more[open] summary::after{content:"–"}
 details.more .rows{padding:0 8px 8px}
 details.more .row{background:var(--card)}
 .est{display:grid;gap:6px}
+/* grand public (23/10) : le prix d'ici, les dernières ventes autour */
+.here{display:grid;gap:2px}
+.here .hk{font:650 13.5px/1.3 var(--f-sans);color:var(--ink-2)}
+.here .big{margin-top:2px}
+.here .note{margin-top:4px}
+.nearw{display:grid;gap:6px}
+.nearw h4{margin:0;font:600 13px/1.3 var(--f-sans);color:var(--ink-2)}
+.near{display:grid;gap:5px;margin:0;padding:0;list-style:none}
+.near button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;min-height:52px;padding:8px 10px;border:0;border-radius:12px;background:var(--paper-2);text-align:left;cursor:pointer;box-shadow:inset 0 0 0 1.5px var(--line-2)}
+.near button:hover{box-shadow:inset 0 0 0 1.5px var(--navy-50)}
+.near .nn{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--brick);color:#fff;font:700 12.5px/1 var(--f-sans)}
+.near .nt{display:grid;gap:1px;min-width:0}
+.near .nt b{font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.near .nt span{font-size:12.5px;color:var(--mute)}
+.near .p{font-weight:650;font-size:13.5px;text-align:right;font-variant-numeric:tabular-nums}
+.near .p small{display:block;font-weight:500;font-size:12px;color:var(--mute)}
 .est .note{text-align:center}
 a.cta{text-decoration:none}
 .cta{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:0;border-radius:999px;background:var(--navy);color:var(--paper);font-weight:650;cursor:pointer;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),0 10px 18px -10px rgba(23,47,64,.7)}
@@ -4134,6 +4177,7 @@ a.cta{text-decoration:none}
 .lg-cat{display:flex;flex-wrap:wrap;gap:4px 10px}
 .lg-cat span{display:inline-flex;align-items:center;gap:5px}
 .lg-cat i{width:11px;height:11px;border-radius:4px;background:var(--c)}
+.lg-cat i.old{flex:none;background:repeating-linear-gradient(135deg,#EB641B 0 2px,#F6C3A6 2px 4px)}
 /* Ordinateur, filtres ouverts : la légende se replie en pastille, à droite du haut du panneau, et le
    panneau descend jusqu'en bas (sinon il s'arrêtait à « Surface » sur un écran de 852 px). */
 #legend.min{padding:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;width:auto}
@@ -4154,6 +4198,8 @@ a.cta{text-decoration:none}
 .maplibregl-ctrl-bottom-right{position:absolute;pointer-events:none;z-index:2;bottom:env(safe-area-inset-bottom,0px);right:env(safe-area-inset-right,0px)}
 .maplibregl-ctrl{clear:both;pointer-events:auto;transform:translate(0)}
 .maplibregl-ctrl-bottom-right .maplibregl-ctrl{float:right;margin:0 8px 8px 0}
+/* étape 4 : les repères posés sur la carte (numéros, épingles) ; sans cette règle, chacun descendait de la hauteur du précédent */
+.maplibregl-marker{position:absolute;top:0;left:0;will-change:transform}
 .attr{max-width:340px;padding:0 4px 0 10px;border-radius:12px;background:var(--glass);box-shadow:var(--sh-1);font-size:11.5px;color:var(--ink-2)}
 .attr-line{display:flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap}
 .attr a{color:inherit;text-decoration:none;display:inline-block;line-height:24px}
@@ -4205,6 +4251,8 @@ a.cta{text-decoration:none}
   .modes button{min-height:44px;padding:0 14px;font-size:14px;text-align:left}
   .tools{padding:0;gap:0}
   .tools button{min-height:44px;min-width:48px;padding:0 15px;font-size:13.5px}
+  #proBtn{min-height:44px;padding:0 16px;font-size:13.5px}
+  #app.simple .ctl{top:calc(68px + env(safe-area-inset-top,0px))}
   #legend{display:grid;bottom:auto;left:max(14px,env(safe-area-inset-left,0px));top:calc(120px + env(safe-area-inset-top,0px));width:min(300px,calc(100% - 28px));padding:10px 14px;gap:6px;font-size:12px}
   .lg-pill{min-height:44px}
   .lg-head{min-height:44px;margin:-8px -6px -4px}
@@ -4324,6 +4372,7 @@ a.cta{text-decoration:none}
     <div class="tools" role="group" aria-label="Affichage">
       <button id="tMetro" aria-pressed="true" title="Lignes, stations et sorties du métro, arrêts de tram">Métro</button><button id="t3d" aria-pressed="false" title="Incliner la carte et afficher les immeubles en relief">3D</button>
     </div>
+    <button id="proBtn" type="button" aria-pressed="false" title="Niveaux, couleurs DPE et construction, 3D, période au mois, tous les filtres">Plus de détails</button>
   </div>
 
   <button id="fPill" aria-expanded="false" aria-controls="filters"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtres<b id="fCount" hidden></b></button>
@@ -4341,6 +4390,7 @@ a.cta{text-decoration:none}
           <div class="fcount" aria-live="polite"><b id="fN"></b> <span id="fNw">ventes</span></div>
           <div class="chips" id="fAct" aria-label="Filtres actifs"></div>
         </div>
+        <div class="like s-simple"><h3>Comme mon logement</h3><p class="note">Choisissez le type, le nombre de pièces et la surface de votre logement : la carte ne montre plus que les ventes qui ont les mêmes.</p></div>
         <div class="chips"><button class="chip preset" id="presetT2" aria-pressed="false">Studios et T2</button></div>
         <div class="grp"><div class="gl">Le bien</div>
           <div class="chips" id="fType" role="group" aria-label="Type de bien"><button class="chip" data-v="all" aria-pressed="true">Tous</button><button class="chip" data-v="0" aria-pressed="false">Appartements</button><button class="chip" data-v="1" aria-pressed="false">Maisons</button></div>
@@ -4349,22 +4399,22 @@ a.cta{text-decoration:none}
           <div class="chips" id="fRooms" role="group" aria-label="Nombre de pièces"><button class="chip" data-v="1" aria-pressed="false">Studio</button><button class="chip" data-v="2" aria-pressed="false" aria-label="2 pièces">2</button><button class="chip" data-v="3" aria-pressed="false" aria-label="3 pièces">3</button><button class="chip" data-v="4" aria-pressed="false" aria-label="4 pièces">4</button><button class="chip" data-v="5" aria-pressed="false" aria-label="5 pièces et plus">5 et +</button></div>
           <div class="note">Studio = 1 pièce principale. La cuisine et la salle de bains ne comptent pas.</div>
         </div>
-        <div class="grp"><div class="gl">Surface</div><div class="rng" id="dSurf"></div></div>
-        <div class="grp"><div class="gl">Prix de vente</div><div class="rng" id="dPrice"></div></div>
-        <div class="grp"><div class="gl">Prix au m²</div><div class="rng" id="dPm2"></div></div>
-        <div class="grp"><div class="gl">Année de construction</div>
+        <div class="grp"><div class="gl">Surface</div><div class="chips s-simple" id="fSurfS" role="group" aria-label="Surface"></div><div class="rng s-pro" id="dSurf"></div></div>
+        <div class="grp s-pro"><div class="gl">Prix de vente</div><div class="rng" id="dPrice"></div></div>
+        <div class="grp s-pro"><div class="gl">Prix au m²</div><div class="rng" id="dPm2"></div></div>
+        <div class="grp s-pro"><div class="gl">Année de construction</div>
           <div class="chips" id="fEpoch"><button class="chip" data-v="0" aria-pressed="false">avant 1946</button><button class="chip" data-v="1" aria-pressed="false">1946-1970</button><button class="chip" data-v="2" aria-pressed="false">1971-1990</button><button class="chip" data-v="3" aria-pressed="false">après 1990</button></div>
           <div class="note">Tranches utilisées pour l'encadrement des loyers de Lille.</div>
         </div>
-        <div class="grp"><div class="gl">DPE de l'immeuble</div>
+        <div class="grp s-pro"><div class="gl">DPE de l'immeuble</div>
           <div class="chips" id="fDpe"></div>
           <div class="note" id="dpeNote">Classe la plus fréquente parmi les DPE de l'immeuble, à partir de 3 diagnostics.</div>
         </div>
-        <div class="grp"><div class="gl">Copropriété (lots d'habitation)</div>
+        <div class="grp s-pro"><div class="gl">Copropriété (lots d'habitation)</div>
           <div class="chips" id="fLots"><button class="chip" data-v="0" aria-pressed="false">hors registre</button><button class="chip" data-v="1" aria-pressed="false">2 à 10</button><button class="chip" data-v="2" aria-pressed="false">11 à 50</button><button class="chip" data-v="3" aria-pressed="false">51 et plus</button></div>
           <div class="note">Taille d'après le registre national des copropriétés (ANAH).</div>
         </div>
-        <div class="grp"><div class="gl">Métro à pied <span id="vWalk"></span></div>
+        <div class="grp s-pro"><div class="gl">Métro à pied <span id="vWalk"></span></div>
           <input type="range" class="one" id="fWalk" min="1" max="21" step="1" value="21" aria-label="Temps à pied maximum jusqu'au métro">
           <div class="note">Marche depuis l'immeuble jusqu'à la sortie de métro la plus proche, par les rues, à 80 m par minute.</div>
         </div>
@@ -4405,6 +4455,7 @@ a.cta{text-decoration:none}
       <li>Une vente est placée sur sa parcelle cadastrale, pas sur le logement. Elle n'apparaît une par une qu'après un clic sur un immeuble ou une parcelle.</li>
       <li>Immeubles : base nationale des bâtiments (BDNB, CSTB). L'année de construction vient du cadastre, sinon des DPE ou du registre des copropriétés.</li>
       <li>DPE : ADEME, le plus récent de chaque logement. Seule la répartition par immeuble est montrée, avec la période des diagnostics. Depuis janvier 2026, le mode de calcul a changé : certains logements ont changé de classe sans travaux.</li>
+      <li id="aboutOld"></li>
       <li>Copropriétés : registre national d'immatriculation (ANAH). Parcelles : cadastre (IGN/Etalab, DGFiP). Quartiers : Ville de Lille ; petits quartiers : INSEE/IGN.</li>
       <li>Seuils d'affichage : une médiane de quartier ou de rue à partir de 5 ventes, celle d'un immeuble (et sa couleur) à partir de 3.</li>
       <li>Métro et tram : stations et arrêts ilévia (MEL, données ouvertes publiées sur transport.data.gouv.fr) ; sorties, ascenseurs et tracés d'après OpenStreetMap (état du 18 octobre 2026). Les ascenseurs sont indiqués à titre indicatif : vérifiez sur place. Sept stations n'ont pas de sortie cartographiée (dont Porte de Douai, Porte d'Arras, Porte de Valenciennes et Saint-Philibert) : on part alors du point de la station.</li>
@@ -4417,7 +4468,7 @@ a.cta{text-decoration:none}
     <button class="cta" id="aboutClose">Revenir à la carte</button>
   </div></div>
 </div></template>
-<script>/* Code de la carte (carte/publish/index.html du worktree carte-palier2), appelé par le site
+<script>/* Code de la carte (carte/publish/index.html de ce dépôt), appelé par le site
    avec un ShadowRoot et sa configuration ; ne tourne qu'à l'ouverture de #carte. */
 window.__carteMount = function (R, CFG) {
 "use strict";
@@ -4434,39 +4485,77 @@ if (CFG.home){ const br = R.querySelector(".brand"), a = document.createElement(
 const DPE_L = "ABCDEFG";
 const DPE_C = ["#009036","#53AF31","#C6D300","#FCE500","#FBBA00","#EB641B","#E30613"];
 const DPE_LT = [true,true,false,false,false,true,true];
+// Anciens DPE : couleur pâlie (fond) + hachures de la vraie couleur (motif « old0 » à « old6 »).
+const mixHex = (a, b, t) => "#" + [1,3,5].map(i => Math.round(parseInt(a.slice(i,i+2),16)*(1-t) + parseInt(b.slice(i,i+2),16)*t).toString(16).padStart(2,"0")).join("");
 const EP_L = ["avant 1946","1946-1970","1971-1990","après 1990"];
 const EP_C = ["#B4573A","#D69A3C","#5E7D5A","#2F5A7C"];
-const PM_BREAKS = [2400,2800,3200,3600,4000,4500];
 const RAMP = {light:["#EAF0F5","#C7D8E6","#9DBBD3","#6F98BA","#47739A","#2C5274","#1B3850"],
               dark:["#2A3A48","#35546E","#4C7598","#6E9BC0","#9CC0DC","#CFE2F0","#FFF6DE"]};
 const NEUTRAL = {light:"#DED7CA", dark:"#36414C"};
 const MONTHS = ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+const MONTHS_L = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 const fmt = new Intl.NumberFormat("fr-FR");
 const eur = v => fmt.format(Math.round(v)) + " €";
 const keur = v => v >= 1e6 ? (v/1e6).toLocaleString("fr-FR",{maximumFractionDigits:2}) + " M€" : fmt.format(Math.round(v/1000)) + " k€";
 const pm = v => fmt.format(Math.round(v/10)*10) + "\u00a0€/m²";
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const mlabel = m => MONTHS[m % 12] + " " + (2018 + Math.floor(m / 12));
+const mlabel = m => MONTHS[m % 12] + " " + (Y0 + Math.floor(m / 12));
 const LINE_C = {M1:"#E3A600", M2:"#D0312D", R:"#3B8C4E", T:"#3B8C4E", Tram:"#3B8C4E"};
 const WALK_OFF = 21;                          // curseur au maximum : pas de filtre
 const WALK_B = [[0,30,"jusqu'à 3 min"],[31,50,"plus de 3 à 5 min"],[51,70,"plus de 5 à 7 min"],[71,100,"plus de 7 à 10 min"],[101,150,"plus de 10 à 15 min"],[151,1e9,"plus de 15 min"]];
 const BAN = [null, {y:2025, set:[6], cl:"G"}, {y:2028, set:[5,6], cl:"F ou G"}, {y:2034, set:[4,5,6], cl:"E, F ou G"}];
-const OFF_C = {light:"#55524D", dark:"#0B0E11"}, FADE_C = {light:"#F4F1EB", dark:"#1A2129"};
+const OFF_C = {light:"#55524D", dark:"#0B0E11"};
 const isDark = () => CFG.theme === "light" ? false : document.documentElement.dataset.theme === "dark" || (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
 const norm = s => String(s).normalize("NFD").replace(/\p{M}/gu,"").toUpperCase().replace(/[’'`\-.,/]/g," ").replace(/\s+/g," ").trim();
 
+/* ============================================================ villes */
+// Une ville = un dossier de données (d/ pour Lille, d/<ville>/ sinon : carte/villes/<ville>.json) et ses réglages
+// d'affichage. La ville vient du lien (?carte=paris-92), sinon de CFG.ville, sinon Lille ; seules ses données se
+// chargent. Les réglages de Lille sont ceux d'avant le 21/10/2026 : sa carte ne change pas.
+// couches : im = immeubles (tuiles overlay, bldg.wasm), ad = adresses, me = métro et temps à pied, pt = points de vente.
+const VILLES = {
+  lille: {label:"Lille, Lomme, Hellemmes", ref:"Lille, Lomme et Hellemmes", dir:"", main:"Lille", y0:2018, im:1, ad:1, me:1,
+    bounds:[[2.975,50.598],[3.135,50.662]], maxBounds:[[2.88,50.55],[3.27,50.74]], minZoom:10.5,
+    breaks:[2400,2800,3200,3600,4000,4500], ax:["&lt; 2 400","3 200","4 000","&gt; 4 500 €"], hist:[1000,7000,250,1000],
+    price:1500000, pm2:[300,10000],
+    keys:["LILLE","LOMME","HELLEMMES","NORD"]},
+  "paris-92": {label:"Paris et Hauts-de-Seine", ref:"Paris et les Hauts-de-Seine", dir:"paris-92/", main:"Paris", y0:2021, pt:1, range:1,
+    bounds:[[2.205,48.80],[2.42,48.91]], maxBounds:[[2.05,48.68],[2.57,49.0]], minZoom:10,
+    breaks:[6000,7500,9000,10500,12000,13500], ax:["&lt; 6 000","9 000","12 000","&gt; 13 500 €"], hist:[3000,18000,600,3000],
+    price:3000000, pm2:[1000,30000],
+    keys:["PARIS","HAUTS DE SEINE","92","ANTONY","ASNIERES","BAGNEUX","BOIS COLOMBES","BOULOGNE","BOURG LA REINE","CHATENAY","CHATILLON","CHAVILLE",
+      "CLAMART","CLICHY","COLOMBES","COURBEVOIE","FONTENAY AUX ROSES","GARCHES","GARENNE COLOMBES","GENNEVILLIERS","ISSY","LEVALLOIS","MALAKOFF",
+      "MARNES LA COQUETTE","MEUDON","MONTROUGE","NANTERRE","NEUILLY","PLESSIS ROBINSON","PUTEAUX","RUEIL","SAINT CLOUD","SCEAUX","SEVRES",
+      "SURESNES","VANVES","VAUCRESSON","VILLE D AVRAY","VILLENEUVE LA GARENNE"]},
+};
+const VILLE = (() => { let v = CFG.ville; try { v = new URLSearchParams(location.search).get("carte") || v; } catch (e) {} return VILLES[v] ? v : "lille"; })();
+const CITY = VILLES[VILLE], Y0 = CITY.y0;   // Y0 : année du mois 0 des ventes (month0 de sales.wasm, vérifié au chargement)
+const PM_BREAKS = CITY.breaks, P_MAX = CITY.price, PM2 = CITY.pm2;
+// Villes proposées dans « Autre carte » et la recherche : CFG.villes (liste d'identifiants) ou toutes.
+const VILLES_ON = (CFG.villes || Object.keys(VILLES)).filter(k => VILLES[k]);
+function switchCity(id){
+  if (CFG.onVille) return CFG.onVille(id);
+  // Changer de ville recharge la page avec ?carte=… : les filtres et la sélection de l'autre ville ne valent plus ici.
+  const keep = []; try { for (const [k, v] of new URLSearchParams(location.search)) if (k !== "carte" && !URL_KEYS.includes(k)) keep.push(encodeURIComponent(k) + "=" + encodeURIComponent(v)); } catch (e) {}
+  if (id !== "lille") keep.push("carte=" + id);
+  location.assign(location.pathname + (keep.length ? "?" + keep.join("&") : "") + location.hash);
+}
+
 /* ============================================================ chargement */
 const bar = R.getElementById("lbar"), lmsg = R.getElementById("lmsg");
-const progress = {}; const FILES = {"base.wasm":7.7e6,"overlay.wasm":10.3e6,"sales.wasm":.46e6,"bldg.wasm":.52e6,"addr.wasm":.26e6,"meta.wasm":.03e6,"style.wasm":.01e6,"glyphs.wasm":.45e6,"metro.wasm":.37e6};
+const progress = {}; const FILES = CITY.im ? {"base.wasm":7.7e6,"overlay.wasm":10.3e6,"sales.wasm":.46e6,"bldg.wasm":.52e6,"addr.wasm":.26e6,"meta.wasm":.03e6,"style.wasm":.01e6,"glyphs.wasm":.45e6,"metro.wasm":.37e6}
+  : {"sales.wasm":5e6,"meta.wasm":.4e6,"style.wasm":.01e6,"glyphs.wasm":.45e6};   // Paris et le 92 : fond lu par morceaux, sans immeubles
+// Style et polices sont communs à toutes les villes (d/) ; le reste vient du dossier de la ville.
+const SHARED = new Set(["style.wasm","glyphs.wasm"]), cityFile = n => (SHARED.has(n) ? "" : CITY.dir) + fileName(n);
 // Sur le site (CFG.range), les tuiles sont des .pmtiles lues par requêtes partielles : seul le
 // quartier visible se télécharge. Sur claude.ai, tout arrive d'un bloc, déguisé en .wasm.
-const RANGE = !!CFG.range, DATA = CFG.data || "d/", fileName = n => CFG.files && CFG.files[n] || n;
+const RANGE = !!CFG.range || !!CITY.range, DATA = CFG.data || "d/", fileName = n => CFG.files && CFG.files[n] || n;
 if (RANGE){ delete FILES["base.wasm"]; delete FILES["overlay.wasm"]; }
 const TOTAL = Object.values(FILES).reduce((a,b)=>a+b,0);
-lmsg.textContent = RANGE ? "Immeubles, ventes et métro." : "Fond de carte, immeubles et ventes (environ 20 Mo).";
+lmsg.textContent = !CITY.im ? "Ventes et prix de " + CITY.label + "." : RANGE ? "Immeubles, ventes et métro." : "Fond de carte, immeubles et ventes (environ 20 Mo).";
 function bump(){ const got = Object.values(progress).reduce((a,b)=>a+b,0); bar.style.width = Math.min(100, got/TOTAL*100).toFixed(1) + "%"; }
 async function fetchBytes(name){
-  const r = await fetch(DATA + fileName(name));
+  const r = await fetch(DATA + cityFile(name));
   if (!r.ok) throw new Error(name + " : HTTP " + r.status);
   if (!r.body) { const b = new Uint8Array(await r.arrayBuffer()); progress[name]=b.length; bump(); return b; }
   const reader = r.body.getReader(); const parts = []; let n = 0;
@@ -4489,11 +4578,16 @@ function readCols(u8){
 const loadCols = async n => readCols(await gunzip(await fetchBytes(n)));
 const loadJson = async n => JSON.parse(new TextDecoder().decode(await gunzip(await fetchBytes(n))));
 
+// Couches absentes d'une ville (palier 1 de Paris et du 92) : tables vides, le code de Lille tourne sans elles.
+const FC0 = () => ({type:"FeatureCollection", features:[]});
+const STUB = {bldg:{h:{n:0, yearSrc:[], syndic:[]}, c:{}}, addr:{h:{n:0, streets:[], reps:[]}, c:{s:new Uint16Array(0), num:new Uint16Array(0), x:new Int32Array(0), y:new Int32Array(0), ab:new Int32Array(0), rep:new Uint8Array(0)}},
+  metro:{h:{stations:[], entrances:[], tram:[], lines:FC0(), iso:FC0()}, c:{}}};
+
 /* ============================================================ état */
 const S = {
-  type:new Set([0,1]), rooms:new Set(), surf:[8,400], price:[0,1500000], pm2:[300,10000],
+  type:new Set([0,1]), rooms:new Set(), surf:[8,400], price:[0,P_MAX], pm2:PM2.slice(),
   epoch:new Set(), dpe:new Set(), lots:new Set(), time:[0,101], mode:"price",
-  walk:WALK_OFF, ban:0, d3:false, metro:true,
+  walk:WALK_OFF, ban:0, d3:false, metro:true, pro:false,
   sel:null,   // {kind:'quartier'|'iris'|'street'|'bldg'|'parcel'|'station', id}
 };
 let D = {}; // données chargées
@@ -4507,7 +4601,8 @@ let map, mask, maskNP, maskNW, maxMonth = 101;  // maskNW : tous les filtres sau
     D.meta = meta; D.style = style;
     const gl = new DataView(glyphs.buffer).getUint32(0,true);
     D.glyphIndex = JSON.parse(new TextDecoder().decode(glyphs.subarray(4, 4+gl))); D.glyphs = glyphs; D.glyphBase = 4 + gl;
-    const [sales, bldg, addr, metro] = await Promise.all([loadCols("sales.wasm"), loadCols("bldg.wasm"), loadCols("addr.wasm"), loadCols("metro.wasm")]);
+    const [sales, bldg, addr, metro] = await Promise.all([loadCols("sales.wasm"), CITY.im ? loadCols("bldg.wasm") : STUB.bldg, CITY.ad ? loadCols("addr.wasm") : STUB.addr, CITY.me ? loadCols("metro.wasm") : STUB.metro]);
+    if (!String(sales.h.month0).startsWith(Y0 + "-01")) throw new Error("ventes : mois 0 " + sales.h.month0 + ", attendu " + Y0 + "-01");
     D.sales = sales; D.bldg = bldg; D.addr = addr; D.metro = metro;
     const [base, over] = await Promise.all([pBase, pOver]);
     lmsg.textContent = "Mise en place de la carte…"; bar.style.width = "100%";
@@ -4526,13 +4621,15 @@ function prepare(){
   D.pm2 = new Float32Array(n);
   for (let i=0;i<n;i++) D.pm2[i] = s.price[i] / (s.surf[i]/10);
   maxMonth = 0; for (let i=0;i<n;i++) if (s.m[i] > maxMonth) maxMonth = s.m[i];
-  S.time = [0, maxMonth]; // vue longue par défaut : 2018 → dernier mois connu
+  S.time = [0, maxMonth]; // vue longue par défaut : Y0 (2018 à Lille) → dernier mois connu
   // DPE dominant d'un immeuble (≥ 3 diagnostics), 255 sinon ; taille de copro.
-  D.dom = new Uint8Array(nb).fill(255); D.lotB = new Uint8Array(nb);
+  D.dom = new Uint8Array(nb).fill(255); D.domOld = new Uint8Array(nb).fill(255); D.lotB = new Uint8Array(nb);
   for (let i=0;i<nb;i++){
     let best=-1, bi=255, tot=0;
     for (let k=0;k<7;k++){ const v = b["d"+DPE_L[k]][i]; tot += v; if (v > best){best=v; bi=k;} }
     if (tot >= 3) D.dom[i] = bi;
+    // ancien DPE dominant : seulement si l'immeuble n'a aucun DPE récent (même règle que les tuiles)
+    if (!tot){ let ob=-1, oi=255, ot=0; for (let k=0;k<7;k++){ const v = b["o"+DPE_L[k]][i]; ot += v; if (v > ob){ob=v; oi=k;} } if (ot >= 3) D.domOld[i] = oi; }
     const l = b.lots[i]; D.lotB[i] = l >= 51 ? 3 : l >= 11 ? 2 : l >= 1 ? 1 : 0;
   }
   // index ventes par immeuble / rue / parcelle
@@ -4541,11 +4638,16 @@ function prepare(){
   mask = new Uint8Array(n); maskNP = new Uint8Array(n); maskNW = new Uint8Array(n);
   prepareMetro();
   // DPE par zone (statique) et noms de rue par commune pour le style
-  D.zoneDpe = {quartier: zoneDpe(b.q, 12), iris: zoneDpe(b.ir, D.meta.iris.features.length)};
+  D.zoneDpe = {quartier: zoneDpe(b.q, CITY.im ? 12 : D.meta.quartiers.features.length), iris: zoneDpe(b.ir, D.meta.iris.features.length)};
+  if (CITY.pt) preparePoints();
   let d0 = 0xFFFF, d1 = 0; for (let i=0;i<nb;i++){ if (b.d0[i] !== 0xFFFF && b.d0[i] < d0) d0 = b.d0[i]; if (b.d1[i] !== 0xFFFF && b.d1[i] > d1) d1 = b.d1[i]; }
   D.dpeRange = dpeMonth(d0) + " à " + dpeMonth(d1);
+  let o0 = 0xFFFF, o1 = 0; for (let i=0;i<nb;i++){ if (b.o0[i] !== 0xFFFF && b.o0[i] < o0) o0 = b.o0[i]; if (b.o1[i] !== 0xFFFF && b.o1[i] > o1) o1 = b.o1[i]; }
+  D.dpeOldRange = dpeMonth(o0) + " à " + dpeMonth(o1);
+  const om = D.bldg.h.dpeOld; if (om) R.getElementById("aboutOld").textContent = `Anciens DPE : ADEME, jeu « ${om.dataset} », téléchargé le ${om.downloaded.split("-").reverse().join("/")}. Diagnostics établis de ${D.dpeOldRange} avec la méthode d'avant juillet 2021 (quelques-uns, datés après juin 2021, sont des dépôts tardifs). Ils ne sont plus valables : fin 2022 pour ceux de 2013 à 2017, fin 2024 pour ceux de 2018 à juin 2021. Un DPE récent est un DPE établi depuis juillet 2021. Dans la fiche, seuls les logements sans DPE récent sont comptés. Sur la carte, un immeuble n'est hachuré que s'il n'a aucun DPE récent ; il prend alors la classe la plus fréquente de ses anciens DPE (3 diagnostics au moins). Ils n'entrent ni dans les filtres, ni dans les zones, ni dans la location interdite.`;
   R.getElementById("dpeNote").textContent = "Classe la plus fréquente parmi les DPE de l'immeuble (3 diagnostics min.), établis de " + D.dpeRange + ".";
-  R.getElementById("aboutBan").textContent = "Quelques ventes ont une adresse localisée à plus d'1 km de leur parcelle (deux rues du même nom entre Lille, Lomme et Hellemmes) : elles gardent leur prix et leur place, mais ne portent ni DPE ni année de construction.";
+  if (!CITY.im) R.querySelector("#aboutBox ul").innerHTML = (D.meta.about || []).map(t => `<li>${t}</li>`).join("");   // notice de la ville (meta.wasm)
+  if (CITY.im) R.getElementById("aboutBan").textContent = "Quelques ventes ont une adresse localisée à plus d'1 km de leur parcelle (deux rues du même nom entre Lille, Lomme et Hellemmes) : elles gardent leur prix et leur place, mais ne portent ni DPE ni année de construction.";
 }
 const prettyStation = s => s.replace(/\b(De|Des|Du|D')(?=\s|[A-ZÉ])/g, m => m.toLowerCase()).replace(/^St\.? /, "Saint-").replace(/^Chu\b/, "CHU");
 function prepareMetro(){
@@ -4571,6 +4673,12 @@ function groupIndex(col, k){
   for (let i=0;i<n;i++){ const v = col[i]; if (v >= 0 && v < k) idx[pos[v]++] = i; }
   return {start, idx, get(v){ return this.idx.subarray(this.start[v], this.start[v+1]); }};
 }
+// Points de vente (villes sans immeubles) : une parcelle = un point, à la position donnée par le pipeline (px, py).
+function preparePoints(){
+  const h = D.sales.h, c = D.sales.c, np = h.parcels.length;
+  D.ptGeo = {type:"FeatureCollection", features: Array.from({length:np}, (_, p) => ({type:"Feature", id:p, properties:{p:h.parcels[p]}, geometry:{type:"Point", coordinates:[c.px[p]/1e6, c.py[p]/1e6]}}))};
+  D.ptLast = new Float32Array(np).fill(-1);
+}
 function zoneDpe(col, k){
   const b = D.bldg.c, out = Array.from({length:k}, () => new Array(7).fill(0));
   for (let i=0;i<D.bldg.h.n;i++){ const z = col[i]; if (z === 255) continue; for (let c=0;c<7;c++) out[z][c] += b["d"+DPE_L[c]][i]; }
@@ -4582,7 +4690,7 @@ function computeMask(){
   const s = D.sales.c, n = D.n;
   const rooms = S.rooms, ep = S.epoch, dpe = S.dpe, lots = S.lots;
   const [s0,s1] = S.surf, [p0,p1] = S.price, [m0,m1] = S.pm2, [t0,t1] = S.time;
-  const pMax = p1 >= 1500000 ? Infinity : p1, mMax = m1 >= 10000 ? Infinity : m1, sMax = s1 >= 400 ? Infinity : s1;
+  const pMax = p1 >= P_MAX ? Infinity : p1, mMax = m1 >= PM2[1] ? Infinity : m1, sMax = s1 >= 400 ? Infinity : s1;
   const wk = D.metro.c.swk, walkMax = S.walk < WALK_OFF ? S.walk * 10 : 0;
   let cnt = 0;
   for (let i=0;i<n;i++){
@@ -4608,8 +4716,8 @@ function quant(sorted, q){ // même définition que numpy (interpolation linéai
   return sorted[lo] + (sorted[hi]-sorted[lo])*(pos-lo);
 }
 function statsOf(idxList, m){
-  const v = []; for (const i of idxList) if (m[i]) v.push(D.pm2[i]);
-  v.sort((a,b)=>a-b);
+  const u = []; for (const i of idxList) if (m[i]) u.push(D.pm2[i]);
+  const v = Float64Array.from(u).sort();   // tri numérique d'un tableau typé : même ordre, bien plus rapide (Paris : 271 540 ventes)
   return {n:v.length, p25:quant(v,.25), p50:quant(v,.5), p75:quant(v,.75), vals:v};
 }
 function allIdx(){ return {[Symbol.iterator]: function*(){ for (let i=0;i<D.n;i++) yield i; }}; }
@@ -4623,10 +4731,10 @@ function glyphProtocol(params){
   return Promise.resolve({data: D.glyphs.slice(D.glyphBase + e[0], D.glyphBase + e[0] + e[1]).buffer});
 }
 function communePolys(){
-  const by = {Lille:[], Lomme:[], Hellemmes:[]};
+  const by = CITY.im ? {Lille:[], Lomme:[], Hellemmes:[]} : {};
   for (const f of D.meta.quartiers.features){
     const g = f.geometry, polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates;
-    by[f.properties.commune].push(...polys);
+    (by[f.properties.commune] = by[f.properties.commune] || []).push(...polys);
   }
   return Object.fromEntries(Object.entries(by).map(([k,v]) => [k, {type:"MultiPolygon", coordinates:v}]));
 }
@@ -4636,14 +4744,15 @@ function buildStyle(){
   return {version:8, glyphs:"glyphs://{fontstack}/{range}",
     sources:{
       protomaps:{type:"vector", url:"pmtiles://base.pmtiles", attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'},
-      overlay:{type:"vector", url:"pmtiles://overlay.pmtiles", attribution:"ventes DVF (DGFiP), DPE (ADEME), registre des copropriétés (ANAH), bâtiments BDNB (CSTB), cadastre (IGN/Etalab), petits quartiers (INSEE), quartiers (Ville de Lille)"},
-      quartiers:{type:"geojson", data:D.meta.quartiers},
+      ...(CITY.im ? {overlay:{type:"vector", url:"pmtiles://overlay.pmtiles", attribution:"ventes DVF (DGFiP), DPE (ADEME), registre des copropriétés (ANAH), bâtiments BDNB (CSTB), cadastre (IGN/Etalab), petits quartiers (INSEE), quartiers (Ville de Lille)"}} : {}),
+      quartiers:{type:"geojson", data:D.meta.quartiers, ...(CITY.im ? {} : {attribution:D.meta.attribution})},
       iris:{type:"geojson", data:D.meta.iris},
       mlines:{type:"geojson", data:D.metro.h.lines},
       stations:{type:"geojson", data:D.stGeo, attribution:"stations de métro et arrêts de tram (ilévia, MEL)"},
       exits:{type:"geojson", data:D.exGeo},
       tram:{type:"geojson", data:D.tramGeo},
       iso:{type:"geojson", data:D.metro.h.iso},
+      ...(CITY.pt ? {pts:{type:"geojson", data:D.ptGeo}} : {}),
     }, layers};
 }
 async function initMap(baseBytes, overBytes){
@@ -4651,15 +4760,16 @@ async function initMap(baseBytes, overBytes){
   maplibregl.addProtocol("pmtiles", protocol.tile);
   maplibregl.addProtocol("glyphs", glyphProtocol);
   // La source porte le nom « base.pmtiles » / « overlay.pmtiles » dans les deux cas : le style ne change pas.
-  const src = (bytes, n) => RANGE ? new pmtiles.FetchSource(new URL(DATA + fileName(n), location.href).href) : new pmtiles.FileSource(new File([bytes], n));
-  const pb = new pmtiles.PMTiles(src(baseBytes, "base.pmtiles")), po = new pmtiles.PMTiles(src(overBytes, "overlay.pmtiles"));
-  protocol.add(pb); protocol.add(po);
-  if (RANGE){ protocol.tiles.set("base.pmtiles", pb); protocol.tiles.set("overlay.pmtiles", po); }
+  // Hors Lille, le fichier publié garde son nom .wasm (CFG.files peut le renommer) ; lu par requêtes partielles.
+  const src = (bytes, n) => RANGE ? new pmtiles.FetchSource(new URL(DATA + (CITY.im ? fileName(n) : cityFile(CFG.files && CFG.files[n] ? n : n.replace(".pmtiles", ".wasm"))), location.href).href) : new pmtiles.FileSource(new File([bytes], n));
+  const pb = new pmtiles.PMTiles(src(baseBytes, "base.pmtiles")), po = CITY.im ? new pmtiles.PMTiles(src(overBytes, "overlay.pmtiles")) : null;
+  protocol.add(pb); if (po) protocol.add(po);
+  if (RANGE){ protocol.tiles.set("base.pmtiles", pb); if (po) protocol.tiles.set("overlay.pmtiles", po); }
   D.communes = communePolys();
   const small = isPhone();
-  map = new maplibregl.Map({container:R.getElementById("map"), style:buildStyle(), bounds:[[2.975,50.598],[3.135,50.662]],
+  map = new maplibregl.Map({container:R.getElementById("map"), style:buildStyle(), bounds:CITY.bounds,
     fitBoundsOptions:{padding: small ? {top:170,bottom:200,left:10,right:10} : {top:80,bottom:120,left:40,right:380}},
-    minZoom:10.5, maxZoom:18.5, maxPitch:60, maxBounds:[[2.88,50.55],[3.27,50.74]], attributionControl:false, pitchWithRotate:false});
+    minZoom:CITY.minZoom, maxZoom:18.5, maxPitch:60, maxBounds:CITY.maxBounds, attributionControl:false, pitchWithRotate:false});
   map.dragRotate.disable(); map.touchZoomRotate.disableRotation(); map.touchPitch.disable();
   // Sources : une ligne « © OpenStreetMap · sources » (la licence d'OpenStreetMap veut la mention
   // visible) ; le bouton i déplie la liste complète, tirée des sources du style.
@@ -4670,10 +4780,22 @@ async function initMap(baseBytes, overBytes){
   map.addControl({onAdd: () => attr, onRemove: () => attr.remove()}, "bottom-right");
   attr.querySelector("#attrBtn").onclick = e => { const all = attr.querySelector("#attrAll"), open = all.hidden; all.hidden = !open; attr.classList.toggle("open", open); e.currentTarget.setAttribute("aria-expanded", open); };
   map.on("load", () => {
-    try { addOverlay(); bindMap(); const up = readUrl(); syncControls(); refresh(); if (up) selFromUrl(up); D.ready = true; R.getElementById("loader").classList.add("done"); }
+    try { addOverlay(); bindMap(); const up = readUrl(); syncControls(); refresh(); if (up) selFromUrl(up); D.ready = true; followView(); R.getElementById("loader").classList.add("done"); bienOpen(); }
     catch (e) { lmsg.textContent = "La carte n'a pas pu se charger. Rechargez la page ; si ça continue, écrivez-nous."; console.error(e); }
   });
-  on(matchMedia("(prefers-color-scheme: dark)"), "change", () => { if (CFG.theme === "light") return; lastBuildingState = new Set(); D.dimOn = false; map.once("style.load", () => { addOverlay(); select(S.sel); refresh(); }); map.setStyle(buildStyle(), {diff:false}); });
+  on(matchMedia("(prefers-color-scheme: dark)"), "change", () => { if (CFG.theme === "light") return; lastBuildingState = new Set(); map.once("style.load", () => { addOverlay(); select(S.sel); refresh(); }); map.setStyle(buildStyle(), {diff:false}); });
+}
+// Hachures des anciens DPE : rayures diagonales de la couleur de la classe, sur fond transparent
+// (la couleur pâlie de b-fill passe dessous).
+function addOldPatterns(){
+  const px = 2, n = 10 * px;
+  DPE_C.forEach((col, k) => {
+    if (map.hasImage("old"+k)) return;
+    const cv = document.createElement("canvas"); cv.width = cv.height = n;
+    const g = cv.getContext("2d"); g.strokeStyle = col; g.lineWidth = 2.6 * px;
+    for (const o of [-n, 0, n]){ g.beginPath(); g.moveTo(o, n); g.lineTo(o + n, 0); g.stroke(); }
+    map.addImage("old"+k, g.getImageData(0, 0, n, n), {pixelRatio: px});
+  });
 }
 function rampExpr(get){
   const r = RAMP[isDark() ? "dark" : "light"]; const e = ["step", get, r[0]];
@@ -4690,7 +4812,7 @@ function addOverlay(){
   map.addLayer({id:"sel-zone", type:"line", source:"quartiers", filter:["==",["id"],-1], paint:{"line-color":"#B4573A","line-width":3.2}});
   map.addLayer({id:"sel-iris", type:"line", source:"iris", filter:["==",["id"],-1], paint:{"line-color":"#B4573A","line-width":3}});
   // rues colorées par médiane (une couche par commune pour les noms homonymes)
-  for (const c of ["Lille","Lomme","Hellemmes"]){
+  for (const c of streetCommunes()){
     map.addLayer({id:"st-"+c, type:"line", source:"protomaps", "source-layer":"roads", minzoom:13.6, maxzoom:16.4,
       filter:["all",["has","name"],["within", D.communes[c]]],
       layout:{"line-cap":"round","line-join":"round"},
@@ -4710,9 +4832,14 @@ function addOverlay(){
     paint:{"line-color":["match",["get","ref"],"M1",LINE_C.M1,"M2",LINE_C.M2,LINE_C.R],
            "line-width":["interpolate",["linear"],["zoom"],11,["match",["get","kind"],"tram",1.4,2.2],15,["match",["get","kind"],"tram",3,5]],
            "line-opacity":["interpolate",["linear"],["zoom"],11,.95,16,.55]}}, before);
+  if (CITY.pt) addPoints(before);
   // immeubles
+  if (CITY.im){
   map.addLayer({id:"b-fill", type:"fill", source:"overlay", "source-layer":"buildings", minzoom:14.6, layout:{visibility:S.d3 ? "none" : "visible"},
     paint:{"fill-color":neutral, "fill-opacity":["interpolate",["linear"],["zoom"],14.6,0,15.3,.92]}}, before);
+  addOldPatterns();
+  map.addLayer({id:"b-old", type:"fill", source:"overlay", "source-layer":"buildings", minzoom:14.6, filter:["==",["id"],-1], layout:{visibility:S.d3 ? "none" : "visible"},
+    paint:{"fill-pattern":["concat","old",["to-string",["get","o"]]], "fill-opacity":["interpolate",["linear"],["zoom"],14.6,0,15.3,1]}}, before);
   map.addLayer({id:"b-line", type:"line", source:"overlay", "source-layer":"buildings", minzoom:15.2, layout:{visibility:S.d3 ? "none" : "visible"},
     paint:{"line-color":["case",["boolean",["feature-state","hover"],false], dark ? "#FFFFFF" : "#1C1B18", line],
            "line-width":["case",["boolean",["feature-state","hover"],false],2.4,.6]}}, before);
@@ -4721,13 +4848,16 @@ function addOverlay(){
   map.addLayer({id:"b-3d", type:"fill-extrusion", source:"overlay", "source-layer":"buildings", minzoom:14.6, layout:{visibility:S.d3 ? "visible" : "none"},
     paint:{"fill-extrusion-color":neutral, "fill-extrusion-opacity":.94, "fill-extrusion-vertical-gradient":true,
            "fill-extrusion-height":["interpolate",["linear"],["zoom"],14.6,0,15.2,["case",[">",["get","h"],0],["get","h"],[">",["get","lv"],0],["*",3,["get","lv"]],6]]}}, before);
+  }
   map.addLayer({id:"iso-line", type:"line", source:"iso", filter:["==",["get","s"],-1],
     paint:{"line-color":dark ? "#A9C7E0" : "#24435C", "line-width":["match",["get","t"],10,2.4,1.3], "line-opacity":["match",["get","t"],10,.9,.6]}});
   // parcelles
+  if (CITY.im){
   map.addLayer({id:"p-line", type:"line", source:"overlay", "source-layer":"parcels", minzoom:16.2,
     paint:{"line-color":dark ? "#8FB4D3" : "#24435C","line-width":["interpolate",["linear"],["zoom"],16.2,.3,18,1.4],"line-opacity":["interpolate",["linear"],["zoom"],16.2,0,16.8,.7],"line-dasharray":[3,2]}});
   map.addLayer({id:"p-fill", type:"fill", source:"overlay", "source-layer":"parcels", minzoom:16.2, paint:{"fill-color":"#000","fill-opacity":0}});
   map.addLayer({id:"p-sel", type:"line", source:"overlay", "source-layer":"parcels", filter:["==",["get","p"],"__"], paint:{"line-color":"#B4573A","line-width":3}});
+  }
   // étiquettes des zones
   const font = ["Noto Sans Medium"], halo = dark ? "#12171C" : "#FBF9F4", ink = dark ? "#EEF0EE" : "#1C1B18";
   map.addLayer({id:"q-lab", type:"symbol", source:"quartiers", maxzoom:12.8, layout:{"text-field":["format",["get","name"],{"font-scale":1},"\n",{},["get","lab"],{"font-scale":.86}], "text-font":font, "text-size":13, "text-max-width":9, "text-allow-overlap":false},
@@ -4751,11 +4881,42 @@ function addOverlay(){
   D.hoverId = null;
 }
 
+// Communes des rues colorées (une couche par commune : noms de rue homonymes).
+function streetCommunes(){ return CITY.im ? ["Lille","Lomme","Hellemmes"] : Object.keys(D.communes); }
+// Points de vente : une parcelle, sa couleur dès une vente filtrée, sa taille selon le nombre de ventes.
+function addPoints(before){
+  const dark = isDark(), n = ["coalesce",["feature-state","n"],0];
+  map.addLayer({id:"v-pt", type:"circle", source:"pts", minzoom:14.6, paint:{
+    "circle-color":["case",[">",n,0], rampExpr(["coalesce",["feature-state","v"],0]), NEUTRAL[dark ? "dark" : "light"]],
+    "circle-radius":["interpolate",["linear"],["zoom"],14.6,["case",[">",n,0],2.5,0],16,["case",[">",n,4],7,[">",n,1],5.5,[">",n,0],4,0],18,["case",[">",n,4],12,[">",n,1],9,[">",n,0],7,0]],
+    "circle-opacity":["interpolate",["linear"],["zoom"],14.6,0,15.3,.92], "circle-stroke-color":dark ? "#0E1318" : "#FFFFFF",
+    "circle-stroke-width":["case",[">",n,0],1,0], "circle-stroke-opacity":["interpolate",["linear"],["zoom"],14.6,0,15.3,.9]}}, before);
+  map.addLayer({id:"v-sel", type:"circle", source:"pts", filter:["==",["id"],-1], paint:{"circle-radius":["interpolate",["linear"],["zoom"],14.6,6,18,15],
+    "circle-color":"rgba(0,0,0,0)", "circle-stroke-color":"#B4573A", "circle-stroke-width":3}});
+  D.ptLast.fill(-1);
+}
+// Seuls les points de la partie visible (élargie) sont recalculés, et seulement quand ils sont affichés (zoom 14
+// et plus) ; un déplacement de la carte recalcule ceux qui arrivent (moveend). 64 000 parcelles à chaque filtre
+// coûtaient 350 ms.
+function paintPoints(){
+  if (!CITY.pt || map.getZoom() < 14) return;
+  const np = D.sales.h.parcels.length, last = D.ptLast, sc = D.sales.c, b = map.getBounds();
+  const dx = (b.getEast() - b.getWest()) * .3, dy = (b.getNorth() - b.getSouth()) * .3;
+  const x0 = (b.getWest() - dx) * 1e6, x1 = (b.getEast() + dx) * 1e6, y0 = (b.getSouth() - dy) * 1e6, y1 = (b.getNorth() + dy) * 1e6;
+  for (let p=0;p<np;p++){
+    if (sc.px[p] < x0 || sc.px[p] > x1 || sc.py[p] < y0 || sc.py[p] > y1) continue;
+    const idx = D.byPc.get(p); let c = 0; for (const i of idx) c += mask[i];
+    const st = c ? statsOf(idx, mask) : null, key = c ? st.p50 * 1000 + Math.min(c, 999) : 0;
+    if (last[p] === key) continue; last[p] = key;
+    map.setFeatureState({source:"pts", id:p}, {v: c ? st.p50 : 0, n:c});
+  }
+}
+
 /* ============================================================ rendu des couleurs */
 let lastBuildingState = new Set();
 function refresh(){
   const n = computeMask();
-  paintZones(); paintStreets(); paintBuildings(); drawTimeline(); renderLegend(); renderSide();
+  paintZones(); paintStreets(); paintBuildings(); paintPoints(); drawTimeline(); renderLegend(); renderSide();
   const ventes = " vente" + (n > 1 ? "s" : "");
   R.getElementById("tlN").textContent = fmt.format(n) + ventes;
   R.getElementById("fN").textContent = fmt.format(n); R.getElementById("fNw").textContent = ventes.trim();
@@ -4769,14 +4930,14 @@ function refresh(){
 }
 // Nombre de filtres réglés (la période, sur la frise, n'en fait pas partie).
 function activeFilters(){
-  return [S.type.size < 2, S.rooms.size, S.surf[0] > 8 || S.surf[1] < 400, S.price[0] > 0 || S.price[1] < 1500000, S.pm2[0] > 300 || S.pm2[1] < 10000,
+  return [S.type.size < 2, S.rooms.size, S.surf[0] > 8 || S.surf[1] < 400, S.price[0] > 0 || S.price[1] < P_MAX, S.pm2[0] > PM2[0] || S.pm2[1] < PM2[1],
     S.epoch.size, S.dpe.size, S.lots.size, S.walk < WALK_OFF].filter(Boolean).length;
 }
 function zoneValues(col, k, mode){
   const s = D.sales.c, groups = Array.from({length:k}, () => []), years = Array.from({length:k}, () => []);
   for (let i=0;i<D.n;i++){ if (!mask[i]) continue; const z = col[i]; if (z === 255) continue; groups[z].push(D.pm2[i]); if (s.yr[i]) years[z].push(s.yr[i]); }
   return groups.map((g,z) => {
-    if (mode === "price"){ g.sort((a,b)=>a-b); return {n:g.length, v: g.length >= 5 ? quant(g,.5) : null}; }
+    if (mode === "price"){ g = Float64Array.from(g).sort(); return {n:g.length, v: g.length >= 5 ? quant(g,.5) : null}; }
     if (mode === "dpe"){ const c = D.zoneDpe[col === s.q ? "quartier" : "iris"][z]; const t = c.reduce((a,b)=>a+b,0); return {n:t, v: t >= 20 ? (c[5]+c[6])/t*100 : null}; }
     const y = years[z].sort((a,b)=>a-b); return {n:y.length, v: y.length >= 5 ? quant(y,.5) : null};
   });
@@ -4805,7 +4966,7 @@ function paintZones(){
 }
 function paintStreets(){
   const k = D.meta.streets.length, s = D.sales.c; D.stVals = new Array(k);
-  const per = {Lille:[], Lomme:[], Hellemmes:[]};
+  const per = Object.fromEntries(streetCommunes().map(c => [c, []]));
   for (let j=0;j<k;j++){
     const st = statsOf(D.bySt.get(j), mask); D.stVals[j] = st;
     const [label, commune, osm] = D.meta.streets[j];
@@ -4820,6 +4981,7 @@ function paintStreets(){
   }
 }
 function paintBuildings(){
+  if (!CITY.im) return;
   const neutral = NEUTRAL[isDark() ? "dark" : "light"];
   // filtres d'immeuble cuits dans les tuiles : époque (e), DPE dominant (d), copro (c)
   const f = ["all"];
@@ -4842,7 +5004,10 @@ function paintBuildings(){
     lastBuildingState = now;
     color = ["case", [">", ["coalesce",["feature-state","n"],0], 0], rampExpr(["feature-state","v"]), neutral];
   } else if (S.mode === "dpe"){
-    color = ["match",["get","d"], 0,DPE_C[0],1,DPE_C[1],2,DPE_C[2],3,DPE_C[3],4,DPE_C[4],5,DPE_C[5],6,DPE_C[6], neutral];
+    // ancien DPE (o) : couleur pâlie, seulement là où il n'y a aucun DPE récent ; hachures par b-old
+    const pale = DPE_C.map(c => mixHex(c, neutral, .6));
+    color = ["match",["get","d"], 0,DPE_C[0],1,DPE_C[1],2,DPE_C[2],3,DPE_C[3],4,DPE_C[4],5,DPE_C[5],6,DPE_C[6],
+      ["match",["coalesce",["get","o"],-1], 0,pale[0],1,pale[1],2,pale[2],3,pale[3],4,pale[4],5,pale[5],6,pale[6], neutral]];
   } else {
     color = ["match",["get","e"], 0,EP_C[0],1,EP_C[1],2,EP_C[2],3,EP_C[3], neutral];
   }
@@ -4850,48 +5015,36 @@ function paintBuildings(){
   // la carte qui s'éteint : immeubles dont la classe la plus fréquente serait interdite à la location
   if (S.ban) full = ["case", ["in", ["get","d"], ["literal", BAN[S.ban].set]], OFF_C[isDark() ? "dark" : "light"], full];
   D.bColor = full;
+  // hachures : mode DPE, sans filtre de DPE (ils ne portent que sur les DPE récents) ni location interdite
+  const oldOn = S.mode === "dpe" && !S.dpe.size && !S.ban;
+  map.setFilter("b-old", oldOn ? (keep === true ? [">=",["coalesce",["get","o"],-1],0] : ["all",[">=",["coalesce",["get","o"],-1],0], keep]) : ["==",["id"],-1]);
   map.setPaintProperty("b-fill","fill-color", full);
-  paint3d();
+  map.setPaintProperty("b-3d","fill-extrusion-color", full);
 }
-// 3D : au survol (ou à la sélection), les autres immeubles s'atténuent. On ne change l'expression
-// qu'à l'entrée et à la sortie du survol ; d'un immeuble à l'autre, seul l'état « focus » bouge.
-function paint3d(){
-  const c = D.dimOn ? ["case", ["boolean",["feature-state","focus"],false], D.bColor, FADE_C[isDark() ? "dark" : "light"]] : D.bColor;
-  map.setPaintProperty("b-3d","fill-extrusion-color", c);
-}
-function setFocus(id){
-  if (D.focusId === id) return;
-  if (D.focusId != null) map.setFeatureState({source:"overlay", sourceLayer:"buildings", id:D.focusId}, {focus:false});
-  D.focusId = id;
-  if (id != null) map.setFeatureState({source:"overlay", sourceLayer:"buildings", id}, {focus:true});
-  const on = S.d3 && id != null;
-  clearTimeout(D.dimT);
-  if (on !== !!D.dimOn){
-    // sortie du survol : petit délai pour ne pas clignoter entre deux immeubles
-    if (on){ D.dimOn = true; paint3d(); }
-    else D.dimT = setTimeout(() => { if (D.focusId == null || !S.d3){ D.dimOn = false; paint3d(); } }, 250);
-  }
-}
-function focusFromSel(){ setFocus(S.sel && S.sel.kind === "bldg" ? S.sel.id + 1 : null); }
 
 /* ============================================================ légende */
 function renderLegend(){
   const el = R.getElementById("legend"); let h = "";
   if (S.mode === "price"){
     const r = RAMP[isDark() ? "dark" : "light"];
-    h = `<b>Prix médian au m²</b><div class="lg-bar">${r.map(c=>`<i style="background:${c}"></i>`).join("")}</div>
-      <div class="lg-ax"><span>&lt; 2 400</span><span>3 200</span><span>4 000</span><span>&gt; 4 500 €</span></div>
-      <span class="mute">Des ventes qui correspondent aux filtres. Rue : 5 ventes min. Immeuble gris : moins de 3 ventes.</span>`;
+    h = S.pro ? `<b>Prix médian au m²</b><div class="lg-bar">${r.map(c=>`<i style="background:${c}"></i>`).join("")}</div>
+      <div class="lg-ax">${CITY.ax.map(a => `<span>${a}</span>`).join("")}</div>
+      <span class="mute">Des ventes qui correspondent aux filtres. Rue : 5 ventes min. ${CITY.im ? "Immeuble gris : moins de 3 ventes." : "Point : une parcelle et ses ventes."}</span>`
+      : `<b>Prix habituel au m²</b><div class="lg-bar">${r.map(c=>`<i style="background:${c}"></i>`).join("")}</div>
+      <div class="lg-ax">${CITY.ax.map(a => `<span>${a}</span>`).join("")}</div>
+      <div class="lg-words"><span>moins cher</span><span>plus cher</span></div>
+      <span class="mute">${CITY.im ? "En gris : pas assez de ventes pour afficher un prix (moins de 3 pour un immeuble, moins de 5 pour une rue)." : "Point : une parcelle et ses ventes."}</span>`;
   } else if (S.mode === "dpe"){
     h = `<b>DPE de l'immeuble</b><div class="lg-bar">${DPE_C.map(c=>`<i style="background:${c}"></i>`).join("")}</div>
       <div class="lg-ax">${[...DPE_L].map(l=>`<span>${l}</span>`).join("")}</div>
-      <span class="mute">Classe la plus fréquente (3 DPE min.), DPE établis de ${D.dpeRange}. Zones : part de F et G.</span>`;
+      <span class="mute">Classe la plus fréquente (3 DPE min.), DPE établis de ${D.dpeRange}. Zones : part de F et G.</span>
+      <div class="lg-cat"><span><i class="old"></i>hachuré : immeuble sans DPE récent, classe d'après ses anciens DPE (${D.dpeOldRange}, plus valables)</span></div>`;
   } else {
     h = `<b>Année de construction</b><div class="lg-cat">${EP_L.map((l,i)=>`<span><i style="--c:${EP_C[i]}"></i>${l}</span>`).join("")}</div>
       <span class="mute">Zones : année médiane des immeubles vendus.</span>`;
   }
   if (S.ban) h += `<div class="lg-cat"><span><i style="--c:${OFF_C[isDark() ? "dark" : "light"]}"></i>gris foncé : ${["", "DPE surtout G, interdit à la location depuis 2025", "DPE surtout F ou G (G interdit depuis 2025, F en 2028)", "DPE surtout E, F ou G (E interdit en 2034)"][S.ban]}</span></div>`;
-  if (S.metro) h += `<div class="lg-cat lg-metro"><span><i style="--c:${LINE_C.M1}"></i>M1</span><span><i style="--c:${LINE_C.M2}"></i>M2</span><span><i style="--c:${LINE_C.R}"></i>Tram</span><span><i style="--c:#B4573A;border-radius:50%"></i>sortie avec ascenseur (indicatif)</span></div>`;
+  if (S.metro && CITY.me) h += `<div class="lg-cat lg-metro"><span><i style="--c:${LINE_C.M1}"></i>M1</span><span><i style="--c:${LINE_C.M2}"></i>M2</span><span><i style="--c:${LINE_C.R}"></i>Tram</span><span><i style="--c:#B4573A;border-radius:50%"></i>sortie avec ascenseur (indicatif)</span></div>`;
   // Téléphone : la légende est une pastille repliée ; un toucher l'ouvre, le titre la referme.
   const phone = isPhone(), mini = phone || R.getElementById("filters").classList.contains("open"); el.classList.toggle("min", mini && !S.lgOpen);
   if (mini && !S.lgOpen){
@@ -4909,26 +5062,26 @@ R.getElementById("aboutBox").addEventListener("click", e => { if (e.target.id ==
 
 /* ============================================================ graphiques */
 function histSvg(vals, mark){
-  const lo = 1000, hi = 7000, step = 250, nb = (hi-lo)/step, bins = new Array(nb).fill(0);
+  const [lo, hi, step, tk] = CITY.hist, nb = (hi-lo)/step, bins = new Array(nb).fill(0);
   for (const v of vals){ const k = Math.min(nb-1, Math.max(0, Math.floor((v-lo)/step))); bins[k]++; }
   const mx = Math.max(1, ...bins), W = 320, H = 86, bw = W/nb, r = RAMP[isDark() ? "dark" : "light"];
   let s = `<svg viewBox="0 0 ${W} ${H+16}" role="img" aria-label="Répartition des prix au m²">`;
   bins.forEach((c,i) => { const h = c/mx*H, v = lo + i*step + step/2; let ci = 0; while (ci < PM_BREAKS.length && v >= PM_BREAKS[ci]) ci++;
     s += `<rect x="${(i*bw+1).toFixed(1)}" y="${(H-h).toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${r[ci]}"/>`; });
   if (mark && isFinite(mark)){ const x = (mark-lo)/(hi-lo)*W; s += `<line x1="${x}" x2="${x}" y1="0" y2="${H}" stroke="#B4573A" stroke-width="2"/>`; }
-  for (const t of [1000,2000,3000,4000,5000,6000,7000]) s += `<text x="${(t-lo)/(hi-lo)*W}" y="${H+13}" text-anchor="${t===1000?"start":t===7000?"end":"middle"}">${t/1000} k${t===7000?"+":""}</text>`;
+  for (let t = lo; t <= hi; t += tk) s += `<text x="${(t-lo)/(hi-lo)*W}" y="${H+13}" text-anchor="${t===lo?"start":t===hi?"end":"middle"}">${t/1000} k${t===hi?"+":""}</text>`;
   return s + `</svg>`;
 }
 function yearly(idxList, m, minN){
-  const by = Array.from({length:9}, () => []), s = D.sales.c;
+  const by = Array.from({length:Math.floor(maxMonth/12)+1}, () => []), s = D.sales.c;
   for (const i of idxList) if (m[i]) by[Math.floor(s.m[i]/12)].push(D.pm2[i]);
-  return by.map((v,k) => { v.sort((a,b)=>a-b); return {y:2018+k, n:v.length, p50: v.length >= minN ? quant(v,.5) : null}; });
+  return by.map((v,k) => { v = Float64Array.from(v).sort(); return {y:Y0+k, n:v.length, p50: v.length >= minN ? quant(v,.5) : null}; });
 }
 function curveSvg(series, ref){
   const W = 320, H = 100, pad = 34, all = series.concat(ref||[]).filter(p=>p.p50!=null).map(p=>p.p50);
   if (!all.length) return `<p class="note">Pas assez de ventes pour tracer une courbe.</p>`;
   let lo = Math.min(...all), hi = Math.max(...all); const sp = Math.max(300, hi-lo); lo -= sp*.15; hi += sp*.15;
-  const X = k => pad + k*(W-pad-8)/8, Y = v => 8 + (1-(v-lo)/(hi-lo))*(H-16);
+  const X = k => pad + k*(W-pad-8)/(series.length-1), Y = v => 8 + (1-(v-lo)/(hi-lo))*(H-16);
   const mxN = Math.max(1, ...series.map(p=>p.n));
   let s = `<svg viewBox="0 0 ${W} ${H+30}" role="img" aria-label="Prix médian au m² par année">`;
   for (const t of [lo+ (hi-lo)*.2, lo+(hi-lo)*.8]) s += `<line x1="${pad}" x2="${W-8}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)" stroke-dasharray="2 3"/><text x="${pad-4}" y="${Y(t)+3}" text-anchor="end">${(Math.round(t/100)/10).toLocaleString("fr-FR")}k</text>`;
@@ -4941,45 +5094,86 @@ function curveSvg(series, ref){
   series.forEach((p,k) => s += `<text x="${X(k)}" y="${H+24}" text-anchor="middle">${String(p.y).slice(2)}${p.y===2026?"*":""}</text>`);
   return s + `</svg>`;
 }
-function dpeBar(counts){
+function dpeBar(counts, old){
   const t = counts.reduce((a,b)=>a+b,0); if (!t) return "";
-  return `<div class="dpebar" role="img" aria-label="Répartition des DPE">${counts.map((c,k)=> c ? `<i class="${DPE_LT[k]?"lt":""}" style="background:${DPE_C[k]};flex:${c}">${c/t>.07?DPE_L[k]:""}</i>` : "").join("")}</div>`;
+  return `<div class="dpebar${old ? " old" : ""}" role="img" aria-label="Répartition des ${old ? "anciens " : ""}DPE">${counts.map((c,k)=> c ? `<i class="${DPE_LT[k]?"lt":""}" style="background-color:${DPE_C[k]};flex:${c}">${c/t>.07?DPE_L[k]:""}</i>` : "").join("")}</div>`;
 }
-const parcelLabel = ref => { const sec = ref.slice(8,10).replace(/^0/,""), num = parseInt(ref.slice(10),10), pre = ref.slice(5,8); return (pre === "355" ? "Lomme · " : pre === "298" ? "Hellemmes · " : "") + "section " + esc(sec) + ", n° " + num; };
+const parcelLabel = ref => { const sec = ref.slice(8,10).replace(/^0/,""), num = parseInt(ref.slice(10),10), pre = ref.slice(5,8); return (CITY.im ? (pre === "355" ? "Lomme · " : pre === "298" ? "Hellemmes · " : "") : esc((D.meta.insee || {})[ref.slice(0,5)] || ref.slice(0,5)) + " · ") + "section " + esc(sec) + ", n° " + num; };
 const dpeMonth = m => m === 0xFFFF ? "?" : String(m%12+1).padStart(2,"0") + "/" + (2000+Math.floor(m/12));
 
 /* ============================================================ panneau de droite */
 function statBlock(st, label, minN){
   if (!st.n) return `<p class="note">Aucune vente ne correspond aux filtres${label ? " " + label : ""}.</p>`;
-  if (minN && st.n < minN) return `<div class="warn">${st.n} vente${st.n>1?"s":""} sur la période : le prix médian n'est affiché qu'à partir de ${minN} ventes.</div>`;
-  return `<div><div class="big">${pm(st.p50)}</div><div class="bigsub">prix médian au m² · ${fmt.format(st.n)} vente${st.n>1?"s":""}</div></div>
-    <div class="kpis one"><div class="kpi"><b>${fmt.format(Math.round(st.p25/10)*10)} – ${fmt.format(Math.round(st.p75/10)*10)} €/m²</b><span>la moitié des ventes se situe entre ces deux prix</span></div></div>`;
+  if (minN && st.n < minN) return S.pro ? `<div class="warn">${st.n} vente${st.n>1?"s":""} sur la période : le prix médian n'est affiché qu'à partir de ${minN} ventes.</div>`
+    : `<div class="warn">Seulement ${st.n} vente${st.n>1?"s":""} sur la période : pas assez pour calculer un prix.</div>`;
+  const tw = S.type.size === 2 ? "appartements et maisons" : S.type.has(0) ? "appartements" : "maisons";
+  return `<div><div class="big">${pm(st.p50)}</div><div class="bigsub">${S.pro ? "prix médian au m²" : "prix habituel au m², " + tw} · ${fmt.format(st.n)} vente${st.n>1?"s":""}</div></div>
+    <div class="kpis one"><div class="kpi"><b>${fmt.format(Math.round(st.p25/10)*10)} – ${fmt.format(Math.round(st.p75/10)*10)} €/m²</b><span>${S.pro ? "la moitié des ventes se situe entre ces deux prix" : "une vente sur deux entre ces deux prix"}</span></div></div>`;
+}
+// Mode simple : une année ne compte qu'à partir de 10 ventes (5 en mode complet).
+const MIN_Y = () => S.pro ? 5 : 10;
+/* La tendance en une phrase : le prix habituel des 12 derniers mois contre celui des 12 mois d'il y a 3 ans, même type de
+   logement, 20 ventes au moins de chaque côté ; « stable » à moins de 3 % d'écart. Rien si les ventes manquent. */
+function trendOf(idx, type){
+  const s = D.sales.c, a = [], b = [], m1 = maxMonth - 11, o0 = maxMonth - 47, o1 = maxMonth - 36;
+  for (const i of idx){ if (s.type[i] !== type) continue; const m = s.m[i]; if (m >= m1) a.push(D.pm2[i]); else if (m >= o0 && m <= o1) b.push(D.pm2[i]); }
+  if (a.length < 20 || b.length < 20) return null;
+  const med = v => quant(Float64Array.from(v).sort(), .5);
+  return {d: (med(a) / med(b) - 1) * 100, n:a.length + b.length};
+}
+// « Les appartements se vendent 7 % moins cher qu'il y a 3 ans. » pour chaque type qui a assez de ventes.
+function trendTxt(tr, type){
+  const d = Math.round(tr.d), who = type ? "Les maisons" : "Les appartements";
+  return Math.abs(tr.d) < 3 ? `${who} se vendent au même prix qu'il y a 3 ans (${d > 0 ? "+" : d < 0 ? "−" : ""}${Math.abs(d)} %).`
+    : `${who} se vendent ${Math.abs(d)} % ${d > 0 ? "plus" : "moins"} cher qu'il y a 3 ans.`;
+}
+const TREND_NOTE = `<span class="note">Ventes des 12 derniers mois, comparées à la même période il y a 3 ans.</span>`;
+function trendHtml(idx, where){
+  const rows = [0, 1].map(ty => { const tr = trendOf(idx, ty); return tr ? `<li>${trendTxt(tr, ty)}</li>` : ""; }).join("");
+  if (!rows) return "";
+  return `<div class="trend"><h4>${where}</h4><ul>${rows}</ul>${TREND_NOTE}</div>`;
+}
+// Le prix habituel d'aujourd'hui (3 dernières années), appartements et maisons séparés.
+function typePrices(idx){
+  const rows = [0, 1].map(ty => { const st = recentStats(idx, ty);
+    if (st.n >= 5) return `<div class="row"><span>${ty ? "Maisons" : "Appartements"} · ${st.n} ventes</span><b>${pm(st.p50)}</b></div>`;
+    return st.n ? `<div class="row"><span>${ty ? "Maisons" : "Appartements"}</span><b class="mute">${st.n} vente${st.n>1?"s":""}, pas assez pour un prix</b></div>` : ""; }).join("");
+  return rows ? `<div class="chart"><h4>Prix habituel au m² depuis ${mlabel(recentFrom())}</h4><div class="rows">${rows}</div></div>` : "";
+}
+// Mode simple : les courbes ne mélangent pas maisons et appartements ; elles suivent le type le plus vendu de la zone.
+function domType(idx){ const s = D.sales.c; let n = 0, m = 0; for (const i of idx){ n++; m += s.type[i]; } return m * 2 > n ? 1 : 0; }
+function ofType(idx, ty){ const s = D.sales.c, out = []; for (const i of idx) if (s.type[i] === ty) out.push(i); return out; }
+function cityOfType(ty){ if (!D.cityT) D.cityT = [ofType(allIdx(), 0), ofType(allIdx(), 1)]; return D.cityT[ty]; }
+// Les notes sous les courbes du mode simple ; la dernière année est souvent incomplète.
+const lastPart = () => maxMonth % 12 === 11 ? "" : "janvier à " + MONTHS_L[maxMonth % 12];
+const simpleNote = dots => `${dots ? "Pointillés : " + CITY.ref + ". " : ""}Les années de moins de 10 ventes ne sont pas affichées.${lastPart() ? " * " + (Y0 + Math.floor(maxMonth/12)) + " : " + lastPart() + "." : ""}`;
+// Le rang d'une rue, en mots.
+function rankTxt(rank, tot){
+  const q = rank / tot;
+  return q < .2 ? "fait partie des plus chères" : q < .4 ? "est plus chère que la plupart des rues" : q < .6 ? "est dans la moyenne des rues" : q < .8 ? "est moins chère que la plupart des rues" : "fait partie des moins chères";
 }
 function periodPill(){ return `<span class="pill">${S.time[0] === S.time[1] ? "En " + mlabel(S.time[0]) : "De " + mlabel(S.time[0]) + " à " + mlabel(S.time[1])}</span>`; }
 function renderSide(){
   const el = R.getElementById("side"), sel = S.sel; let h = "";
-  const cityRef = yearly(allIdx(), maskNP, 5);
-  if (!sel){
+  if (!sel && D.bien){ const f = el.querySelector("[data-bien-f]"); if (!f) bienSide(el); else f.innerHTML = bienFilt(); return; }   // étape 4 : votre estimation
+  const cityRef = yearly(allIdx(), maskNP, MIN_Y());
+  if (!sel && (D.viewZone = viewZone()) >= 0){
+    h = zoneFiche("quartier", D.viewZone, cityRef, true);
+  } else if (!sel){
     const st = statsOf(allIdx(), mask);
-    h = `<div class="scope"><span class="kick">Lille, Lomme, Hellemmes</span>${periodPill()}</div>
+    h = `<div class="scope"><span class="kick">${CITY.label}</span>${periodPill()}</div>
       ${statBlock(st, "")}
-      <div class="chart"><h4>Prix au m² des ventes qui correspondent aux filtres</h4>${histSvg(st.vals, st.p50)}</div>
-      <div class="chart"><h4>Prix médian au m², année par année</h4>${curveSvg(cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre. Barres : nombre de ventes.</span></div>
-      ${primeHtml()}
-      ${banHtml()}
-      <p class="note">Touchez ou cliquez sur un quartier, une rue, un immeuble ou une station pour ouvrir sa fiche.</p><button class="lnk" data-about>Les données et leurs limites</button>`;
+      ${CITY.im && !S.pro ? `<div class="invite">Tapez votre adresse en haut de la carte : vous verrez le prix habituel autour de chez vous et les dernières ventes.</div>` : ""}
+      ${S.pro ? "" : trendHtml(allIdx(), "À " + CITY.ref)}
+      ${S.pro ? `<div class="chart"><h4>Prix au m² des ventes qui correspondent aux filtres</h4>${histSvg(st.vals, st.p50)}</div>` : ""}
+      ${S.pro ? `<div class="chart"><h4>Prix médian au m², année par année</h4>${curveSvg(cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre. Barres : nombre de ventes.</span></div>`
+        : `<div class="chart"><h4>Le prix des appartements, année par année</h4>${curveSvg(yearly(cityOfType(0), maskNP, MIN_Y()))}<span class="note">Barres : nombre de ventes. ${simpleNote(false)}</span></div>`}
+      ${CITY.me && S.pro ? primeHtml() : ""}
+      ${CITY.im && S.pro ? banHtml() : ""}
+      <p class="note">${CITY.im ? "Touchez ou cliquez sur un quartier, une rue, un immeuble ou une station pour ouvrir sa fiche." : "Touchez ou cliquez sur un arrondissement, une commune, un quartier, une rue ou un point de vente pour ouvrir sa fiche."}</p><button class="lnk" data-about>Les données et leurs limites</button>
+      ${VILLES_ON.length > 1 ? `<div class="villes">Autre carte :${VILLES_ON.filter(k => k !== VILLE).map(k => `<button class="pill x" data-ville="${k}">${VILLES[k].label}</button>`).join("")}</div>` : ""}`;
   } else if (sel.kind === "quartier" || sel.kind === "iris"){
-    const fc = sel.kind === "quartier" ? D.meta.quartiers : D.meta.iris, f = fc.features[sel.id], col = sel.kind === "quartier" ? D.sales.c.q : D.sales.c.ir;
-    const idx = []; for (let i=0;i<D.n;i++) if (col[i] === sel.id) idx.push(i);
-    const st = statsOf(idx, mask), dpe = D.zoneDpe[sel.kind][sel.id], ser = yearly(idx, maskNP, 5);
-    const ep = [0,0,0,0]; for (const i of idx) if (mask[i] && D.sales.c.ep[i] < 4) ep[D.sales.c.ep[i]]++;
-    const ept = ep.reduce((a,b)=>a+b,0), t = dpe.reduce((a,b)=>a+b,0);
-    h = `${backBtn()}<div class="scope"><span class="kick">${sel.kind === "quartier" ? "Quartier" : "Petit quartier (découpage INSEE)"}</span>${periodPill()}</div>
-      <h2>${esc(f.properties.name)}</h2>${statBlock(st, "dans cette zone", 5)}
-      ${st.n >= 5 ? `<div class="chart"><h4>Prix au m² des ventes qui correspondent aux filtres</h4>${histSvg(st.vals, st.p50)}</div>` : ""}
-      <div class="chart"><h4>Prix médian au m² par année <span class="mute">(pointillés : Lille, Lomme et Hellemmes)</span></h4>${curveSvg(ser, cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre.</span></div>
-      ${t ? `<div class="chart"><h4>DPE établis dans la zone · ${fmt.format(t)} diagnostic${t>1?"s":""}</h4>${dpeBar(dpe)}<span class="note">Part de F et G parmi ces diagnostics : ${Math.round((dpe[5]+dpe[6])/t*100)} %. DPE établis de ${D.dpeRange}. Depuis janvier 2026, le mode de calcul a changé : certains logements ont changé de classe sans travaux.</span></div>` : ""}
-      ${ept ? `<div class="chart"><h4>Année de construction des immeubles vendus</h4><div class="dpebar">${ep.map((c,k)=>c?`<i class="lt" style="background:${EP_C[k]};flex:${c}">${c/ept>.12?EP_L[k]:""}</i>`:"").join("")}</div></div>` : ""}`;
+    h = zoneFiche(sel.kind, sel.id, cityRef, false);
   } else if (sel.kind === "street"){
     h = streetFiche(sel.id, cityRef);
   } else if (sel.kind === "bldg"){
@@ -4989,17 +5183,68 @@ function renderSide(){
   } else if (sel.kind === "parcel"){
     const idx = D.byPc.get(sel.id), list = Array.from(idx);
     h = `${backBtn()}<span class="kick">Parcelle cadastrale</span><h2 class="num">${parcelLabel(sel.ref)}</h2>
-      ${list.length ? salesList(list, true) : `<p class="note">Aucune vente d'appartement ou de maison depuis 2018 sur cette parcelle.</p>`}`;
+      ${list.length ? salesList(list, true) : `<p class="note">Aucune vente d'appartement ou de maison depuis ${Y0} sur cette parcelle.</p>`}`;
   }
   el.innerHTML = h;
   const bb = el.querySelector(".back"); if (bb) bb.onclick = () => select(null);
   const ab = el.querySelector("[data-about]"); if (ab) ab.onclick = () => { R.getElementById("aboutBox").hidden = false; };
   el.querySelectorAll("[data-street]").forEach(b => b.onclick = () => select({kind:"street", id:+b.dataset.street}, true));
   el.querySelectorAll("[data-station]").forEach(b => b.onclick = () => select({kind:"station", id:+b.dataset.station}, true));
+  el.querySelectorAll("[data-ville]").forEach(b => b.onclick = () => switchCity(b.dataset.ville));
   const bn = el.querySelector("#banR"); if (bn){ bn.oninput = () => { setBan(+bn.value); }; }
   const bp = el.querySelector("#banPlay"); if (bp) bp.onclick = playBan;
   el.querySelectorAll("[data-est]").forEach(b => b.onclick = () => { b.nextElementSibling.hidden = false; });
+  el.querySelectorAll("[data-near]").forEach(b => b.onclick = () => select({kind:"bldg", id:+b.dataset.near}, true));
+  const wh = el.querySelector("[data-whole]"); if (wh) wh.onclick = () => { D.wholeCity = true; renderSide(); };
 }
+// La fiche d'une zone ; « follow » : la zone au centre de la carte, quand rien n'est choisi (sans bouton retour).
+function zoneFiche(kind, id, cityRef, follow){
+  const fc = kind === "quartier" ? D.meta.quartiers : D.meta.iris, f = fc.features[id], col = kind === "quartier" ? D.sales.c.q : D.sales.c.ir;
+  const idx = []; for (let i=0;i<D.n;i++) if (col[i] === id) idx.push(i);
+  const ty = domType(idx), st = statsOf(idx, mask), dpe = D.zoneDpe[kind][id], ser = yearly(S.pro ? idx : ofType(idx, ty), maskNP, MIN_Y());
+  if (!S.pro) cityRef = yearly(cityOfType(ty), maskNP, MIN_Y());
+  const ep = [0,0,0,0]; for (const i of idx) if (mask[i] && D.sales.c.ep[i] < 4) ep[D.sales.c.ep[i]]++;
+  const ept = ep.reduce((a,b)=>a+b,0), t = dpe.reduce((a,b)=>a+b,0);
+  const kick = follow ? "Au centre de la carte" : f.properties.kind || (kind === "quartier" ? "Quartier" : "Petit quartier (découpage INSEE)");
+  return `${follow ? "" : backBtn()}<div class="scope"><span class="kick">${kick}</span>${periodPill()}</div>
+      <h2>${esc(f.properties.name)}</h2>${statBlock(st, "dans cette zone", 5)}
+      ${follow && CITY.im && !S.pro ? `<div class="invite">Touchez un immeuble, ou tapez votre adresse en haut de la carte : vous verrez le prix habituel autour et les dernières ventes.</div>` : ""}
+      ${S.pro ? "" : trendHtml(idx, "Dans ce quartier")}
+      ${S.pro && st.n >= 5 ? `<div class="chart"><h4>Prix au m² des ventes qui correspondent aux filtres</h4>${histSvg(st.vals, st.p50)}</div>` : ""}
+      ${S.pro ? `<div class="chart"><h4>Prix médian au m² par année <span class="mute">(pointillés : ${CITY.ref})</span></h4>${curveSvg(ser, cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre.</span></div>`
+        : `<div class="chart"><h4>Le prix des ${ty ? "maisons" : "appartements"} de ce quartier, année par année</h4>${curveSvg(ser, cityRef)}<span class="note">${simpleNote(true)}</span></div>`}
+      ${S.pro && t ? `<div class="chart"><h4>DPE établis dans la zone · ${fmt.format(t)} diagnostic${t>1?"s":""}</h4>${dpeBar(dpe)}<span class="note">Part de F et G parmi ces diagnostics : ${Math.round((dpe[5]+dpe[6])/t*100)} %. DPE établis de ${D.dpeRange}. Depuis janvier 2026, le mode de calcul a changé : certains logements ont changé de classe sans travaux.</span></div>` : ""}
+      ${S.pro && ept ? `<div class="chart"><h4>Année de construction des immeubles vendus</h4><div class="dpebar">${ep.map((c,k)=>c?`<i class="lt" style="background:${EP_C[k]};flex:${c}">${c/ept>.12?EP_L[k]:""}</i>`:"").join("")}</div></div>` : ""}
+      ${follow ? `<button class="lnk" data-whole>Voir ${esc(CITY.label)}</button>` : ""}`;
+}
+// Le quartier au centre de la partie visible de la carte, dès le zoom des quartiers (-1 sinon, ou si l'on a demandé la ville entière).
+function inRing(x, y, ring){ let inside = false; for (let i=0, j=ring.length-1; i<ring.length; j=i++){ const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside; } return inside; }
+function inGeom(x, y, g){ const ps = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : []; return ps.some(pp => inRing(x, y, pp[0]) && !pp.slice(1).some(hh => inRing(x, y, hh))); }
+function viewZone(){
+  if (!map || D.wholeCity || map.getZoom() < 12.6) return -1;
+  const p = fitPad(), cv = map.getCanvas(), ll = map.unproject([(p.left + cv.clientWidth - p.right)/2, (p.top + cv.clientHeight - p.bottom)/2]);
+  const fs = D.meta.quartiers.features; for (let k=0;k<fs.length;k++) if (inGeom(ll.lng, ll.lat, fs[k].geometry)) return k;
+  return -1;
+}
+let vzT = null;
+function followView(){ clearTimeout(vzT); vzT = setTimeout(() => { if (S.sel || !D.ready) return; if (map.getZoom() < 11.8) D.wholeCity = false; if (viewZone() !== D.viewZone) renderSide(); }, 200); }
+// Mode simple ou complet. En repassant en simple : la couleur revient au prix, la 3D s'éteint, la période garde une des trois pastilles.
+function applyPro(){
+  R.getElementById("app").classList.toggle("simple", !S.pro);
+  const b = R.getElementById("proBtn"); b.textContent = S.pro ? "Vue simple" : "Plus de détails"; b.setAttribute("aria-pressed", S.pro);
+}
+function setPro(v){
+  S.pro = v; applyPro();
+  if (!v){
+    if (S.d3) set3d(false);
+    if (S.mode !== "price"){ S.mode = "price"; syncModes(); }
+    if (S.ban) setBan(0);
+    const pr = presetOf(S.time); if (!pr || pr === "5a"){ S.time = [0, maxMonth]; tlCustom = false; }
+  }
+  syncTimeline(); refresh(); urlSoon();
+}
+R.getElementById("proBtn").onclick = () => setPro(!S.pro);
+
 /* ---------- métro : prime, carte qui s'éteint, fiche station ---------- */
 function primeHtml(){
   const s = D.metro.c.swk, groups = WALK_B.map(() => []);
@@ -5073,86 +5318,194 @@ function stationFiche(si){
 function backBtn(){ return `<div><button class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>Vue d'ensemble</button></div>`; }
 function streetFiche(j, cityRef){
   const [label, commune] = D.meta.streets[j], idx = D.bySt.get(j), st = statsOf(idx, mask);
-  const ser = yearly(idx, maskNP, 5), stAll = statsOf(idx, maskNP);
+  const ty = domType(idx), serIdx = S.pro ? idx : ofType(idx, ty);
+  const ser = yearly(serIdx, maskNP, MIN_Y()), stAll = statsOf(idx, maskNP);
+  if (!S.pro) cityRef = yearly(cityOfType(ty), maskNP, MIN_Y());
   // classement dans Lille parmi les rues à 5 ventes et plus
   let rank = 0, tot = 0; if (stAll.n >= 5) for (let k=0;k<D.meta.streets.length;k++){ const o = statsOf(D.bySt.get(k), maskNP); if (o.n >= 5){ tot++; if (o.p50 > stAll.p50) rank++; } }
-  const rows = ser.map(p => `<div class="row"><span>${p.y}${p.y===2026?" (1er sem.)":""}</span><b>${p.n ? (p.p50!=null ? pm(p.p50) : "moins de 5 ventes") : "—"} <span class="mute">· ${p.n} vente${p.n>1?"s":""}</span></b></div>`).join("");
+  const rows = ser.map(p => `<div class="row"><span>${p.y}${p.y===2026 ? (S.pro ? " (1er sem.)" : lastPart() ? " (" + lastPart() + ")" : "") : ""}</span><b>${p.n ? (p.p50!=null ? pm(p.p50) : S.pro ? "moins de 5 ventes" : "pas assez pour un prix") : "—"} <span class="mute">· ${p.n} vente${p.n>1?"s":""}</span></b></div>`).join("");
+  if (!S.pro) return `${backBtn()}<div class="scope"><span class="kick">Rue · ${esc(commune)}</span></div><h2>${esc(label)}</h2>
+    ${typePrices(idx)}
+    ${stAll.n >= 5 && tot ? `<div class="rank"><b>Cette rue ${rankTxt(rank, tot)} de ${esc(CITY.ref)}.</b><span class="note">Classement des ${fmt.format(tot)} rues qui comptent au moins 5 ventes depuis ${Y0}.</span></div>` : ""}
+    ${CITY.im ? estimateCta(label + ", " + commune, false) : ""}
+    ${trendHtml(idx, "Dans cette rue")}
+    <div class="chart"><h4>Le prix des ${ty ? "maisons" : "appartements"} de cette rue, année par année</h4>${curveSvg(ser, cityRef)}<span class="note">${simpleNote(true)}</span></div>
+    <div class="rows">${rows}</div>`;
   return `${backBtn()}<div class="scope"><span class="kick">Rue · ${esc(commune)}</span>${periodPill()}</div><h2>${esc(label)}</h2>
     ${st.n >= 5 ? statBlock(st, "") : `<div class="warn">${st.n} vente${st.n>1?"s":""} sur la période : le prix médian d'une rue n'est affiché qu'à partir de 5 ventes.</div>`}
-    ${stAll.n >= 5 ? `<p class="note">Depuis 2018 avec ces filtres : ${pm(stAll.p50)} sur ${fmt.format(stAll.n)} ventes${tot ? `, ${rank+1}<sup>${rank ? "e" : "re"}</sup> rue la plus chère parmi les ${tot} rues à 5 ventes ou plus` : ""}.</p>` : ""}
-    <div class="chart"><h4>La rue depuis 2018 <span class="mute">(pointillés : Lille, Lomme et Hellemmes)</span></h4>${curveSvg(ser, cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre.</span></div>
+    ${stAll.n >= 5 ? `<p class="note">Depuis ${Y0} avec ces filtres : ${pm(stAll.p50)} sur ${fmt.format(stAll.n)} ventes${tot ? `, ${rank+1}<sup>${rank ? "e" : "re"}</sup> rue la plus chère parmi les ${tot} rues à 5 ventes ou plus` : ""}.</p>` : ""}
+    <div class="chart"><h4>La rue depuis ${Y0} <span class="mute">(pointillés : ${CITY.ref})</span></h4>${curveSvg(ser, cityRef)}<span class="note">* 2026 : 1<sup>er</sup> semestre.</span></div>
     <div class="rows">${rows}</div>
-    ${estimateCta(label + ", " + commune, false)}`;
+    ${CITY.im ? estimateCta(label + ", " + commune, false) : ""}`;
+}
+/* ---------- grand public (23/10) : un prix pour chaque adresse, les dernières ventes autour ----------
+   « Ici, aujourd'hui » = les ventes du même type de logement sur les 3 dernières années connues, sans les filtres :
+   celles de l'immeuble (3 au moins), sinon de sa rue (5), de son petit quartier (10), de son quartier (10), de la ville. */
+const RECENT = 36;
+const recentFrom = () => Math.max(0, maxMonth - RECENT + 1);
+const TYPE_DE = ["d'appartements", "de maisons"], TYPE_PL = ["appartements", "maisons"];
+// Le type de logement d'un immeuble : celui de la plupart de ses ventes, sinon une maison s'il n'a qu'un logement hors copropriété.
+function bldgType(b){
+  const idx = D.byB.get(b), s = D.sales.c; let m = 0; for (const i of idx) m += s.type[i];
+  if (idx.length) return m * 2 > idx.length ? 1 : 0;
+  return D.bldg.c.nlog[b] === 1 && !D.bldg.c.lots[b] ? 1 : 0;
+}
+// La rue d'un immeuble : celle de son adresse, sinon celle de ses ventes.
+function bldgStreet(b){
+  const i = D.bldg.c.ad[b];
+  if (i >= 0){ const j = D.addr.h.streets[D.addr.c.s[i]][2]; if (j != null && j >= 0) return j; }
+  const idx = D.byB.get(b); return idx.length ? D.sales.c.st[idx[0]] : -1;
+}
+function recentStats(idx, type){
+  const s = D.sales.c, m0 = recentFrom(), u = [];
+  for (const i of idx) if (s.type[i] === type && s.m[i] >= m0) u.push(D.pm2[i]);
+  const v = Float64Array.from(u).sort();
+  return {n:v.length, p25:quant(v,.25), p50:quant(v,.5), p75:quant(v,.75)};
+}
+function priceHere(b, type){
+  const c = D.bldg.c;
+  if (!D.byIr){ D.byIr = groupIndex(D.sales.c.ir, D.meta.iris.features.length); D.byQ = groupIndex(D.sales.c.q, D.meta.quartiers.features.length); }
+  const j = bldgStreet(b), ir = c.ir[b], q = c.q[b], zone = (fc, k) => fc.features[k] ? fc.features[k].properties.name : "";
+  const cands = [{src:"de l'immeuble", idx:D.byB.get(b), min:3}];
+  if (j >= 0) cands.push({src:D.meta.streets[j][0], idx:D.bySt.get(j), min:5});
+  if (ir !== 255 && zone(D.meta.iris, ir)) cands.push({src:"quartier " + zone(D.meta.iris, ir), idx:D.byIr.get(ir), min:10});
+  if (q !== 255 && zone(D.meta.quartiers, q)) cands.push({src:"quartier " + zone(D.meta.quartiers, q), idx:D.byQ.get(q), min:10});
+  cands.push({src:CITY.label, idx:allIdx(), min:1});
+  for (const k of cands){ const st = recentStats(k.idx, type); if (st.n >= k.min) return {...k, st}; }
+  return null;
+}
+const r10 = v => fmt.format(Math.round(v/10)*10);
+// cta : le bouton Estimer, posé juste sous la fourchette (au téléphone, il tient dans la feuille à mi-hauteur).
+function priceHereHtml(b, cta){
+  const type = bldgType(b), h = priceHere(b, type);
+  if (!h) return `<p class="note">Pas assez de ventes récentes autour pour donner un prix.</p>${cta}`;
+  const own = h.src === "de l'immeuble", city = h.src === CITY.label, zone = /^quartier /.test(h.src);
+  const where = own ? "dans cet immeuble" : city ? "à " + CITY.ref : zone ? "dans le " + h.src : "dans cette rue";
+  return `<div class="here"><span class="hk">Prix habituel des ${TYPE_PL[type]} ${esc(where)}</span>
+    <div class="big">${pm(h.st.p50)}</div>
+    <div class="bigsub">Une vente sur deux entre ${r10(h.st.p25)} et ${r10(h.st.p75)} €/m².</div>
+    ${cta ? `<div style="margin:10px 0 4px">${cta}</div>` : ""}
+    <span class="note">D'après ${h.st.n} vente${h.st.n>1?"s":""} ${TYPE_DE[type]}${own || city ? "" : ", " + esc(h.src.replace(/^quartier /, ""))}, depuis ${mlabel(recentFrom())}, toutes surfaces confondues. Le prix de votre logement dépend aussi de sa surface, de son étage et de son état : l'estimation en tient compte.</span></div>`;
+}
+// Les 5 ventes les plus récentes du même type autour de l'immeuble (300 m, sinon 600 m), numérotées comme sur la carte.
+function nearSales(b){
+  const s = D.sales.c, c = D.bldg.c, type = bldgType(b), X = c.x[b], Y = c.y[b], k = Math.cos(Y/1e6*Math.PI/180) * 111320 / 1e6, ky = 111320 / 1e6;
+  for (const R0 of [300, 600]){
+    const out = [];
+    for (let i=0;i<D.n;i++){
+      const bi = s.b[i]; if (bi < 0 || s.type[i] !== type) continue;
+      const dx = (c.x[bi]-X)*k, dy = (c.y[bi]-Y)*ky, d = Math.sqrt(dx*dx+dy*dy);
+      if (d <= R0) out.push({i, b:bi, d});
+    }
+    out.sort((p, q) => s.m[q.i]-s.m[p.i] || s.day[q.i]-s.day[p.i] || p.d-q.d);
+    const seen = new Set(), uniq = out.filter(x => { const key = [x.b, s.m[x.i], s.day[x.i], s.price[x.i], s.surf[x.i]].join("|"); return !seen.has(key) && seen.add(key); });
+    if (uniq.length >= 5 || R0 === 600) return {list: uniq.slice(0, 5), r: R0, type};
+  }
+}
+// La tendance du petit quartier de l'immeuble, sinon de son quartier.
+function bldgTrend(b){
+  const c = D.bldg.c, type = bldgType(b);
+  if (!D.byIr){ D.byIr = groupIndex(D.sales.c.ir, D.meta.iris.features.length); D.byQ = groupIndex(D.sales.c.q, D.meta.quartiers.features.length); }
+  for (const [fc, k, by] of [[D.meta.iris, c.ir[b], D.byIr], [D.meta.quartiers, c.q[b], D.byQ]]){
+    if (k === 255 || !fc.features[k]) continue;
+    const tr = trendOf(by.get(k), type);
+    if (tr) return `<div class="trend"><h4>Dans le quartier ${esc(fc.features[k].properties.name)}</h4><ul><li>${trendTxt(tr, type)}</li></ul>${TREND_NOTE}</div>`;
+  }
+  return "";
+}
+function nearHtml(b){
+  const ns = nearSales(b); D.near = ns.list;
+  if (!ns.list.length) return "";
+  const s = D.sales.c;
+  return `<div class="nearw"><h4>Les dernières ventes ${TYPE_DE[ns.type]} autour de cette adresse</h4><ol class="near">${ns.list.map((x, k) => {
+    const ad = bldgAddress(x.b), place = ad && !ad.near ? ad.label : D.meta.streets[s.st[x.i]] ? D.meta.streets[s.st[x.i]][0] : "Adresse non identifiée";
+    return `<li><button type="button" data-near="${x.b}"><span class="nn">${k+1}</span><span class="nt"><b>${esc(place)}</b>
+      <span>${s.rooms[x.i] ? s.rooms[x.i] + (s.rooms[x.i] > 1 ? " pièces, " : " pièce, ") : ""}${fmt.format(s.surf[x.i]/10)} m² · ${MONTHS[s.m[x.i] % 12]} ${Y0 + Math.floor(s.m[x.i]/12)}${x.b === b ? " · cet immeuble" : x.d >= 15 ? " · à " + fmt.format(Math.round(x.d/10)*10) + " m" : ""}</span></span>
+      <span class="p">${fmt.format(s.price[x.i])} €<small>${pm(D.pm2[x.i])}</small></span></button></li>`; }).join("")}</ol>
+    <span class="note">Prix réellement payés, relevés dans les actes de vente (base publique DVF de l'État). Les numéros repèrent les ventes sur la carte.</span></div>`;
+}
+// Les numéros des ventes autour, sur la carte : des repères seulement (on clique l'immeuble ou la ligne de la liste).
+function nearPins(){
+  (D.nearPins || []).forEach(p => p.remove()); D.nearPins = [];
+  if (!S.sel || S.sel.kind !== "bldg" || !D.near) return;
+  D.near.forEach((x, k) => {
+    const el = document.createElement("div"); el.setAttribute("aria-hidden", "true");
+    el.style.cssText = "width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#B4573A;color:#fff;font:700 12.5px/1 Inter,system-ui,sans-serif;box-shadow:0 0 0 2px #fff,0 2px 5px rgba(0,0,0,.35);pointer-events:none";
+    el.textContent = k + 1;
+    D.nearPins.push(new maplibregl.Marker({element:el}).setLngLat(bldgLL(x.b)).addTo(map));
+  });
 }
 function buildingFiche(b){
   // Ordre d'un vendeur : prix et ventes, puis DPE, puis métro, puis la fiche technique repliée.
   const c = D.bldg.c, idx = Array.from(D.byB.get(b)), counts = [...DPE_L].map(l => c["d"+l][b]), t = counts.reduce((a,x)=>a+x,0);
+  const oc = [...DPE_L].map(l => c["o"+l][b]), ot = oc.reduce((a,x)=>a+x,0);
+  // Anciens DPE : logements sans DPE récent seulement (les doublons d'un DPE récent sont écartés en amont).
+  const oldDpe = ot >= 3 ? `<div class="chart"><h4>Anciens DPE · ${ot} diagnostics<span class="oldtag">plus valables</span></h4>${dpeBar(oc, true)}<span class="note">Établis entre ${dpeMonth(c.o0[b])} et ${dpeMonth(c.o1[b])} avec l'ancienne méthode (remplacée en juillet 2021). Ne comptent ici que les logements sans DPE récent. Répartition de l'immeuble, jamais l'étiquette d'un logement.</span></div>`
+    : ot > 1 ? `<p class="note">${ot} anciens DPE, plus valables (le plus récent : ${dpeMonth(c.o1[b])}). Répartition affichée à partir de 3 diagnostics.</p>`
+    : ot ? `<p class="note">1 ancien DPE, plus valable (${dpeMonth(c.o1[b])}).</p>` : "";
   const yr = c.yr[b], ep = c.ep[b], src = D.bldg.h.yearSrc[c.ys[b]] || "";
   const anyFar = idx.some(i => D.sales.c.fl[i] & 1);
   const st = statsOf(idx, new Uint8Array(D.n).fill(1));
-  const stF = statsOf(idx, mask), k = activeFilters();
-  const stIdx = idx.length ? D.sales.c.st[idx[0]] : -1;
+  const stIdx = bldgStreet(b);
   const lots = c.lots[b], syn = D.bldg.h.syndic[c.syn[b]], ad = bldgAddress(b);
   const built = yr ? "construit en " + yr : ep < 4 ? "construit " + EP_L[ep] : "année de construction inconnue";
-  const n = idx.length, ventes = n + " vente" + (n>1?"s":"");
-  // Le prix d'un immeuble porte sur toutes ses ventes (trop peu pour filtrer) : le texte le dit.
-  const price = !n ? `<p class="note">Aucune vente d'appartement ou de maison ici depuis 2018.</p>`
-    : n < 3 ? `<div class="warn">${ventes} depuis 2018 : le prix médian d'un immeuble n'est affiché qu'à partir de 3 ventes.</div>`
-    : `<div><div class="big">${pm(st.p50)}</div><div class="bigsub">prix médian au m² des ${ventes} depuis 2018${k ? `, sans vos filtres · ${stF.n} correspond${stF.n>1?"ent":""} à vos filtres` : ""}</div></div>`;
-  // Titre : l'adresse si elle retombe sur cet immeuble, sinon la rue de ses ventes.
-  const exact = ad && ad.exact, street = stIdx >= 0 ? D.meta.streets[stIdx] : null;
-  const title = exact ? ad.label : street ? street[0] : "Adresse non identifiée", commune = exact ? ad.commune : street ? street[1] : ad ? ad.commune : "";
-  const cta = exact ? ad.full : street ? street[0] + ", " + street[1] : "";
+  const n = idx.length;
+  // 23/10 : le prix vient de priceHereHtml (l'immeuble, sinon la rue, le quartier) ; ici, seulement ses propres ventes.
+  const own = !n ? `<p class="note">Aucune vente d'appartement ou de maison dans cet immeuble depuis ${Y0}.</p>`
+    : salesList(idx, false, n >= 3 ? `Les ventes de cet immeuble depuis ${Y0} (${n}) · prix habituel ${pm(st.p50)}` : `Les ventes de cet immeuble depuis ${Y0} (${n})`);
+  // Titre : l'adresse de l'immeuble ; « Près du » quand ce n'est que l'adresse la plus proche ; sinon la rue de ses ventes.
+  const street = stIdx >= 0 ? D.meta.streets[stIdx] : null, sure = ad && !ad.near;
+  const title = ad ? (ad.near ? (/^\d/.test(ad.label) ? "Près du " : "Près de : ") + ad.label : ad.label) : street ? street[0] : "Adresse non identifiée";
+  const commune = ad ? ad.commune : street ? street[1] : "";
+  const cta = sure ? ad.full : street ? street[0] + ", " + street[1] : "";
   return `${backBtn()}<span class="kick">Immeuble${c.res[b] ? "" : " · surtout non résidentiel"}</span>
     <h2>${esc(title)}</h2>
-    <span class="mute" style="font-size:13.5px;margin-top:-8px">${commune ? esc(commune) + " · " + built : built.charAt(0).toUpperCase() + built.slice(1)}</span>
-    ${price}
-    ${n ? salesList(idx, false) : ""}
+    <span class="mute" style="font-size:13.5px;margin-top:-8px">${commune ? esc(commune) + " · " + built : built.charAt(0).toUpperCase() + built.slice(1)}${ad && ad.method >= 3 && !ad.near ? " · adresse déduite, à vérifier" : ""}</span>
+    ${priceHereHtml(b, estimateCta(cta, !!sure))}
+    ${nearHtml(b)}
+    ${bldgTrend(b)}
+    ${own}
     ${anyFar ? `<div class="warn">Certaines ventes ont une adresse placée loin de la parcelle : elles ne portent ni DPE ni année.</div>` : ""}
     ${t >= 3 ? `<div class="chart"><h4>DPE de l'immeuble · ${t} diagnostic${t>1?"s":""}</h4>${dpeBar(counts)}<span class="note">Établis entre ${dpeMonth(c.d0[b])} et ${dpeMonth(c.d1[b])}. Répartition de l'immeuble, jamais l'étiquette d'un logement.</span></div>`
-      : t ? `<p class="note">${t} DPE dans l'immeuble (${dpeMonth(c.d1[b])}) : répartition affichée à partir de 3.</p>` : `<p class="note">Aucun DPE rattaché à cet immeuble.</p>`}
+      : t ? `<p class="note">${t} DPE dans l'immeuble (${dpeMonth(c.d1[b])}) : répartition affichée à partir de 3.</p>` : ot ? "" : `<p class="note">Aucun DPE rattaché à cet immeuble.</p>`}
+    ${oldDpe}
     <div class="chips"><button class="pill x brick" data-station="${D.metro.c.bws[b]}">Métro ${walkMin(D.metro.c.bwk[b])} min à pied · ${esc(D.st[D.metro.c.bws[b]].label)}</button>
       ${stIdx >= 0 ? `<button class="pill x" data-street="${stIdx}">${esc(D.meta.streets[stIdx][0])} · voir la rue</button>` : ""}</div>
     <details class="more"><summary>Détails de l'immeuble</summary><div class="rows">
+      ${ad && ad.method >= 2 ? `<div class="row"><span>Adresse</span><b>${ad.method === 2 ? "" : "déduite : "}${ADDR_HOW[ad.method]}</b></div>` : ""}
       ${yr || ep < 4 ? `<div class="row"><span>Époque de construction (encadrement des loyers)</span><b>${ep < 4 ? EP_L[ep] : "?"}</b></div>` : ""}
       ${yr ? `<div class="row"><span>Source de l'année</span><b>${esc(src)}</b></div>` : ""}
       ${c.lv[b] ? `<div class="row"><span>Niveaux</span><b>${c.lv[b]}</b></div>` : ""}
       ${c.h[b] ? `<div class="row"><span>Hauteur moyenne</span><b>${c.h[b]} m</b></div>` : ""}
       ${c.nlog[b] ? `<div class="row"><span>Logements</span><b>${c.nlog[b]}</b></div>` : ""}
       ${lots ? `<div class="row"><span>Copropriété (registre national)</span><b>${lots} lots d'habitation${syn === "aucun" ? " · sans syndic déclaré" : syn ? " · syndic " + syn : ""}</b></div>` : `<div class="row"><span>Copropriété</span><b>hors registre</b></div>`}
-    </div><p class="note">Source : base nationale des bâtiments (CSTB), février 2026. L’année, les niveaux et les logements viennent des fichiers fonciers de l’administration fiscale (DGFiP) ; la hauteur, de l’IGN. 44 % des années sont arrondies à la dizaine : lisez-les comme une époque.</p></details>
-    ${estimateCta(cta, !!exact)}`;
+    </div><p class="note">Source : base nationale des bâtiments (CSTB), février 2026. L’année, les niveaux et les logements viennent des fichiers fonciers de l’administration fiscale (DGFiP) ; la hauteur, de l’IGN. 44 % des années sont arrondies à la dizaine : lisez-les comme une époque.</p></details>`;
 }
 // Le pont vers l'estimation. Sur le site, l'adresse part pré-remplie ; sur claude.ai (pas d'adresse de
 // base), le bouton explique ce qu'il fera.
 function estimateCta(addr, exact){
   if (!addr) return "";
   if (ESTIMATE_URL) return `<div class="est"><a class="cta" href="${esc(ESTIMATE_URL.replace("{adresse}", encodeURIComponent(addr)))}">Estimer mon logement ici</a><span class="note">${exact
-    ? "Gratuit et sans compte. L’estimation s’ouvre à cette adresse."
-    : "Gratuit et sans compte. La rue est déjà tapée : ajoutez votre numéro et choisissez dans la liste."}</span></div>`;
+    ? "L'estimation est gratuite et sans compte. Elle démarre avec cette adresse."
+    : "L'estimation est gratuite et sans compte. La rue est déjà tapée : il reste à ajouter votre numéro."}</span></div>`;
   return `<div class="est"><button class="cta" data-est>Estimer mon logement ici</button><span class="note" hidden>Sur le site Estqmo, ce bouton ouvre l'estimation avec cette ${exact ? "adresse" : "rue"} déjà tapée : ${esc(addr)}.</span></div>`;
 }
 const bldgLL = b => [D.bldg.c.x[b]/1e6, D.bldg.c.y[b]/1e6];
-// Adresse la plus proche du centre de l'immeuble (45 m au plus). « exact » : cette adresse retombe sur
-// le même immeuble, on peut alors la donner comme titre et la mettre dans le lien partageable.
+// Adresse de l'immeuble, fixée par le pipeline (script 03b) avec sa méthode (am). « exact » : l'adresse
+// appartient à cet immeuble (lien BDNB ou point dans l'emprise), elle peut aller dans le lien partageable.
+const ADDR_HOW = ["", "", "une adresse officielle est située dans le bâtiment", "adresse de la parcelle cadastrale",
+  "adresse officielle la plus proche, à moins de 30 m", "d'après OpenStreetMap", "aucune adresse sur ce bâtiment ; la plus proche est à moins de 200 m"];
 function bldgAddress(b){
-  if (!D.bAddr) D.bAddr = new Map(); if (D.bAddr.has(b)) return D.bAddr.get(b);
-  const a = D.addr.c, h = D.addr.h, c = D.bldg.c, X = c.x[b], Y = c.y[b], k = Math.cos(Y/1e6*Math.PI/180);
-  let best = -1, bd = 1e18;
-  for (let i=0;i<a.num.length;i++){ const dx = (a.x[i]-X)*k, dy = a.y[i]-Y, d = dx*dx+dy*dy; if (d < bd){ bd = d; best = i; } }
-  let out = null;
-  if (best >= 0 && Math.sqrt(bd) < 400){
-    const [sl, com] = h.streets[a.s[best]], rp = h.reps[a.rep[best]] || "";
-    const label = a.num[best] + (rp ? " " + rp.toLowerCase() : "") + " " + sl;
-    out = {label, commune:com, full:label + ", " + com, slug:slug(label), exact: buildingOfAddr(best) === b};
-  }
-  D.bAddr.set(b, out); return out;
+  const i = D.bldg.c.ad[b], m = D.bldg.c.am[b]; if (i < 0) return null;
+  const a = D.addr.c, h = D.addr.h, [sl, com] = h.streets[a.s[i]], rp = h.reps[a.rep[i]] || "";
+  const label = (a.num[i] ? a.num[i] + (rp ? " " + rp.toLowerCase() : "") + " " : "") + sl;
+  return {label, commune:com, full:label + ", " + com, slug:slug(label), exact: a.ab[i] === b, method:m, near: m === 6};
 }
-function salesList(idx, open){
+function salesList(idx, open, title){
   const s = D.sales.c; const sorted = idx.slice().sort((a,b) => s.m[b]-s.m[a] || s.day[b]-s.day[a]);
-  return `<details class="sales" ${open ? "open" : ""}><summary>Les ventes une par une (${idx.length})</summary><ul class="sl">${sorted.map(i => {
+  return `<details class="sales" ${open ? "open" : ""}><summary>${title || `Les ventes une par une (${idx.length})`}</summary><ul class="sl">${sorted.map(i => {
     const surf = s.surf[i]/10;
-    return `<li><span class="d">${String(s.day[i]).padStart(2,"0")}/${String(s.m[i]%12+1).padStart(2,"0")}/${2018+Math.floor(s.m[i]/12)}</span>
+    return `<li><span class="d">${String(s.day[i]).padStart(2,"0")}/${String(s.m[i]%12+1).padStart(2,"0")}/${Y0+Math.floor(s.m[i]/12)}</span>
       <span>${s.type[i] ? "Maison" : "Appartement"} · ${s.rooms[i] || "?"} p. · ${fmt.format(surf)} m²</span>
       <span class="p">${keur(s.price[i])}<small>${pm(D.pm2[i])}</small></span></li>`; }).join("")}</ul></details>`;
 }
@@ -5162,8 +5515,9 @@ function select(sel, fly){
   S.sel = sel;
   map.setFilter("sel-zone", ["==",["id"], sel && sel.kind === "quartier" ? sel.id : -1]);
   map.setFilter("sel-iris", ["==",["id"], sel && sel.kind === "iris" ? sel.id : -1]);
-  map.setFilter("b-sel", ["==",["id"], sel && sel.kind === "bldg" ? sel.id + 1 : -1]);
-  map.setFilter("p-sel", ["==",["get","p"], sel && sel.kind === "parcel" ? sel.ref : "__"]);
+  if (CITY.im){ map.setFilter("b-sel", ["==",["id"], sel && sel.kind === "bldg" ? sel.id + 1 : -1]);
+  map.setFilter("p-sel", ["==",["get","p"], sel && sel.kind === "parcel" ? sel.ref : "__"]); }
+  if (CITY.pt) map.setFilter("v-sel", ["==",["id"], sel && sel.kind === "parcel" ? sel.id : -1]);
   const si = sel && sel.kind === "station" ? sel.id : -1;
   map.setFilter("iso-fill", ["==",["get","s"], si]); map.setFilter("iso-line", ["==",["get","s"], si]);
   if (D.selSt != null) map.setFeatureState({source:"stations", id:D.selSt}, {sel:false});
@@ -5173,29 +5527,50 @@ function select(sel, fly){
     if (f) map.fitBounds(bboxOf(f.geometry), {padding: fitPad(), maxZoom:16});
     else showPoint([D.st[si].lon, D.st[si].lat], 15);
   }
-  focusFromSel();
   stSel(sel && sel.kind === "street" ? sel.id : sel && sel.st != null ? sel.st : null);
   if (fly && sel && sel.kind === "street"){
-    const bb = boundsOf(Array.from(D.bySt.get(sel.id)).map(i => D.sales.c.b[i]).filter(b => b >= 0));
+    const bb = CITY.im ? boundsOf(Array.from(D.bySt.get(sel.id)).map(i => D.sales.c.b[i]).filter(b => b >= 0)) : boundsOfParcels(Array.from(D.bySt.get(sel.id)).map(i => D.sales.c.pc[i]));
     if (bb) map.fitBounds(bb, {padding: fitPad(), maxZoom:16.2});
   }
-  renderSide();
+  renderSide(); nearPins(); bienPins();
   if (isPhone() && sel){ showTab("side"); setSheet("half"); }
   // Immeuble : au téléphone, toujours ramené au milieu de la partie visible, au-dessus de la feuille.
-  if (sel && sel.kind === "bldg" && (fly || isPhone())) showPoint(bldgLL(sel.id), fly ? 17 : null);
+  if (sel && sel.kind === "bldg" && fly && D.near && D.near.length) map.fitBounds(boundsOf([sel.id, ...D.near.map(x => x.b)]), {padding: fitPad(), maxZoom: 17, duration: 650});
+  else if (sel && sel.kind === "bldg" && (fly || isPhone())) showPoint(bldgLL(sel.id), fly ? 17 : null);
+  selPin();
   urlSoon();
+}
+// 3D : le contour au pied passe derrière les murs. L'immeuble choisi est marqué d'une épingle posée
+// par-dessus la carte ; aucun immeuble ne change de couleur, ni au survol ni au clic.
+function selPin(){
+  const b = S.d3 && S.sel && S.sel.kind === "bldg" ? S.sel.id : null;
+  if (b == null){ if (D.pin) D.pin.remove(); return; }
+  if (!D.pin){
+    const el = document.createElement("div"); el.setAttribute("aria-hidden", "true");
+    el.style.cssText = "width:22px;height:30px;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))";
+    el.innerHTML = '<svg width="22" height="30" viewBox="0 0 22 30"><path d="M11 29C11 29 2 17.5 2 11a9 9 0 0 1 18 0c0 6.5-9 18-9 18z" fill="#24435C" stroke="#fff" stroke-width="2"/><circle cx="11" cy="11" r="3.4" fill="#fff"/></svg>';
+    D.pin = new maplibregl.Marker({element:el, anchor:"bottom"});
+  }
+  D.pin.setLngLat(bldgLL(b)).addTo(map);
 }
 function boundsOf(bids){
   if (!bids.length) return null; const c = D.bldg.c; let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
   for (const b of bids){ x0 = Math.min(x0,c.x[b]); x1 = Math.max(x1,c.x[b]); y0 = Math.min(y0,c.y[b]); y1 = Math.max(y1,c.y[b]); }
   return [[x0/1e6-.0006,y0/1e6-.0004],[x1/1e6+.0006,y1/1e6+.0004]];
 }
+function boundsOfParcels(ps){
+  if (!ps.length) return null; const c = D.sales.c; let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  for (const p of ps){ x0 = Math.min(x0,c.px[p]); x1 = Math.max(x1,c.px[p]); y0 = Math.min(y0,c.py[p]); y1 = Math.max(y1,c.py[p]); }
+  return [[x0/1e6-.0006,y0/1e6-.0004],[x1/1e6+.0006,y1/1e6+.0004]];
+}
 // Marges de la partie de carte réellement visible : sous les boutons du haut, au-dessus de la feuille
 // (téléphone) ; entre les panneaux (ordinateur).
 function fitPad(){
   if (isPhone()){ const top = Math.round(R.getElementById("legend").getBoundingClientRect().bottom - R.getElementById("app").getBoundingClientRect().top) + 14;
-    return {top: Math.max(120, top), bottom: SH.half() + 14, left:20, right:20}; }
-  return {top:110, bottom:130, left: R.getElementById("filters").classList.contains("open") ? 350 : 40, right:390};
+    return {top: Math.max(120, top), bottom: SH.half() + 58, left:20, right:20}; }   // + la mention « OpenStreetMap · sources » posée sur la feuille
+  // la légende, en bas à gauche, cachait des numéros : la marge du bas passe au-dessus d'elle (23/10)
+  const a = R.getElementById("app").getBoundingClientRect(), lg = R.getElementById("legend").getBoundingClientRect();
+  return {top:110, bottom: lg.height ? Math.max(130, Math.round(a.bottom - lg.top) + 16) : 130, left: R.getElementById("filters").classList.contains("open") ? 350 : 40, right:390};
 }
 // Amène un point au centre de la partie visible, sans changer la marge de la carte (offset, pas padding).
 function showPoint(ll, z){
@@ -5207,7 +5582,7 @@ function showPoint(ll, z){
 /* ============================================================ interactions carte */
 function bindMap(){
   const tip = R.getElementById("tip");
-  const pickLayers = () => ["m-st","m-exit","b-3d","b-fill","p-fill","st-Lille","st-Lomme","st-Hellemmes","i-fill","q-fill"].filter(l => map.getLayer(l) && map.getLayoutProperty(l, "visibility") !== "none");
+  const pickLayers = () => (CITY.im ? ["m-st","m-exit","b-3d","b-fill","p-fill","st-Lille","st-Lomme","st-Hellemmes","i-fill","q-fill"] : ["v-pt", ...streetCommunes().map(c => "st-"+c), "i-fill","q-fill"]).filter(l => map.getLayer(l) && map.getLayoutProperty(l, "visibility") !== "none");
   function pick(point){
     const z = map.getZoom(), box = [[point.x-5, point.y-5],[point.x+5, point.y+5]];
     const near = map.queryRenderedFeatures(box, {layers: ["m-st","m-exit"].filter(l => map.getLayer(l) && S.metro)});
@@ -5215,6 +5590,7 @@ function bindMap(){
     const me = near.find(f => f.layer.id === "m-exit"); if (me && z >= 15.6) return {kind:"station", id:me.properties.s, exit:me.properties.k};
     const fs = map.queryRenderedFeatures(point, {layers: pickLayers()});
     const b = fs.find(f => f.layer.id === "b-fill" || f.layer.id === "b-3d"); if (b && z >= 15.2) return {kind:"bldg", id:b.id - 1};
+    const v = fs.find(f => f.layer.id === "v-pt"); if (v && z >= 15 && (map.getFeatureState({source:"pts", id:v.id}).n || 0) > 0) return {kind:"parcel", id:v.id, ref:v.properties.p};
     const p = fs.find(f => f.layer.id === "p-fill"); if (p && z >= 16.2){ const i = D.pcIndex.get(p.properties.p); return {kind:"parcel", id: i == null ? -1 : i, ref:p.properties.p}; }
     const s = fs.find(f => f.layer.id.startsWith("st-")); if (s && z >= 13.8 && z < 16.2){ const j = streetByOsm(s.properties.name, s.layer.id.slice(3)); if (j >= 0) return {kind:"street", id:j}; }
     const i = fs.find(f => f.layer.id === "i-fill"); if (i && z >= 12.6 && z < 15) return {kind:"iris", id:i.id};
@@ -5227,16 +5603,16 @@ function bindMap(){
     if (noHover.matches){ tip.hidden = true; return; }   // écran tactile : pas d'infobulle, la fiche suffit
     const sel = pick(e.point);
     if (D.hoverId != null){ map.setFeatureState({source:"overlay", sourceLayer:"buildings", id:D.hoverId}, {hover:false}); D.hoverId = null; }
-    if (S.d3) setFocus(sel && sel.kind === "bldg" ? sel.id + 1 : (S.sel && S.sel.kind === "bldg" ? S.sel.id + 1 : null));
     if (!sel){ tip.hidden = true; map.getCanvas().style.cursor = ""; return; }
     map.getCanvas().style.cursor = "pointer";
     if (sel.kind === "bldg"){ D.hoverId = sel.id + 1; map.setFeatureState({source:"overlay", sourceLayer:"buildings", id:D.hoverId}, {hover:true}); }
     tip.innerHTML = tipHtml(sel); tip.hidden = !tip.innerHTML;
     tip.style.left = e.point.x + "px"; tip.style.top = e.point.y + "px";
   });
-  map.getCanvas().addEventListener("mouseleave", () => { tip.hidden = true; if (S.d3) focusFromSel(); });
+  map.getCanvas().addEventListener("mouseleave", () => { tip.hidden = true; });
   map.on("zoom", syncLevel); syncLevel();
-  map.on("moveend", () => { if (D.ready){ D.urlMoved = true; urlSoon(); } });
+  map.on("moveend", () => { if (D.ready){ D.urlMoved = true; urlSoon(); followView(); } });
+  if (CITY.pt) map.on("moveend", paintPoints);
 }
 function streetByOsm(name, commune){
   if (!D.osmIdx){ D.osmIdx = new Map(); D.meta.streets.forEach(([l,c,o],j) => { if (o && !D.osmIdx.has(o+"|"+c)) D.osmIdx.set(o+"|"+c, j); }); }
@@ -5246,7 +5622,7 @@ function tipHtml(sel){
   if (sel.kind === "bldg"){
     const idx = D.byB.get(sel.id), st = statsOf(idx, mask), c = D.bldg.c;
     const y = c.yr[sel.id] ? c.yr[sel.id] : c.ep[sel.id] < 4 ? EP_L[c.ep[sel.id]] : "année inconnue";
-    return `<b>${st.n >= 3 ? pm(st.p50) : st.n ? st.n + " vente" + (st.n>1?"s":"") : "Immeuble"}</b><br><span class="mute">${y}${D.dom[sel.id] < 7 ? " · DPE surtout " + DPE_L[D.dom[sel.id]] + " (" + dpeMonth(c.d0[sel.id]) + " à " + dpeMonth(c.d1[sel.id]) + ")" : ""} · métro à ${walkMin(D.metro.c.bwk[sel.id])} min à pied</span>`;
+    return `<b>${st.n >= 3 ? pm(st.p50) : st.n ? st.n + " vente" + (st.n>1?"s":"") : "Immeuble"}</b><br><span class="mute">${y}${D.dom[sel.id] < 7 ? " · DPE surtout " + DPE_L[D.dom[sel.id]] + " (" + dpeMonth(c.d0[sel.id]) + " à " + dpeMonth(c.d1[sel.id]) + ")" : D.domOld[sel.id] < 7 ? " · anciens DPE surtout " + DPE_L[D.domOld[sel.id]] + " (" + dpeMonth(c.o0[sel.id]) + " à " + dpeMonth(c.o1[sel.id]) + ", plus valables)" : ""} · métro à ${walkMin(D.metro.c.bwk[sel.id])} min à pied</span>`;
   }
   if (sel.kind === "station"){
     const st = D.st[sel.id];
@@ -5254,7 +5630,8 @@ function tipHtml(sel){
     return `<b>${esc(st.label)}</b><br><span class="mute">${st.lines.join(", ")} · cliquez pour la fiche</span>`;
   }
   if (sel.kind === "street"){ const [l] = D.meta.streets[sel.id], st = D.stVals[sel.id]; return `<b>${esc(l)}</b><br><span class="mute">${st.n >= 5 ? pm(st.p50) + " · " + st.n + " ventes" : st.n + " vente" + (st.n>1?"s":"") + " (moins de 5)"}</span>`; }
-  if (sel.kind === "parcel") return `<b>Parcelle ${parcelLabel(sel.ref)}</b><br><span class="mute">${sel.id >= 0 ? D.byPc.get(sel.id).length + " vente" + (D.byPc.get(sel.id).length > 1 ? "s" : "") + " depuis 2018" : "aucune vente depuis 2018"}</span>`;
+  if (sel.kind === "parcel"){ if (CITY.pt){ const st = statsOf(D.byPc.get(sel.id), mask); return `<b>${pm(st.p50)}</b><br><span class="mute">${st.n} vente${st.n > 1 ? "s" : ""} · parcelle ${parcelLabel(sel.ref)}</span>`; }
+    return `<b>Parcelle ${parcelLabel(sel.ref)}</b><br><span class="mute">${sel.id >= 0 ? D.byPc.get(sel.id).length + " vente" + (D.byPc.get(sel.id).length > 1 ? "s" : "") + " depuis " + Y0 : "aucune vente depuis " + Y0}</span>`; }
   const fc = sel.kind === "quartier" ? D.meta.quartiers : D.meta.iris, f = fc.features[sel.id];
   return `<b>${esc(f.properties.name)}</b><br><span class="mute">${f.properties.lab || "pas assez de ventes"}</span>`;
 }
@@ -5274,13 +5651,14 @@ R.getElementById("tMetro").onclick = e => {
   METRO_LAYERS.forEach(l => map.setLayoutProperty(l, "visibility", S.metro ? "visible" : "none")); renderLegend(); urlSoon();
 };
 function set3d(on, instant){
+  if (!CITY.im) return;
   S.d3 = on; R.getElementById("t3d").setAttribute("aria-pressed", on); urlSoon();
   const v = on ? "visible" : "none", f = on ? "none" : "visible";
-  map.setLayoutProperty("b-3d","visibility",v); ["b-fill","b-line","b-sel"].forEach(l => map.setLayoutProperty(l,"visibility",f));
+  map.setLayoutProperty("b-3d","visibility",v); ["b-fill","b-old","b-line","b-sel"].forEach(l => map.setLayoutProperty(l,"visibility",f)); selPin();
   if (on){ map.dragRotate.enable(); map.touchZoomRotate.enableRotation(); map.touchPitch.enable();
-    if (instant) map.jumpTo({pitch:55, bearing:-18}); else map.easeTo({pitch:55, bearing:-18, zoom:Math.max(map.getZoom(), 15.4), duration:900}); focusFromSel(); }
+    if (instant) map.jumpTo({pitch:55, bearing:-18}); else map.easeTo({pitch:55, bearing:-18, zoom:Math.max(map.getZoom(), 15.4), duration:900}); }
   else { map.dragRotate.disable(); map.touchZoomRotate.disableRotation(); map.touchPitch.disable();
-    map.easeTo({pitch:0, bearing:0, duration:700}); D.dimOn = false; setFocus(null); paint3d(); }
+    map.easeTo({pitch:0, bearing:0, duration:700}); }
 }
 R.getElementById("t3d").onclick = () => set3d(!S.d3);
 const fWalk = R.getElementById("fWalk");
@@ -5303,10 +5681,27 @@ for (const [id, key] of Object.entries(CHIP_KEY))
 R.getElementById("fType").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return;
   S.type = b.dataset.v === "all" ? new Set([0,1]) : new Set([+b.dataset.v]); syncChips(); schedule(); });
 const isStudios = () => S.type.size === 1 && S.type.has(0) && S.rooms.size === 2 && S.rooms.has(1) && S.rooms.has(2);
+// Mode simple (23/10) : la surface en tranches, un seul choix ; un deuxième clic l'enlève. Le mode complet garde le curseur.
+const SURF_T = [[8,29,"Moins de 30 m²"], [30,49,"30 à 49 m²"], [50,79,"50 à 79 m²"], [80,119,"80 à 119 m²"], [120,400,"120 m² et plus"]];
+R.getElementById("fSurfS").innerHTML = SURF_T.map(([, , l], k) => `<button class="chip" data-k="${k}" aria-pressed="false">${l}</button>`).join("");
+R.getElementById("fSurfS").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return;
+  const [a, c] = SURF_T[+b.dataset.k]; S.surf = S.surf[0] === a && S.surf[1] === c ? [8, 400] : [a, c];
+  syncRanges(); syncChips(); schedule(); });
+// Après une estimation sur le site (window.__estqmoBien, posé par l'écran de résultat) : les filtres prennent
+// le type, les pièces et la tranche de surface du bien. Les filtres actifs, en tête du panneau, se retirent un par un.
+function likeMine(b, quiet){
+  if (!b || (b.type !== 0 && b.type !== 1)) return;
+  S.type = new Set([b.type]);
+  S.rooms = b.pieces >= 1 ? new Set([Math.min(5, Math.round(b.pieces))]) : new Set();
+  const sf = Math.round(b.surface), k = SURF_T.findIndex(([a, c]) => sf >= a && sf <= c); S.surf = k >= 0 ? SURF_T[k].slice(0, 2) : [8, 400];
+  syncRanges(); syncChips(); if (!quiet){ clearTimeout(pending); refresh(); }
+}
+on(window, "estqmo-bien", () => { if (D.ready) likeMine(window.__estqmoBien); });
 function syncChips(){
   for (const [id, key] of Object.entries(CHIP_KEY)) R.querySelectorAll(`#${id} .chip`).forEach(b => b.setAttribute("aria-pressed", S[key].has(+b.dataset.v)));
   R.querySelectorAll("#fType .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === "all" ? S.type.size === 2 : S.type.size === 1 && S.type.has(+b.dataset.v)));
   R.getElementById("presetT2").setAttribute("aria-pressed", isStudios());
+  R.querySelectorAll("#fSurfS .chip").forEach(b => { const [a, c] = SURF_T[+b.dataset.k]; b.setAttribute("aria-pressed", S.surf[0] === a && S.surf[1] === c); });
   const n = [S.epoch.size, S.dpe.size].some(Boolean);
   R.getElementById("fNote").textContent = n ? "Avec un filtre d'année ou de DPE, les ventes dont l'adresse est mal localisée (deux rues du même nom) sont écartées." : "";
 }
@@ -5362,14 +5757,14 @@ function dual(id, min, max, step, key, unit, name){
     inp.addEventListener("focus", () => inp.select()); });
   el._sync = () => sync(null); sync(null);
 }
-dual("dSurf", 8, 400, 1, "surf", "m²", "Surface"); dual("dPrice", 0, 1500000, 5000, "price", "€", "Prix de vente"); dual("dPm2", 300, 10000, 100, "pm2", "€/m²", "Prix au m²");
+dual("dSurf", 8, 400, 1, "surf", "m²", "Surface"); dual("dPrice", 0, P_MAX, 5000, "price", "€", "Prix de vente"); dual("dPm2", PM2[0], PM2[1], 100, "pm2", "€/m²", "Prix au m²");
 const syncRanges = () => ["dSurf","dPrice","dPm2"].forEach(i => R.getElementById(i)._sync());
 R.getElementById("presetT2").onclick = () => {
   if (isStudios()){ S.type = new Set([0,1]); S.rooms = new Set(); } else { S.type = new Set([0]); S.rooms = new Set([1,2]); }
   syncChips(); schedule(); };
 R.getElementById("reset").onclick = () => {
   stopPlay();
-  Object.assign(S, {type:new Set([0,1]), rooms:new Set(), surf:[8,400], price:[0,1500000], pm2:[300,10000], epoch:new Set(), dpe:new Set(), lots:new Set(), time:[0, maxMonth], walk:WALK_OFF});
+  Object.assign(S, {type:new Set([0,1]), rooms:new Set(), surf:[8,400], price:[0,P_MAX], pm2:PM2.slice(), epoch:new Set(), dpe:new Set(), lots:new Set(), time:[0, maxMonth], walk:WALK_OFF});
   tlCustom = false; syncRanges(); syncChips(); syncTimeline(); showWalk(); schedule();
 };
 // Filtres actifs en pastilles retirables, en tête du panneau.
@@ -5388,8 +5783,8 @@ function activeList(){
   if (S.type.size === 1) add(S.type.has(0) ? "Appartements" : "Maisons", () => { S.type = new Set([0,1]); });
   [...S.rooms].sort().forEach(v => add(ROOM_TXT[v], () => S.rooms.delete(v)));
   if (S.surf[0] > 8 || S.surf[1] < 400) add(rangeTxt(S.surf, 8, 400, v => v, "\u00a0m²"), () => { S.surf = [8,400]; });
-  if (S.price[0] > 0 || S.price[1] < 1500000) add(rangeTxt(S.price, 0, 1500000, keur, ""), () => { S.price = [0,1500000]; });
-  if (S.pm2[0] > 300 || S.pm2[1] < 10000) add(rangeTxt(S.pm2, 300, 10000, v => fmt.format(v), "\u00a0€/m²"), () => { S.pm2 = [300,10000]; });
+  if (S.price[0] > 0 || S.price[1] < P_MAX) add(rangeTxt(S.price, 0, P_MAX, keur, ""), () => { S.price = [0,P_MAX]; });
+  if (S.pm2[0] > PM2[0] || S.pm2[1] < PM2[1]) add(rangeTxt(S.pm2, PM2[0], PM2[1], v => fmt.format(v), "\u00a0€/m²"), () => { S.pm2 = PM2.slice(); });
   [...S.epoch].sort().forEach(v => add(EP_TXT[v], () => S.epoch.delete(v)));
   [...S.dpe].sort().forEach(v => add("DPE " + DPE_L[v], () => S.dpe.delete(v)));
   [...S.lots].sort().forEach(v => add(LOT_TXT[v], () => S.lots.delete(v)));
@@ -5413,17 +5808,16 @@ R.getElementById("fAct").addEventListener("click", e => { const b = e.target.clo
 // La période se choisit par des pastilles (12 derniers mois, 3 ans, 5 ans, depuis 2018), par
 // « Personnaliser » (mois et année de début et de fin), par un clic sur une année de
 // l'histogramme ou en glissant dessus (années entières). Le début ne passe jamais après la fin.
-const PERIODS = [["12m","12 derniers mois",12,"12 derniers mois"], ["3a","3 ans",36,"3 dernières années"], ["5a","5 ans",60,"5 dernières années"], ["all","Depuis 2018",0,"Depuis 2018"]];
+const PERIODS = [["12m","12 derniers mois",12,"12 derniers mois"], ["3a","3 ans",36,"3 dernières années"], ["5a","5 ans",60,"5 dernières années"], ["all","Depuis " + Y0,0,"Depuis " + Y0]];
 let tlCustom = false;
 const presetFrom = n => n ? maxMonth - n + 1 : 0;
 const presetOf = t => t[1] !== maxMonth ? null : (PERIODS.find(p => presetFrom(p[2]) === t[0]) || [null])[0];
 const yearSpan = (y0, y1) => [y0 * 12, Math.min(maxMonth, y1 * 12 + 11)];
 // Dernière année incomplète : « 1er semestre » comme le panneau des chiffres, sinon « janvier à … ».
-const MONTHS_L = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 const partTxt = () => maxMonth % 12 === 11 ? "" : maxMonth % 12 === 5 ? "1er semestre" : "janvier à " + MONTHS_L[maxMonth % 12];
 function periodText(t){
   const p = presetOf(t); if (p) return PERIODS.find(x => x[0] === p)[3];
-  const y0 = 2018 + Math.floor(t[0] / 12), y1 = 2018 + Math.floor(t[1] / 12);
+  const y0 = Y0 + Math.floor(t[0] / 12), y1 = Y0 + Math.floor(t[1] / 12);
   if (t[0] % 12 === 0 && (t[1] % 12 === 11 || t[1] === maxMonth)) return y0 === y1 ? "En " + y0 : "De " + y0 + " à " + y1;
   return "De " + mlabel(t[0]) + " à " + mlabel(t[1]);
 }
@@ -5431,21 +5825,21 @@ function initTimeline(){
   D.tlInit = true;
   const W = maxMonth + 1, last = Math.floor(maxMonth / 12);
   R.getElementById("tlSvg").setAttribute("viewBox", `0 0 ${W} 30`);
-  R.getElementById("tlAx").innerHTML = Array.from({length:last + 1}, (_, y) => `<span style="left:${(y * 12 + Math.min(12, W - y * 12) / 2) / W * 100}%" data-y="${2018 + y}"></span>`).join("");
+  R.getElementById("tlAx").innerHTML = Array.from({length:last + 1}, (_, y) => `<span style="left:${(y * 12 + Math.min(12, W - y * 12) / 2) / W * 100}%" data-y="${Y0 + y}"></span>`).join("");
   R.getElementById("tlPer").innerHTML = PERIODS.map(([k, l]) => `<button class="chip" data-p="${k}" aria-pressed="false">${l}</button>`).join("")
     + `<button class="chip" data-p="custom" aria-pressed="false" aria-controls="tlCus">Personnaliser</button>`;
-  const years = Array.from({length:last + 1}, (_, y) => `<option value="${2018 + y}">${2018 + y}</option>`).join("");
+  const years = Array.from({length:last + 1}, (_, y) => `<option value="${Y0 + y}">${Y0 + y}</option>`).join("");
   const months = MONTHS.map((m, k) => `<option value="${k}">${m}</option>`).join("");
   for (const s of ["0","1"]){ R.getElementById("tlY" + s).innerHTML = years; R.getElementById("tlM" + s).innerHTML = months; }
 }
 function syncTimeline(){
   if (!D.tlInit) initTimeline();
-  const t = S.time, p = presetOf(t), cus = tlCustom || !p, lastY = 2018 + Math.floor(maxMonth / 12);
+  const t = S.time, p = presetOf(t), cus = tlCustom || !p, lastY = Y0 + Math.floor(maxMonth / 12);
   R.querySelectorAll("#tlPer .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === "custom" ? cus : !cus && b.dataset.p === p));
   R.getElementById("tlCus").hidden = isPhone() && !cus;
   R.getElementById("tlRange").textContent = t[0] === t[1] ? "En " + mlabel(t[0]) : "De " + mlabel(t[0]) + " à " + mlabel(t[1]);
   t.forEach((m, k) => { const y = R.getElementById("tlY" + k), mo = R.getElementById("tlM" + k);
-    y.value = 2018 + Math.floor(m / 12); mo.value = m % 12;
+    y.value = Y0 + Math.floor(m / 12); mo.value = m % 12;
     [...mo.options].forEach(o => o.disabled = +y.value === lastY && +o.value > maxMonth % 12); });
   axisLabels(); paintTimeline();
 }
@@ -5462,7 +5856,7 @@ function setTime(t, custom){
 R.getElementById("tlPer").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return;
   if (b.dataset.p === "custom"){ stopPlay(); tlCustom = true; syncTimeline(); R.getElementById("tlM0").focus({preventScroll:true}); return; }
   setTime([presetFrom(PERIODS.find(p => p[0] === b.dataset.p)[2]), maxMonth], false); });
-const menuMonth = s => clamp((+R.getElementById("tlY" + s).value - 2018) * 12 + +R.getElementById("tlM" + s).value, 0, maxMonth);
+const menuMonth = s => clamp((+R.getElementById("tlY" + s).value - Y0) * 12 + +R.getElementById("tlM" + s).value, 0, maxMonth);
 for (const s of ["0","1"]) for (const k of ["tlM","tlY"]) R.getElementById(k + s).addEventListener("change", () => {
   let a = menuMonth("0"), b = menuMonth("1");
   // Début après la fin : l'autre borne suit, en gardant un an d'écart, au lieu de se croiser.
@@ -5491,7 +5885,7 @@ function showHover(y0, y1){
   const [a, b] = yearSpan(y0, y1), W = maxMonth + 1, n = (D.tlPer || []).slice(a, b + 1).reduce((x, y) => x + y, 0);
   hov.style.left = a / W * 100 + "%"; hov.style.width = (b - a + 1) / W * 100 + "%";
   const lastY = Math.floor(maxMonth / 12), part = y1 === lastY && partTxt();
-  const label = y0 === y1 ? 2018 + y0 + (part ? " (" + part + ")" : "") : (2018 + y0) + " à " + (part ? MONTHS_L[maxMonth % 12] + " " : "") + (2018 + y1);
+  const label = y0 === y1 ? Y0 + y0 + (part ? " (" + part + ")" : "") : (Y0 + y0) + " à " + (part ? MONTHS_L[maxMonth % 12] + " " : "") + (Y0 + y1);
   tip.textContent = label + " · " + fmt.format(n) + " vente" + (n > 1 ? "s" : "");
   hov.hidden = tip.hidden = false; nw.classList.add("hov");
 }
@@ -5524,7 +5918,7 @@ function playStep(y){
   S.time = yearSpan(y, y); tlCustom = false; syncTimeline(); clearTimeout(pending); const n = refresh();
   const v = []; for (let i=0;i<D.n;i++) if (mask[i]) v.push(D.pm2[i]); v.sort((a,b)=>a-b);
   const part = S.time[1] === maxMonth && partTxt() ? " (" + partTxt() + ")" : "";
-  R.getElementById("pyY").textContent = 2018 + y;
+  R.getElementById("pyY").textContent = Y0 + y;
   R.getElementById("pyT").textContent = (n >= 5 ? "Prix médian " + pm(quant(v, .5)) + " · " : "") + fmt.format(n) + " vente" + (n > 1 ? "s" : "") + part;
 }
 playBtn.onclick = () => {
@@ -5546,7 +5940,7 @@ qEl.addEventListener("input", () => {
   const toks = text.split(" ").filter(t => t.length > 1 || /\d/.test(t)), out = [];
   const hit = s => toks.every(t => s.includes(t));
   if (!D.searchIdx){
-    D.searchIdx = D.addr.h.streets.map(([l,c,j]) => ({l, c, j, k: norm(l) + " " + norm(c)}));
+    D.searchIdx = (CITY.ad ? D.addr.h.streets : D.meta.streets.map(([l,c],j) => [l,c,j])).map(([l,c,j]) => ({l, c, j, k: norm(l) + " " + norm(c)}));
     D.addrBy = groupIndex(D.addr.c.s, D.addr.h.streets.length);
   }
   if (!num){
@@ -5554,9 +5948,12 @@ qEl.addEventListener("input", () => {
     D.meta.iris.features.forEach(f => { if (hit(norm(f.properties.name))) out.push({kind:"iris", id:f.id, l:f.properties.name, sub:"petit quartier", k:"Quartier"}); });
     D.st.forEach((s,i) => { if (hit(norm(s.label + " METRO STATION"))) out.unshift({kind:"station", id:i, l:s.label, sub:s.lines.join(", "), k:"Métro"}); });
   }
+  // Une autre carte (« Paris », « Boulogne », « Lille ») : proposée en tête, elle recharge la page sur cette ville.
+  if (toks.length) VILLES_ON.forEach(k => { if (k !== VILLE && VILLES[k].keys.some(w => toks.every(t => w.includes(t)))) out.unshift({kind:"ville", id:k, l:VILLES[k].label, sub:"ouvrir cette carte", k:"Carte"}); });
   for (const s of D.searchIdx){
     if (!hit(s.k)) continue;
-    if (num != null){
+    if (num != null && !CITY.ad) out.push({kind:"street", id:s.j, addrStreet:s, l:s.l, sub:s.c, k:"Rue"});
+    else if (num != null){
       const idx = D.addrBy.get(D.searchIdx.indexOf(s)); let best = -1, bd = 1e9;
       for (const i of idx){ const d = Math.abs(D.addr.c.num[i] - num); if (d < bd){ bd = d; best = i; } }
       if (best >= 0) out.push({kind:"addr", st:s.j, id:best, l: D.addr.c.num[best] + (D.addr.h.reps[D.addr.c.rep[best]] ? " " + D.addr.h.reps[D.addr.c.rep[best]] : "") + " " + s.l, sub:s.c, k: bd ? "Proche" : "Adresse"});
@@ -5564,7 +5961,7 @@ qEl.addEventListener("input", () => {
     if (out.length > 12) break;
   }
   out.sort((a, b) => (a.k === "Proche") - (b.k === "Proche")); suggItems = out.slice(0, 9); suggOn = -1;
-  sugg.innerHTML = suggItems.length ? suggItems.map((it,i) => `<button data-i="${i}"><span class="k">${it.k}</span>${esc(it.l)}<small>${esc(it.sub)}</small></button>`).join("") : `<button disabled>Aucun résultat à Lille, Lomme ou Hellemmes</button>`;
+  sugg.innerHTML = suggItems.length ? suggItems.map((it,i) => `<button data-i="${i}"><span class="k">${it.k}</span>${esc(it.l)}<small>${esc(it.sub)}</small></button>`).join("") : `<button disabled>Aucun résultat ${CITY.im ? "à Lille, Lomme ou Hellemmes" : "à Paris ni dans les Hauts-de-Seine"}</button>`;
   sugg.hidden = false;
 });
 qEl.addEventListener("keydown", e => {
@@ -5579,6 +5976,7 @@ sugg.addEventListener("click", e => { const b = e.target.closest("button[data-i]
 R.addEventListener("click", e => { if (!e.target.closest(".search")) sugg.hidden = true; if (!e.target.closest(".modewrap")) openModes(false); });
 function go(it){
   if (!it) return; sugg.hidden = true; qEl.value = it.l; qEl.blur();
+  if (it.kind === "ville"){ switchCity(it.id); return; }
   if (it.kind === "station"){ select({kind:"station", id:it.id}, true); return; }
   if (it.kind === "quartier" || it.kind === "iris"){
     const f = (it.kind === "quartier" ? D.meta.quartiers : D.meta.iris).features[it.id];
@@ -5587,11 +5985,17 @@ function go(it){
     if (it.id >= 0) select({kind:"street", id:it.id}, true);
     else { const idx = D.addrBy.get(D.searchIdx.indexOf(it.addrStreet)); const xs = Array.from(idx); if (xs.length){ const a = D.addr.c; let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; for (const i of xs){ x0=Math.min(x0,a.x[i]);x1=Math.max(x1,a.x[i]);y0=Math.min(y0,a.y[i]);y1=Math.max(y1,a.y[i]); } map.fitBounds([[x0/1e6,y0/1e6],[x1/1e6,y1/1e6]], {padding:fitPad(), maxZoom:16.2}); } }
   } else if (it.kind === "addr"){
-    const a = D.addr.c, lon = a.x[it.id]/1e6, lat = a.y[it.id]/1e6, b = buildingOfAddr(it.id);
+    const a = D.addr.c, lon = a.x[it.id]/1e6, lat = a.y[it.id]/1e6, b = a.ab[it.id] >= 0 ? a.ab[it.id] : buildingOfAddr(it.id);
     if (b >= 0) select({kind:"bldg", id:b, st:it.st}, true); else { showPoint([lon, lat], 17); stSel(it.st); }
   }
 }
 function bboxOf(g){ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; const walk = c => typeof c[0] === "number" ? (x0=Math.min(x0,c[0]),x1=Math.max(x1,c[0]),y0=Math.min(y0,c[1]),y1=Math.max(y1,c[1])) : c.forEach(walk); walk(g.coordinates); return [[x0,y0],[x1,y1]]; }
+// Immeuble dont le point est celui du lien (à 2 m près, tous usages), sinon l'immeuble d'habitation le plus proche.
+function exactBuilding(lon, lat){
+  const c = D.bldg.c, X = Math.round(lon*1e6), Y = Math.round(lat*1e6); let best = -1, bd = 1e9;
+  for (let i=0;i<D.nb;i++){ const dx = Math.abs(c.x[i]-X), dy = Math.abs(c.y[i]-Y); if (dx <= 25 && dy <= 18 && dx+dy < bd){ bd = dx+dy; best = i; } }
+  return best >= 0 ? best : nearestBuilding(lon, lat);
+}
 function nearestBuilding(lon, lat){
   const c = D.bldg.c, X = lon*1e6, Y = lat*1e6, k = Math.cos(lat*Math.PI/180); let best = -1, bd = 1e18;
   for (let i=0;i<D.nb;i++){ const dx = (c.x[i]-X)*k, dy = c.y[i]-Y, d = dx*dx+dy*dy; if (d < bd && c.res[i]){ bd = d; best = i; } }
@@ -5604,15 +6008,15 @@ function nearestBuilding(lon, lat){
 // sont gardés tels quels ; si l'hôte refuse (cadre), la carte marche sans lien.
 const EP_SLUG = ["avant-1946","1946-1970","1971-1990","apres-1990"], LOT_SLUG = ["non-immatriculee","2-10","11-50","51-plus"];
 const MODE_SLUG = {price:"", dpe:"dpe", epoch:"construction"};
-const URL_KEYS = ["rue","adresse","immeuble","quartier","iris","station","parcelle","ville","f","type","pieces","surface","prix","m2","epoque","dpe","copro","metro","periode","couleur","louer","lignes","3d","zoom","centre"];
+const URL_KEYS = ["mode","rue","adresse","immeuble","quartier","iris","station","parcelle","ville","f","type","pieces","surface","prix","m2","epoque","dpe","copro","metro","periode","couleur","louer","lignes","3d","zoom","centre"];
 const slug = v => norm(v).toLowerCase().replace(/ /g, "-");
-const ym = m => (2018 + Math.floor(m/12)) + "-" + String(m%12+1).padStart(2,"0");
-const fromYm = v => { const m = /^(\d{4})-(\d{2})$/.exec(v || ""); return m ? (+m[1]-2018)*12 + (+m[2]-1) : null; };
+const ym = m => (Y0 + Math.floor(m/12)) + "-" + String(m%12+1).padStart(2,"0");
+const fromYm = v => { const m = /^(\d{4})-(\d{2})$/.exec(v || ""); return m ? (+m[1]-Y0)*12 + (+m[2]-1) : null; };
 const pair = v => { const m = /^(\d+)-(\d+)$/.exec(v || ""); return m && +m[1] <= +m[2] ? [+m[1], +m[2]] : null; };
 function urlState(){
   const q = [], add = (k, v) => q.push(k + "=" + encodeURIComponent(v).replace(/%2C/g, ",")), sel = S.sel;
   if (sel){
-    if (sel.kind === "street"){ const [l, c] = D.meta.streets[sel.id]; add("rue", slug(l)); if (c !== "Lille") add("ville", slug(c)); }
+    if (sel.kind === "street"){ const [l, c] = D.meta.streets[sel.id]; add("rue", slug(l)); if (c !== CITY.main) add("ville", slug(c)); }
     else if (sel.kind === "bldg"){ const a = bldgAddress(sel.id);
       if (a && a.exact){ add("adresse", a.slug); if (a.commune !== "Lille") add("ville", slug(a.commune)); }
       else { const [lon, lat] = bldgLL(sel.id); add("immeuble", lat.toFixed(5) + "," + lon.toFixed(5)); } }
@@ -5625,8 +6029,8 @@ function urlState(){
   if (studios) add("f", "studios");
   else { if (S.type.size === 1) add("type", S.type.has(0) ? "appartements" : "maisons"); if (S.rooms.size) add("pieces", [...S.rooms].sort().join(",")); }
   if (S.surf[0] > 8 || S.surf[1] < 400) add("surface", S.surf.join("-"));
-  if (S.price[0] > 0 || S.price[1] < 1500000) add("prix", S.price.join("-"));
-  if (S.pm2[0] > 300 || S.pm2[1] < 10000) add("m2", S.pm2.join("-"));
+  if (S.price[0] > 0 || S.price[1] < P_MAX) add("prix", S.price.join("-"));
+  if (S.pm2[0] > PM2[0] || S.pm2[1] < PM2[1]) add("m2", S.pm2.join("-"));
   if (S.epoch.size) add("epoque", [...S.epoch].sort().map(k => EP_SLUG[k]).join(","));
   if (S.dpe.size) add("dpe", [...S.dpe].sort().map(k => DPE_L[k]).join(","));
   if (S.lots.size) add("copro", [...S.lots].sort().map(k => LOT_SLUG[k]).join(","));
@@ -5636,6 +6040,7 @@ function urlState(){
   if (S.ban) add("louer", BAN[S.ban].y);
   if (!S.metro) add("lignes", "non");
   if (S.d3) add("3d", 1);
+  if (S.pro) add("mode", "complet");
   if (D.urlMoved){ const c = map.getCenter(); add("zoom", map.getZoom().toFixed(1)); add("centre", c.lat.toFixed(5) + "," + c.lng.toFixed(5)); }
   return q;
 }
@@ -5659,8 +6064,8 @@ function readUrl(){
   if (g("pieces")) S.rooms = new Set(list("pieces").map(Number).filter(v => v >= 1 && v <= 5));
   let v;
   if ((v = r(pair(g("surface")), 8, 400))) S.surf = v;
-  if ((v = r(pair(g("prix")), 0, 1500000))) S.price = v;
-  if ((v = r(pair(g("m2")), 300, 10000))) S.pm2 = v;
+  if ((v = r(pair(g("prix")), 0, P_MAX))) S.price = v;
+  if ((v = r(pair(g("m2")), PM2[0], PM2[1]))) S.pm2 = v;
   if (g("epoque")) S.epoch = new Set(list("epoque").map(x => EP_SLUG.indexOf(x)).filter(k => k >= 0));
   if (g("dpe")) S.dpe = new Set(list("dpe").filter(x => x.length === 1).map(x => DPE_L.indexOf(x.toUpperCase())).filter(k => k >= 0));
   if (g("copro")) S.lots = new Set(list("copro").map(x => LOT_SLUG.indexOf(x)).filter(k => k >= 0));
@@ -5669,10 +6074,15 @@ function readUrl(){
   const [t0, t1] = list("periode").map(fromYm); if (t0 != null && t1 != null && t0 <= t1) S.time = [Math.max(0, t0), Math.min(maxMonth, t1)];
   const mode = Object.keys(MODE_SLUG).find(k => MODE_SLUG[k] && MODE_SLUG[k] === g("couleur")); if (mode) S.mode = mode;
   const ban = BAN.findIndex(b => b && String(b.y) === g("louer")); if (ban > 0) S.ban = ban;
+  // Un lien qui porte un réglage du mode complet l'ouvre en mode complet.
+  S.pro = g("mode") === "complet" || ["prix","m2","epoque","dpe","copro","metro","couleur","louer","3d"].some(k => p.has(k)) || (S.time[0] > 0 && (!presetOf(S.time) || presetOf(S.time) === "5a"));
   return p;
 }
 // Remet les boutons et curseurs d'accord avec l'état (après lecture de l'adresse).
 function syncControls(){
+  applyPro();
+  let fromUrl = false; try { const q = new URLSearchParams(location.search); fromUrl = ["f","type","pieces","surface"].some(k => q.has(k)); } catch (e) {}
+  if (window.__estqmoBien && !fromUrl) likeMine(window.__estqmoBien, true);
   syncChips(); showWalk(); syncModes(); syncRanges(); syncTimeline();
   R.getElementById("tMetro").setAttribute("aria-pressed", S.metro);
   METRO_LAYERS.forEach(l => map.setLayoutProperty(l, "visibility", S.metro ? "visible" : "none"));
@@ -5691,27 +6101,27 @@ function selFromUrl(p){
   const g = k => p.get(k), ville = g("ville"), inC = c => ville ? slug(c) === ville : true;
   let sel = null;
   if (g("rue")){ const v = g("rue"), ok = ([l, c]) => slug(l) === v && inC(c);
-    let j = D.meta.streets.findIndex(x => ok(x) && (ville || x[1] === "Lille")); if (j < 0) j = D.meta.streets.findIndex(ok); if (j >= 0) sel = {kind:"street", id:j}; }
-  else if (g("adresse")){ const i = findAddress(g("adresse"), ville); if (i >= 0){ const b = buildingOfAddr(i); if (b >= 0) sel = {kind:"bldg", id:b, st:D.addr.h.streets[D.addr.c.s[i]][2]}; } }
-  else if (g("immeuble")){ const [lat, lon] = g("immeuble").split(",").map(Number); if (isFinite(lat) && isFinite(lon)){ const b = nearestBuilding(lon, lat); if (b >= 0) sel = {kind:"bldg", id:b}; } }
+    let j = D.meta.streets.findIndex(x => ok(x) && (ville || x[1] === CITY.main)); if (j < 0) j = D.meta.streets.findIndex(ok); if (j >= 0) sel = {kind:"street", id:j}; }
+  else if (g("adresse")){ const i = findAddress(g("adresse"), ville); if (i >= 0){ const b = D.addr.c.ab[i] >= 0 ? D.addr.c.ab[i] : buildingOfAddr(i); if (b >= 0) sel = {kind:"bldg", id:b, st:D.addr.h.streets[D.addr.c.s[i]][2]}; } }
+  else if (g("immeuble")){ const [lat, lon] = g("immeuble").split(",").map(Number); if (isFinite(lat) && isFinite(lon)){ const b = exactBuilding(lon, lat); if (b >= 0) sel = {kind:"bldg", id:b}; } }
   else if (g("quartier") || g("iris")){ const kind = g("quartier") ? "quartier" : "iris", fc = kind === "quartier" ? D.meta.quartiers : D.meta.iris;
     const f = fc.features.find(f => slug(f.properties.name) === g(kind)); if (f) sel = {kind, id:f.id}; }
   else if (g("station")){ const i = D.st.findIndex(x => slug(x.label) === g("station")); if (i >= 0) sel = {kind:"station", id:i}; }
   else if (/^[0-9A-Z]{14}$/.test(g("parcelle") || "")){ const ref = g("parcelle"), i = D.pcIndex.get(ref); sel = {kind:"parcel", id: i == null ? -1 : i, ref}; }
-  const c = (g("centre") || "").split(",").map(Number), z = +g("zoom"), view = c.length === 2 && c.every(isFinite) && z >= 10.5 && z <= 18.5;
+  const c = (g("centre") || "").split(",").map(Number), z = +g("zoom"), view = c.length === 2 && c.every(isFinite) && z >= CITY.minZoom && z <= 18.5;
   if (view){ map.jumpTo({center:[c[1], c[0]], zoom:z}); D.urlMoved = true; }
   if (g("3d") === "1") set3d(true, true);
   if (S.ban) setBan(S.ban);
   if (!sel) return;
   if (!view && (sel.kind === "quartier" || sel.kind === "iris")) map.fitBounds(bboxOf((sel.kind === "quartier" ? D.meta.quartiers : D.meta.iris).features[sel.id].geometry), {padding:fitPad(), maxZoom: sel.kind === "quartier" ? 13.4 : 14.6, duration:0});
-  if (!view && sel.kind === "parcel" && sel.id >= 0){ const b = D.sales.c.b[D.byPc.get(sel.id)[0]]; if (b >= 0) showPoint(bldgLL(b), 17.4); }
+  if (!view && sel.kind === "parcel" && sel.id >= 0){ if (CITY.pt) showPoint([D.sales.c.px[sel.id]/1e6, D.sales.c.py[sel.id]/1e6], 16.4); else { const b = D.sales.c.b[D.byPc.get(sel.id)[0]]; if (b >= 0) showPoint(bldgLL(b), 17.4); } }
   select(sel, !view);
 }
 
 /* ============================================================ feuille du téléphone */
 const sheet = R.getElementById("sheet");
 const appH = () => R.getElementById("app").clientHeight || innerHeight;
-const SH = {peek:190, half:() => Math.round(appH()*.45), full:() => appH() - 70};
+const SH = {peek:190, half:() => Math.round(appH()*.5), full:() => appH() - 70};   // 23/10 : .45 → .5, le bouton Estimer d'une adresse tient sans défiler
 let sheetState = "peek";
 function setSheet(st){ sheetState = st; const v = typeof SH[st] === "function" ? SH[st]() : SH[st]; R.getElementById("app").style.setProperty("--sh", v + "px");
   R.getElementById("app").classList.toggle("sh-full", st === "full"); }
@@ -5754,6 +6164,138 @@ R.getElementById("grab").addEventListener("touchend", e => {
   if (Math.abs(dy) < 20) return; const order = ["peek","half","full"]; let i = order.indexOf(sheetState) + (dy < 0 ? 1 : -1); setSheet(order[Math.max(0, Math.min(2, i))]);
 });
 
+/* ============================================================ ville sans immeubles */
+// Palier 1 de Paris et du 92 : ni DPE, ni année, ni copropriété, ni métro, ni 3D. Les commandes correspondantes
+// disparaissent ; les niveaux de zoom et la notice disent ce que montre la carte. Lille : rien ne change.
+if (!CITY.im){
+  ["fEpoch","fDpe","fLots","fWalk"].forEach(id => R.getElementById(id).closest(".grp").hidden = true);
+  R.querySelector(".modewrap").hidden = true; R.querySelector(".tools").hidden = true;
+  const lv = R.querySelectorAll("#levels button"); lv[3].textContent = "Ventes"; lv[4].hidden = true;
+  R.getElementById("map").setAttribute("aria-label", "Carte de " + CITY.ref);
+}
+
+/* ---------- votre estimation sur la carte (étape 4) ----------
+   Après une estimation, le site pose window.__estqmoBien = {lat, lon, adresse, type (0 appartement, 1 maison), pieces,
+   surface, estimation:{low, estimate, high, price_m2}, comparables, retour}, puis envoie l'événement « estqmo-bien ».
+   comparables : les ventes du calcul telles que le moteur les rend (lat, lon, date, price, surface, rooms, price_m2,
+   address, weight…), plus « adresse » mise en forme par le site ; retour : le lien vers le résultat (« #resultat »).
+   La carte peut être montée ou pas encore : elle relit le bien à la fin de initMap. Elle pose l'épingle « Votre bien »,
+   numérote de 1 à 10 les ventes qui pèsent le plus et, quand rien n'est choisi, les liste dans le panneau de droite.
+   « Fermer » rend la carte normale. Les filtres ne bougent pas ici. */
+const BIEN_N = 10;
+{ const st = document.createElement("style");   // la vente choisie dans la liste, en bleu comme son numéro sur la carte
+  st.textContent = ".near button[aria-current]{box-shadow:inset 0 0 0 2px var(--navy)}.near button[aria-current] .nn{background:var(--navy)}";
+  (R.head || R).appendChild(st); }
+function bienOpen(){
+  try {
+    const b = window.__estqmoBien, num = v => typeof v === "number" && isFinite(v);
+    if (!D.ready || !b || !num(b.lat) || !num(b.lon)) return;
+    const [[w, s], [e, n]] = CITY.maxBounds;
+    if (b.lon < w || b.lon > e || b.lat < s || b.lat > n) return;   // un bien hors de cette carte (Paris, le 92)
+    const comps = (Array.isArray(b.comparables) ? b.comparables : []).filter(c => c && num(c.lat) && num(c.lon))
+      .sort((p, q) => (q.weight || 0) - (p.weight || 0)).slice(0, BIEN_N);
+    D.bien = {...b, comps}; D.bienOn = -1;
+    if (S.sel) select(null); else bienPins();
+    bienSide(R.getElementById("side"));
+    if (isPhone()){ showTab("side"); setSheet("peek"); }   // au téléphone, la carte d'abord : le prix reste visible en bas
+    bienFit();
+  } catch (err) { console.error(err); }
+}
+on(window, "estqmo-bien", bienOpen);
+function bienClose(){ D.bien = null; bienPins(); renderSide(); }
+// Cadre la carte sur le bien et ses ventes ; si la carte est cachée (une autre page du site), dès qu'elle réapparaît.
+function bienFit(){
+  const el = R.getElementById("map"), go = () => {
+    if (!D.bien) return;
+    let x0 = D.bien.lon, x1 = x0, y0 = D.bien.lat, y1 = y0;
+    for (const c of D.bien.comps){ x0 = Math.min(x0, c.lon); x1 = Math.max(x1, c.lon); y0 = Math.min(y0, c.lat); y1 = Math.max(y1, c.lat); }
+    map.resize();
+    const pad = fitPad(); if (isPhone() && sheetState === "peek") pad.bottom = SH.peek + 64;   // la feuille basse et la mention des sources
+    map.fitBounds([[x0 - .0006, y0 - .0004], [x1 + .0006, y1 + .0004]], {padding: pad, maxZoom: 17, duration: 700});
+  };
+  if (el.clientWidth && el.clientHeight) return go();
+  if (D.bienRO) D.bienRO.disconnect();
+  D.bienRO = new ResizeObserver(() => { if (el.clientWidth && el.clientHeight){ D.bienRO.disconnect(); D.bienRO = null; go(); } });
+  D.bienRO.observe(el); CLEAN.push(() => D.bienRO && D.bienRO.disconnect());
+}
+// L'épingle du bien (le dessin de selPin) et les numéros des ventes : des repères seulement, comme ceux de nearPins.
+// Une fiche ouverte (immeuble, rue…) a ses propres numéros : ceux des ventes s'effacent jusqu'au retour au panneau.
+function bienPins(){
+  (D.bienPins || []).forEach(m => m.remove()); D.bienPins = [];
+  if (!D.bien) return;
+  const b = D.bien;
+  if (!S.sel){
+    b.comps.forEach((c, k) => {
+      const on_ = k === D.bienOn, el = document.createElement("div"), dot = document.createElement("span");
+      el.setAttribute("aria-hidden", "true"); el.style.cssText = "pointer-events:none;z-index:" + (on_ ? 30 : 20 - k);
+      dot.style.cssText = `display:grid;place-items:center;width:${on_ ? 32 : 24}px;height:${on_ ? 32 : 24}px;border-radius:50%;background:${on_ ? "#24435C" : "#B4573A"};color:#fff;font:700 ${on_ ? 15 : 12.5}px/1 Inter,system-ui,sans-serif;box-shadow:0 0 0 2px #fff,0 2px 5px rgba(0,0,0,.35)`;
+      dot.textContent = k + 1; el.appendChild(dot);
+      const m = new maplibregl.Marker({element:el}).setLngLat([c.lon, c.lat]).addTo(map);
+      m.bienK = k; D.bienPins.push(m);
+    });
+    bienSpread();
+    if (!D.bienZoom){ D.bienZoom = true; map.on("zoom", bienSpread); }
+  }
+  const el = document.createElement("div"); el.setAttribute("aria-hidden", "true");
+  el.style.cssText = "width:22px;height:30px;pointer-events:none;z-index:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))";
+  el.innerHTML = '<svg width="22" height="30" viewBox="0 0 22 30"><path d="M11 29C11 29 2 17.5 2 11a9 9 0 0 1 18 0c0 6.5-9 18-9 18z" fill="#24435C" stroke="#fff" stroke-width="2"/><circle cx="11" cy="11" r="3.4" fill="#fff"/></svg>';
+  D.bienPins.push(new maplibregl.Marker({element:el, anchor:"bottom"}).setLngLat([b.lon, b.lat]).addTo(map));
+}
+// Les numéros ne se cachent ni entre eux ni l'épingle : dans l'ordre (celui choisi d'abord), chacun prend sa place
+// ou la plus proche de libre autour d'elle (ventes du même immeuble, ventes à quelques mètres du bien). Revu à chaque zoom.
+const BIEN_TRY = [[0,0],[28,0],[-28,0],[0,-28],[0,28],[28,-28],[-28,-28],[28,28],[-28,28],[56,0],[-56,0],[0,-56],[0,56]];
+function bienSpread(){
+  if (!D.bien || S.sel) return;
+  const h = map.project([D.bien.lon, D.bien.lat]), busy = [[h.x, h.y - 17, 12]];   // la tête de l'épingle
+  const ms = (D.bienPins || []).filter(m => m.bienK != null)
+    .sort((p, q) => (q.bienK === D.bienOn) - (p.bienK === D.bienOn) || p.bienK - q.bienK);
+  for (const m of ms){
+    const q = map.project(m.getLngLat()), r = m.bienK === D.bienOn ? 18 : 14;
+    const o = BIEN_TRY.find(([dx, dy]) => busy.every(([x, y, s]) => Math.hypot(q.x + dx - x, q.y + dy - y) >= r + s)) || [0, 0];
+    m.setOffset(o); busy.push([q.x + o[0], q.y + o[1], r]);
+  }
+}
+// « 8 RUE JULES DE VICQ » quand le site n'a pas mis l'adresse en forme : « 8 Rue Jules de Vicq » (« RUE D ARTOIS » : « Rue d’Artois »).
+const bienAddr = c => c.adresse || String(c.address || "").toLowerCase().replace(/(^|[\s'’-])(\p{L})/gu, (m, a, l) => a + l.toUpperCase())
+  .replace(/(?<=\S\s)(De|Du|Des|La|Le|Les|Et|Aux|Au|En|Sur)(?=\s)/g, w => w.toLowerCase())
+  .replace(/(?<=\S\s)([DL]) (?=\p{L})/gu, (m, l) => l.toLowerCase() + "’") || "Adresse non indiquée";
+// Le filtre « Comme mon logement » rempli par l'estimation, en mots (relecture du 23/10) ; rien quand il est vide.
+function bienFilt(){
+  const parts = [], k = SURF_T.findIndex(([a, c]) => S.surf[0] === a && S.surf[1] === c);
+  if (S.type.size === 1) parts.push(S.type.has(0) ? "appartements" : "maisons");
+  if (S.rooms.size) parts.push([...S.rooms].sort((a, b) => a - b).map(v => v === 1 ? "1 pièce" : v === 5 ? "5 pièces et plus" : v + " pièces").join(" ou "));
+  if (k >= 0) parts.push(k === 0 ? "moins de 30 m²" : k === SURF_T.length - 1 ? SURF_T[k][2] : "de " + SURF_T[k][2]);
+  else if (S.surf[0] > 8 || S.surf[1] < 400) parts.push(`de ${S.surf[0]} à ${S.surf[1]} m²`);
+  if (!parts.length) return "";
+  return `<div style="display:grid;gap:2px"><span class="note">Les couleurs de la carte ne gardent que les ventes semblables à votre logement : ${esc(parts.join(", "))}.</span><button type="button" class="lnk" data-bien-all style="justify-self:start">Voir toutes les ventes</button></div>`;
+}
+function bienSide(el){
+  const b = D.bien, e = b.estimation || {}, n = b.comps.length, s = c => c.rooms ? c.rooms + (c.rooms > 1 ? " pièces, " : " pièce, ") : "";
+  const what = [b.type ? "Maison" : "Appartement", b.pieces ? b.pieces + " pièce" + (b.pieces > 1 ? "s" : "") : "", b.surface ? fmt.format(b.surface) + " m²" : ""].filter(Boolean).join(", ");
+  const range = e.low && e.high ? fmt.format(e.low) + " à " + fmt.format(e.high) + " €" : e.estimate ? eur(e.estimate) : "";
+  const back = typeof b.retour === "string" && b.retour[0] === "#" ? `<a class="lnk" href="${esc(b.retour)}">Retour à mon résultat</a>` : "";
+  const month = d => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? MONTHS[+m[2] - 1] + " " + m[1] : ""; };
+  el.innerHTML = `<div class="scope" data-bien><span class="kick">Votre estimation</span><button type="button" class="back" data-bien-close style="margin-left:auto;padding:6px 12px">Fermer</button></div>
+    <div class="here">${range ? `<h2 class="big" style="font-size:28px">${range}</h2>` : ""}
+      <div class="bigsub"><b>${esc(b.adresse || "Votre logement")}</b><br>${esc(what)}${e.price_m2 ? (what ? " · soit environ " : "Environ ") + pm(e.price_m2) : ""}</div></div>
+    <div data-bien-f>${bienFilt()}</div>
+    ${n ? `<div class="nearw"><h4>${n > 1 ? `Les ${n} ventes qui comptent le plus dans votre estimation` : "La vente qui compte le plus dans votre estimation"}</h4><span class="note">Épingle bleue : votre logement. Numéros : ces ventes. Choisissez une ligne pour la voir sur la carte.</span><ol class="near">${b.comps.map((c, k) => `<li><button type="button" data-bien-i="${k}"${k === D.bienOn ? ' aria-current="true"' : ""}><span class="nn">${k + 1}</span><span class="nt"><b>${esc(bienAddr(c))}</b>
+      <span>${s(c)}${c.surface ? fmt.format(c.surface) + " m² · " : ""}${month(c.date)}</span></span>
+      <span class="p">${c.price ? fmt.format(Math.round(c.price)) + " €" : ""}<small>${c.price_m2 ? pm(c.price_m2) : ""}</small></span></button></li>`).join("")}</ol>
+      <span class="note">Prix réellement payés, relevés dans les actes de vente (base publique DVF de l'État).</span></div>`
+      : `<p class="note">Aucune vente à montrer pour cette estimation.</p>`}
+    ${back}`;
+  el.querySelector("[data-bien-close]").onclick = bienClose;
+  el.querySelector("[data-bien-f]").onclick = ev => { if (!ev.target.closest("[data-bien-all]")) return;
+    S.type = new Set([0, 1]); S.rooms = new Set(); S.surf = [8, 400]; syncRanges(); syncChips(); clearTimeout(pending); refresh(); };
+  el.querySelectorAll("[data-bien-i]").forEach(x => x.onclick = () => {
+    const k = +x.dataset.bienI, c = D.bien.comps[k]; D.bienOn = k; bienPins();
+    el.querySelectorAll("[data-bien-i]").forEach(y => y === x ? y.setAttribute("aria-current", "true") : y.removeAttribute("aria-current"));
+    if (isPhone() && sheetState === "peek") setSheet("half");
+    showPoint([c.lon, c.lat], 17);
+  });
+}
+
 /* ============================================================ démontage (site) */
 if (CFG.debug !== false) for (const [k, get] of Object.entries({map:() => map, S:() => S, D:() => D, setBan:() => setBan, select:() => select}))
   Object.defineProperty(window, k, {get, configurable:true});
@@ -5761,6 +6303,7 @@ return () => {
   CLEAN.forEach(f => f()); clearInterval(playing); clearInterval(banTimer); clearTimeout(pending); clearTimeout(urlT);
   if (map) map.remove();
 };
+/* ---------- R31, R32, R35 (session 4, 20/10), intégrés le 23/10 depuis site/carte/carte.py ---------- */
 function nearestAddr(b){
   if (!D.bNear) D.bNear = new Map(); if (D.bNear.has(b)) return D.bNear.get(b);
   const a = D.addr.c, c = D.bldg.c, X = c.x[b], Y = c.y[b], k = Math.cos(Y/1e6*Math.PI/180); let best = -1, bd = 1e18;
@@ -12030,7 +12573,8 @@ function carteEnter() {
   msg.textContent = "Fond de carte, immeubles et ventes (environ 20 Mo).";
   root.querySelector(".sitemenu").addEventListener("click", function () { burger.click(); });
   Promise.all(CARTE_LIBS.map(carteLib)).then(function () {
-    window.__carteMount(root, { estimateUrl: "#adresse={adresse}", home: "#accueil", theme: "light" });
+    /* 23/10 : Lille seule sur le site (Paris et le 92 viendront plus tard) : pas de lien « Autre carte » */
+    window.__carteMount(root, { estimateUrl: "#adresse={adresse}", home: "#accueil", theme: "light", villes: ["lille"] });
     carteState = 2;
   }).catch(function (e) {
     carteState = 0;
@@ -12057,6 +12601,44 @@ function carteEstimate(q) {
 }
 window.__carteEstimate = carteEstimate;
 
+/* ------------------------------------------------------------------ session 17 : votre estimation sur la grande carte (23/10/2026)
+   Sous la mini-carte des ventes, « Voir ces ventes sur la carte » ouvre #carte sur le bien et les ventes du calcul.
+   Le site pose window.__estqmoBien puis envoie l'événement « estqmo-bien » ; la carte le relit aussi à son premier
+   montage (carte/publish/index.html, section « votre estimation sur la carte »). Contrat :
+   {lat, lon, adresse, type (0 appartement, 1 maison), pieces, surface, estimation:{low, estimate, high, price_m2},
+    comparables (ceux du moteur, du plus lourd au plus léger, avec « adresse » mise en forme), retour: "#resultat"}. */
+var S17_IND = { B: "bis", BIS: "bis", T: "ter", TER: "ter", Q: "quater", QUATER: "quater" };
+/* « 15 B RUE DE LA BASSEE » → « 15 bis Rue de la Bassée » (le nom de rue vient de la Base Adresse Nationale quand elle le connaît) */
+function s17Adresse(a) {
+  var m = /^(\d+)\s*(BIS|TER|QUATER|[A-Z])?\s+/i.exec(String(a || "")), rue = streetOf(a);
+  if (!m) return rue;
+  var ind = m[2] ? S17_IND[m[2].toUpperCase()] || m[2].toUpperCase() : "";
+  return m[1] + (ind ? " " + ind : "") + " " + rue;
+}
+function s17Bien() {
+  var g = G(), a = S.addr;
+  if (!g || !a || typeof a.lat !== "number" || typeof a.lon !== "number") return null;
+  var comps = (g.p.comparables || []).filter(function (c) { return c && typeof c.lat === "number" && typeof c.lon === "number"; })
+    .sort(function (x, y) { return (y.weight || 0) - (x.weight || 0); })
+    .map(function (c) { var o = {}; for (var k in c) o[k] = c[k]; o.adresse = s17Adresse(c.address); return o; });
+  return { lat: a.lat, lon: a.lon, adresse: a.label || a.full || "", type: S.type === "house" ? 1 : 0, pieces: S.rooms || null,
+    surface: S.surface || null, estimation: { low: g.l, estimate: g.e, high: g.h, price_m2: g.m2 }, comparables: comps, retour: "#resultat" };
+}
+/* le bouton suit la mini-carte : caché sans vente à montrer, ou hors de Lille (la carte du site ne montre que Lille) */
+var s17RenderCompMap = renderCompMap;
+renderCompMap = function (c) {
+  s17RenderCompMap(c);
+  var b = $("#s17-carte"); if (b) b.hidden = !c.comps.length || s11HorsLille();
+};
+$("#s17-carte").addEventListener("click", function () {
+  var bien = s17Bien(); if (!bien) return;
+  window.__estqmoBien = bien;
+  var dire = function () { window.dispatchEvent(new CustomEvent("estqmo-bien")); };
+  if (cur === "carte") { dire(); return; }
+  /* après route() (son écouteur est posé au démarrage, avant celui-ci) : la carte est à l'écran, montée ou en cours de montage */
+  addEventListener("hashchange", function f() { removeEventListener("hashchange", f); dire(); });
+  location.hash = "#carte";
+});
 /* ------------------------------------------------------------------ routes */
 var ROUTES = ["accueil", "bien", "projet", "calcul", "resultat", "dossier", "carte", "methode", "estimations",
   "guillaume", "poche", "loue", "passoire", "calendrier", "barometre", "rue", "guides", "plan", "donnees"];
